@@ -12,8 +12,10 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $response = $this->get('/');
+        $response = $this->post('/api/products', []);
+        $response->assertJson([2]);
 
-        $response->assertStatus(200);
+        // $response = $this->get('/api/products');
+        // $response->assertJson([1]);
     }
 }
