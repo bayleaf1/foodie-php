@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductsRequest;
-use App\Http\Requests\UpdateProductsRequest;
-use App\Models\Products;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Models\Product;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,6 @@ class ProductsController extends Controller
     public function index()
     {
         //
-        return response()->json([1]);
     }
 
     /**
@@ -28,18 +27,16 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductsRequest $request)
+    public function store(StoreProductRequest $request)
     {
-        // echo $request;
         //
         return response()->json([2]);
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Products $products)
+    public function show(Product $product)
     {
         //
     }
@@ -47,7 +44,7 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Products $products)
+    public function edit(Product $product)
     {
         //
     }
@@ -55,7 +52,7 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductsRequest $request, Products $products)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         //
     }
@@ -63,7 +60,7 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $products)
+    public function destroy(Product $product)
     {
         //
     }
