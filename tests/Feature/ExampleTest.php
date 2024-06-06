@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -19,12 +20,10 @@ class SystemUser extends Entity
         foreach ($products as $product)
             $this->ctx->post('/api/products', $product);
     }
-
     public function confirm_order($order_id)
     {
         $this->ctx->patch('/api/orders/confirm/' . $order_id);
     }
-
     public function finalize_order($order_id)
     {
         $this->ctx->patch('/api/orders/finalize/' . $order_id);
@@ -34,7 +33,9 @@ class Guest extends Entity
 {
     public function create_order($order)
     {
-        $this->ctx->post('/api/orders', $order);
+        $res = $this->ctx->post('/api/orders', $order);
+        return $res;
+
     }
 }
 class App extends Entity
@@ -47,15 +48,44 @@ class App extends Entity
     {
         $this->ctx->get('/api/orders')->assertJson([$order]);
     }
+
+    public function throws($response, $status)
+    {
+        $response->assertStatus($status);
+    }
 }
 
 class ExampleTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic test example.
-     */
-    public function test_system_user_add_products_and_guest_create_order(): void
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->refreshDatabase();
+    }
+    public function test_guest_create_order_with_excesive_quantity(): void
+    {
+        $system_user = new SystemUser($this);
+        $guest = new Guest($this);
+        $app = new App($this);
+
+        $system_user->create_products([
+            ["name" => "Coffe", "price" => 2, "quantity" => 10],
+        ]);
+        $app->has_products([
+            ["name" => "Coffe", "price" => 2, "quantity" => 10],
+        ]);
+
+        $response = $guest->create_order([
+            "email" => "t@m.com",
+            "items" => [
+                ["product_id" => 1, "quantity" => 20],
+            ],
+        ]);
+        $app->throws($response, 422);
+    }
+
+    public function test_system_user_add_products_and_guest_create_order_then_it_is_confirmed_and_finalized(): void
     {
         $system_user = new SystemUser($this);
         $guest = new Guest($this);
@@ -73,8 +103,8 @@ class ExampleTest extends TestCase
         $guest->create_order([
             "email" => "t@m.com",
             "items" => [
-                ["product_id" => 0, "quantity" => 2],
-                ["product_id" => 1, "quantity" => 3],
+                ["product_id" => 1, "quantity" => 2],
+                ["product_id" => 2, "quantity" => 3],
             ],
         ]);
         $app->has_order([
@@ -82,8 +112,8 @@ class ExampleTest extends TestCase
             "price" => 13,
             "status" => "created",
             "items" => [
-                ["product_id" => 0, "quantity" => 2],
-                ["product_id" => 1, "quantity" => 3],
+                ["product_id" => 1, "quantity" => 2],
+                ["product_id" => 2, "quantity" => 3],
             ]
         ]);
 

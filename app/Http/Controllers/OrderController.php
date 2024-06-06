@@ -38,12 +38,17 @@ class OrderController extends Controller
     {
         $fetch_all_orders_with_related_items = function () {
             $orders = Order::all();
-            foreach ($orders as $order)
+            // var_dump((string) $orders);
+
+            foreach ($orders as $order) {
                 $order->items;
+            }
             return $orders;
         };
 
         $enrich_orders_with_price = function ($orders) {
+            // var_dump($orders);
+
             foreach ($orders as $order) {
                 $price = 0;
                 foreach ($order->items as $item) {
@@ -74,12 +79,23 @@ class OrderController extends Controller
     {
         $body = $request->all();
         $order_items = [];
-        foreach ($body['items'] as $product) {
-            $order_items[] = new OrderItem($product);
+        var_dump((string) Product::all());
+
+        foreach ($body['items'] as $item) {
+            $p = Product::find($item['product_id']);
+            if ($p->quantity < $item['quantity']) {
+                return response()->json(["error" => ["message" => "Unavailable quantity"]], 422);
+            }
+            $order_items[] = new OrderItem($item);
         }
+
+
+
 
         $order = Order::create(["email" => $body['email'], "status" => "created",]);
         $order->items()->saveMany($order_items);
+
+
     }
 
     /**
