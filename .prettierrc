@@ -1,0 +1,8 @@
+{
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "indentStyle": 2,
+  "semi": false,
+  "singleQuote": true,
+  "files": ["*.js", "*.vue", "*.css", "*.html", "./prettierrc"]
+}
