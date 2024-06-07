@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Models\SystemUser;
@@ -10,7 +11,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::resource('/products', ProductController::class);
+Route::post('/auth/login/system-user', [AuthController::class, 'login']);
+Route::post('/auth/register/system-user', [AuthController::class, 'register']);
+
+Route::resource('/products', ProductController::class)->middleware('auth:sanctum');
 Route::resource('/orders', OrderController::class)->middleware('auth:sanctum');
 Route::patch('/orders/confirm/{id}', [OrderController::class, 'confirm']);
 Route::patch('/orders/finalize/{id}', [OrderController::class, 'finalize']);

@@ -20,26 +20,61 @@ class Entity
 }
 class SystemUser extends Entity
 {
+    public $headers = [];
+    public function post_construct()
+    {
+        $resp = $this->ctx->post(
+            '/api/auth/register/system-user',
+            [
+                "email" => "test@mail.com",
+                "name" => "Ion Mihai",
+                "password" => "qwer1234",
+                "c_password" => "qwer1234",
+            ]
+        )->json();
+
+        $this->headers = ["Authorization" => "Bearer " . $resp["accessToken"]];
+    }
+
     public function create_products($products)
     {
         foreach ($products as $product)
-            $this->ctx->post('/api/products', $product);
+            $this->ctx->post(
+                '/api/products',
+                $product,
+                $this->headers
+            );
     }
     public function confirm_order($order_id)
     {
-        $res = $this->ctx->patch('/api/orders/confirm/' . $order_id);
+        $res = $this->ctx->patch(
+            '/api/orders/confirm/' . $order_id,
+            [],
+            $this->headers
+
+        );
         return $res;
     }
     public function finalize_order($order_id)
     {
-        $res = $this->ctx->patch('/api/orders/finalize/' . $order_id);
+        $res = $this->ctx->patch(
+            '/api/orders/finalize/' . $order_id,
+            [],
+            $this->headers
+
+        );
         return $res;
 
     }
 
     public function cancel_order($order_id)
     {
-        $res = $this->ctx->patch('/api/orders/cancel/' . $order_id);
+        $res = $this->ctx->patch(
+            '/api/orders/cancel/' . $order_id,
+            [],
+            $this->headers
+
+        );
         return $res;
     }
 }
@@ -53,17 +88,23 @@ class Guest extends Entity
 }
 class App extends Entity
 {
+    public $headers = [];
+
+    public function set_headers($v)
+    {
+        $this->headers = $v;
+    }
     public function has_products($products)
     {
-        $this->ctx->get('/api/products')->assertJson($products);
+        $this->ctx->get('/api/products', $this->headers)->assertJson($products);
     }
     public function has_order($order)
     {
-        $this->ctx->get('/api/orders')->assertJson([$order]);
+        $this->ctx->get('/api/orders', $this->headers)->assertJson([$order]);
     }
     public function has_orders($orders)
     {
-        $this->ctx->get('/api/orders')->assertJson($orders);
+        $this->ctx->get('/api/orders', $this->headers)->assertJson($orders);
     }
 
     public function respond_with_status($response, $status)
@@ -81,21 +122,12 @@ class ExampleTest extends TestCase
         $this->refreshDatabase();
     }
 
-    // public function test_test()
-    // {
-    //     $resp = $this->post('/api/tokens/create');
-    //     $token = $resp->json()["token"];
-    //     // var_dump($token);
-    //     // $resp->assertJson(["token" => "Asd",]);
-    //     $resp = $this->get('/api/tokens', ["Authorization" => "Bearer " . $token]);
-    //     $resp->assertJson([1]);
-    // }
-
     public function test_product_quantity_is_restored_when_cancel_a_confirmed_order(): void
     {
         $system_user = new SystemUser($this);
         $guest = new Guest($this);
         $app = new App($this);
+        $app->set_headers($system_user->headers);
 
         $system_user->create_products([
             ["name" => "Coffe", "price" => 2, "quantity" => 10],
@@ -133,6 +165,7 @@ class ExampleTest extends TestCase
         $system_user = new SystemUser($this);
         $guest = new Guest($this);
         $app = new App($this);
+        $app->set_headers($system_user->headers);
 
         $system_user->create_products([
             ["name" => "Coffe", "price" => 2, "quantity" => 10],
@@ -169,6 +202,8 @@ class ExampleTest extends TestCase
         $system_user = new SystemUser($this);
         $guest = new Guest($this);
         $app = new App($this);
+        $app->set_headers($system_user->headers);
+
 
         $system_user->create_products([
             ["name" => "Coffe", "price" => 2, "quantity" => 10],
@@ -196,6 +231,8 @@ class ExampleTest extends TestCase
         $system_user = new SystemUser($this);
         $guest = new Guest($this);
         $app = new App($this);
+        $app->set_headers($system_user->headers);
+
 
         $system_user->create_products([
             ["name" => "Coffe", "price" => 2, "quantity" => 10],
@@ -219,6 +256,8 @@ class ExampleTest extends TestCase
         $system_user = new SystemUser($this);
         $guest = new Guest($this);
         $app = new App($this);
+        $app->set_headers($system_user->headers);
+
 
         $system_user->create_products([
             ["name" => "Coffe", "price" => 2, "quantity" => 10],
@@ -252,6 +291,8 @@ class ExampleTest extends TestCase
         $system_user = new SystemUser($this);
         $guest = new Guest($this);
         $app = new App($this);
+        $app->set_headers($system_user->headers);
+
 
         $system_user->create_products([
             ["name" => "Coffe", "price" => 2, "quantity" => 10],
@@ -273,6 +314,8 @@ class ExampleTest extends TestCase
         $system_user = new SystemUser($this);
         $guest = new Guest($this);
         $app = new App($this);
+        $app->set_headers($system_user->headers);
+
 
         $system_user->create_products([
             ["name" => "Coffe", "price" => 2, "quantity" => 10],
