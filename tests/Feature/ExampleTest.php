@@ -11,6 +11,11 @@ class Entity
     public function __construct($ctx)
     {
         $this->ctx = $ctx;
+        $this->post_construct();
+    }
+
+    public function post_construct()
+    {
     }
 }
 class SystemUser extends Entity
@@ -75,6 +80,17 @@ class ExampleTest extends TestCase
         parent::setUp();
         $this->refreshDatabase();
     }
+
+    // public function test_test()
+    // {
+    //     $resp = $this->post('/api/tokens/create');
+    //     $token = $resp->json()["token"];
+    //     // var_dump($token);
+    //     // $resp->assertJson(["token" => "Asd",]);
+    //     $resp = $this->get('/api/tokens', ["Authorization" => "Bearer " . $token]);
+    //     $resp->assertJson([1]);
+    // }
+
     public function test_product_quantity_is_restored_when_cancel_a_confirmed_order(): void
     {
         $system_user = new SystemUser($this);
