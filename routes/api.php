@@ -13,3 +13,4 @@ Route::resource('/products', ProductController::class);
 Route::resource('/orders', OrderController::class);
 Route::patch('/orders/confirm/{id}', [OrderController::class, 'confirm']);
 Route::patch('/orders/finalize/{id}', [OrderController::class, 'finalize']);
+Route::patch('/orders/cancel/{id}', [OrderController::class, 'cancel']);

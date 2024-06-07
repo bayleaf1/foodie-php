@@ -11,23 +11,56 @@ use App\Models\Product;
 class OrderController extends Controller
 {
 
+    public function cancel($order_id)
+    {
+
+        $order = Order::find($order_id);
+        if ($order->status == "finished") {
+            return response()->json(["error" => ["message" => "Can finalize only non finished order"]], 409);
+        }
+
+        if ($order->status != "created") {
+            $order->items;
+            foreach ($order->items as $i) {
+                $p = Product::find($i['product_id']);
+                $p->quantity += $i['quantity'];
+                $p->save();
+            }
+        }
+
+        $order->status = 'cancel';
+        $order->save();
+    }
+
     public function confirm($order_id)
     {
         $order = Order::find($order_id);
-        $order->status = 'confirmed';
-        $order->save();
+
+        if ($order->status != "created") {
+            return response()->json(["error" => ["message" => "Order status must be created"]], 409);
+        }
+
 
         $order->items;
         foreach ($order->items as $item) {
-            $p = Product::find($item['id']);
+            $p = Product::find($item['product_id']);
+            if ($p->quantity < $item['quantity'])
+                return response()->json(["error" => ["message" => "Unavailable quantity"]], 422);
+
             $p->quantity = $p->quantity - $item['quantity'];
             $p->save();
         }
+        $order->status = 'confirmed';
+        $order->save();
     }
 
     public function finalize($order_id)
     {
         $order = Order::find($order_id);
+        if ($order->status != "confirmed") {
+            return response()->json(["error" => ["message" => "Can finalize only confirmed order"]], 409);
+
+        }
         $order->status = 'finished';
         $order->save();
     }
@@ -38,8 +71,6 @@ class OrderController extends Controller
     {
         $fetch_all_orders_with_related_items = function () {
             $orders = Order::all();
-            // var_dump((string) $orders);
-
             foreach ($orders as $order) {
                 $order->items;
             }
@@ -47,12 +78,10 @@ class OrderController extends Controller
         };
 
         $enrich_orders_with_price = function ($orders) {
-            // var_dump($orders);
-
             foreach ($orders as $order) {
                 $price = 0;
                 foreach ($order->items as $item) {
-                    $p = Product::find($item['id']);
+                    $p = Product::find($item['product_id']);
                     $price += $p['price'] * $item['quantity'];
                 }
                 $order['price'] = $price;
@@ -79,7 +108,6 @@ class OrderController extends Controller
     {
         $body = $request->all();
         $order_items = [];
-        var_dump((string) Product::all());
 
         foreach ($body['items'] as $item) {
             $p = Product::find($item['product_id']);
