@@ -5,7 +5,7 @@ import LoginPage from './Pages/Admin/LoginPage.vue'
 const routes = [
   {
     path: '/',
-    component: HomePage,
+    component: LoginPage,
     children: [
       //   {
       //     path: '',
