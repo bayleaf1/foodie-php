@@ -44,8 +44,6 @@ class AuthController extends Controller
 
         $user = SystemUser::where('email', $request->email)->first();
 
-        // return response()->json(['error' => $user->password, "asd" => Hash::check("qwer1234", "$2y$12$2GKPBMBB6cR8AXjEpTyRqOPRO0twrMqRuUJi2mtZ4ZQfynnafDJ72"),], 200);
-
         if (is_null($user)) {
             return response()->json(['error' => ["message" => "User not found"], "errors" => ["email" => ["User not found with this email"],],], 422);
         }
@@ -55,7 +53,6 @@ class AuthController extends Controller
             $token = $tokenResult->plainTextToken;
 
             return response()->json([
-                'user' => $user->toJson(),
                 'accessToken' => $token,
             ], 201);
         } else {

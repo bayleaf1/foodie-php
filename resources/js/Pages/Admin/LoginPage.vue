@@ -38,6 +38,8 @@ import { reactive, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { email, required } from '@vuelidate/validators'
 import fetchApp from '../../api/fetchApp'
+import JwtStorage from '../../auth'
+import { useRouter } from 'vue-router'
 
 const initialState = {
   email: 'admin@admin.com',
@@ -68,6 +70,8 @@ function onInput(field) {
   extraErrors.value.resetFor(field)
 }
 
+let router = useRouter()
+
 async function onLogin() {
   let isValid = await v$.value.$validate()
   if (isValid) {
@@ -79,7 +83,8 @@ async function onLogin() {
         password: state.password,
       },
       onSuccess: ({ data }) => {
-        console.log(data)
+        JwtStorage.save(data.accessToken)
+        router.push('/admin/dashboard')
       },
       onError: ({ status, data }) => {
         if (status === 422)
