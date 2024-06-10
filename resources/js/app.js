@@ -1,11 +1,4 @@
-import './bootstrap'
 import { createApp } from 'vue'
-import AppText from './components/AppText'
-
-const app = createApp({
-  components: {
-    AppText,
-  },
-})
-
-app.mount('#app')
+import App from './App.vue'
+import router from './router'
+createApp(App).use(router).mount('#app')

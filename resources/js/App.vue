@@ -1,9 +1,8 @@
 <template>
-  <h1 class="text-white">Hello Vue!</h1>
+  <router-view></router-view>
 </template>
-
 <script>
 export default {
-  name: 'AppText',
+  name: 'App',
 }
 </script>
