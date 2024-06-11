@@ -6,6 +6,7 @@ import OverviewPage from './pages/admin/OverviewPage.vue'
 import OrdersPage from './pages/admin/OrdersPage.vue'
 import ProductsPage from './pages/admin/ProductsPage.vue'
 import JwtStorage from './auth.js'
+import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
 
 const routes = [
   {
@@ -19,6 +20,7 @@ const routes = [
   {
     path: '/admin/dashboard',
     meta: { auth: true },
+    component: AdminLayout,
     children: [
       { path: '', component: OverviewPage },
       { path: 'orders', component: OrdersPage },

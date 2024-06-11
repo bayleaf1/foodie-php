@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SystemUserController;
 use App\Models\SystemUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,8 @@ Route::get('/user', function (Request $request) {
 Route::post('/auth/login/system-user', [AuthController::class, 'login']);
 Route::post('/auth/register/system-user', [AuthController::class, 'register']);
 
+Route::resource('/system-user', SystemUserController::class)->middleware('auth:sanctum');
+Route::get('/system-users/profile', [SystemUserController::class, 'getProfile'])->middleware('auth:sanctum');
 Route::resource('/products', ProductController::class)->middleware('auth:sanctum');
 Route::resource('/orders', OrderController::class)->middleware('auth:sanctum');
 Route::patch('/orders/confirm/{id}', [OrderController::class, 'confirm']);

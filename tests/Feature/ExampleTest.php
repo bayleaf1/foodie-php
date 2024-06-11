@@ -21,6 +21,17 @@ class Entity
 class SystemUser extends Entity
 {
     public $headers = [];
+
+
+
+    public function getProfile()
+    {
+        $this->ctx->get(
+            '/api/system-users/profile',
+            $this->headers
+        )->assertJson([]);
+
+    }
     public function post_construct()
     {
         $resp = $this->ctx->post(
@@ -121,6 +132,15 @@ class ExampleTest extends TestCase
         parent::setUp();
         $this->refreshDatabase();
     }
+    // public function test_work_correct(): void
+    // {
+    //     $system_user = new SystemUser($this);
+    //     $app = new App($this);
+    //     $app->set_headers($system_user->headers);
+
+    //     $system_user->getProfile();
+    // }
+
 
     public function test_product_quantity_is_restored_when_cancel_a_confirmed_order(): void
     {
@@ -360,94 +380,3 @@ class ExampleTest extends TestCase
         ]);
     }
 }
-
-
-// class Decoder
-// {
-//     public function __construct($coded)
-//     {
-//         $this->coded = $coded;
-//     }
-//     function _extract($regexp, $def_value)
-//     {
-//         $result = [];
-//         preg_match($regexp, $this->coded, $result);
-//         return array_key_exists(0, $result) ? $result[0] : $def_value;
-//     }
-// }
-// class ProductDecoder extends Decoder
-// {
-//     public static function decode_multiple($products)
-//     {
-//         $result = [];
-//         foreach ($products as $product) {
-//             $result[] = ProductDecoder::decode($product);
-//         }
-//         return $result;
-//     }
-//     public static function decode($product)
-//     {
-//         $obj = new ProductDecoder($product);
-//         return [
-//             "price" => $obj->price(),
-//             "name" => $obj->name(),
-//             "quantity" => $obj->quantity()
-//         ];
-//     }
-
-
-//     public function name()
-//     {
-//         return $this->_extract("/^[^\$X]*/", "DEFAULT_NAME_FROM_DECODER");
-//     }
-//     public function price()
-//     {
-//         return $this->_extract("/\d+/", 9999);
-//     }
-//     public function quantity()
-//     {
-//         return $this->_extract("/\d+$/", 9998);
-//     }
-// }
-
-// class OrderDecoder extends Decoder
-// {
-//     // public static function decode_multiple($products)
-//     // {
-//     //     $result = [];
-//     //     foreach ($products as $product) {
-//     //         $result[] = ProductDecoder::decode($product);
-//     //     }
-//     //     return $result;
-//     // }
-//     public static function decode($order)
-//     {
-//         $obj = new OrderDecoder($order);
-//         return [
-//             "email" => $obj->email(),
-//             "products" => $obj->products(),
-//             "status" => $obj->status(),
-//             // "price" => 
-//         ];
-//     }
-
-
-//     public function email()
-//     {
-//         return $this->_extract("/[^-]*/", "DEFAULT_EMAIL_FROM_DECODER@mail.com");
-//     }
-//     public function products()
-//     {
-//         $products_as_string = $this->_extract("/(?<=>)[^=]*/", []);
-//         return ProductDecoder::decode_multiple(explode('_', $products_as_string));
-//     }
-//     public function status()
-//     {
-//         return $this->_extract("/(?<=:)[a-z_]*/", "DEFAULT_STATUS_FROM_DECODER");
-//     }
-
-//     // public function quantity()
-//     // {
-//     //     return $this->_extract("/\d+$/", 9998);
-//     // }
-// }

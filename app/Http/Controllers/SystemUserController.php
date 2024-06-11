@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSystemUserRequest;
 use App\Http\Requests\UpdateSystemUserRequest;
 use App\Models\SystemUser;
+use Illuminate\Http\Request;
 
 class SystemUserController extends Controller
 {
+
+    public function getProfile(Request $request)
+    {
+        return response()->json(["profile" => $request->user()->toJson()]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -37,7 +43,8 @@ class SystemUserController extends Controller
      */
     public function show(SystemUser $systemUser)
     {
-        //
+        // return response()->json(["profile" => $systemUser->toJson(),]);
+
     }
 
     /**
