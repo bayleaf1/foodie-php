@@ -37,7 +37,7 @@ export default function fetchApp(opts = {}) {
     headers: o.headers,
   })
     .then((res) => {
-      console.log('OK', res)
+      // console.log('OK', res)
       o.onSuccess({ status: res.status, data: res.data })
     })
     .catch((res) => {
