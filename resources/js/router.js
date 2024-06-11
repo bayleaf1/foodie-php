@@ -1,24 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from './Pages/HomePage.vue'
-import LoginPage from './Pages/Admin/LoginPage.vue'
-import DashboardPage from './Pages/Admin/DashboardPage.vue'
+import HomePage from './pages/HomePage.vue'
+import NotFoundPage from './pages/NotFoundPage.vue'
+import LoginPage from './pages/admin/LoginPage.vue'
+import OverviewPage from './pages/admin/OverviewPage.vue'
+import OrdersPage from './pages/admin/OrdersPage.vue'
+import ProductsPage from './pages/admin/ProductsPage.vue'
 import JwtStorage from './auth.js'
+
 const routes = [
   {
     path: '/',
     component: HomePage,
-    children: [
-      //   {
-      //     path: '',
-      //     name: 'Home',
-      //     component: () => import('@/pages/Home.vue'),
-      //   },
-      //   {
-      //     path: '/about',
-      //     name: 'About',
-      //     component: () => import('@/pages/About.vue'),
-      //   },
-    ],
   },
   {
     path: '/admin/login',
@@ -26,8 +18,16 @@ const routes = [
   },
   {
     path: '/admin/dashboard',
-    component: DashboardPage,
     meta: { auth: true },
+    children: [
+      { path: '', component: OverviewPage },
+      { path: 'orders', component: OrdersPage },
+      { path: 'products', component: ProductsPage },
+    ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: NotFoundPage,
   },
 ]
 const router = createRouter({

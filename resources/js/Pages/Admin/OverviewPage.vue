@@ -1,6 +1,7 @@
 <template>
-  <h1>Dashboard</h1>
-  <button @click="logout">Log out</button>
+  <!-- <h1>Dashboard</h1>
+  <button @click="logout">Log out</button> -->
+  <admin-layout> Overview</admin-layout>
 </template>
 
 <script setup>
