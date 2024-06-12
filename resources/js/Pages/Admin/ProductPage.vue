@@ -5,6 +5,8 @@ import GoBackButton from '../../components/GoBackButton.vue'
 import OrderStatus from '../../components/OrderStatus.vue'
 import getBgColorForOrderStatus from '../../utils/getBgColorForOrderStatus.js'
 import { OrderStatusType } from '../../utils/enums.js'
+import fetchApp from '../../api/fetchApp.js'
+import endpoints from '../../api/endpoints.js'
 
 let order = {
   id: 1,
@@ -25,14 +27,32 @@ let order = {
   ],
 }
 let value = ref(0)
+let file = ref(null)
 
 const preview = () => {
+  file.value = input0.files[0]
   img0.src = URL.createObjectURL(input0.files[0])
 }
 const preview2 = () => {
   img1.src = URL.createObjectURL(input1.files[0])
 }
 
+const submit = () => {
+  console.log('SUBMITT', file.value)
+  const formData = new FormData()
+  formData.append('file', file.value)
+  fetchApp({
+    endpoint: '/api/resources',
+    method: 'post',
+    body: formData,
+    onError: ({ data, status }) => {
+      console.log('ERROR', status, data)
+    },
+    onSuccess: ({ data, status }) => {
+      console.log('Succcess', status, data)
+    },
+  })
+}
 // let urls = ref([order.images[0].url, order.images[1].url])
 </script>
 
@@ -59,6 +79,8 @@ const preview2 = () => {
       </div>
       <div class="grow basis-[45%] bg-slate-400">
         <h1>Images</h1>
+        <v-btn @click="submit">submit</v-btn>
+
         <div class="flex gap-10 mt-5">
           <input
             id="input0"
@@ -79,7 +101,7 @@ const preview2 = () => {
               <img
                 v-if="order.images[0]?.url"
                 :src="order.images[0]?.url"
-                id="img2"
+                id="img0"
                 class="w-full h-full object-contain rounded-md"
               />
               <v-icon
@@ -97,7 +119,7 @@ const preview2 = () => {
               <img
                 v-if="order.images[1]?.url"
                 :src="order.images[1]?.url"
-                id="img2"
+                id="img1"
                 class="w-full h-full object-contain rounded-md"
               />
               <v-icon
