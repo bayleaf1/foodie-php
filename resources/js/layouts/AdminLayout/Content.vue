@@ -10,7 +10,7 @@ function logout() {
 }
 </script>
 <template>
-  <div class="flex gap-10 mr-10">
+  <div class="flex gap-12">
     <v-card>
       <v-layout>
         <v-navigation-drawer class="bg-deep-purple" theme="dark" permanent>
@@ -20,13 +20,13 @@ function logout() {
                 <h1 class="text-3xl mt-2 ml-4 mb-2">Foodie</h1>
                 <router-link to="/admin/dashboard">
                   <v-list-item
-                    prepend-icon="mdi-order-bool-ascending-variant"
+                    prepend-icon="mdi-view-dashboard"
                     title="Overview"
                   ></v-list-item>
                 </router-link>
                 <router-link to="/admin/dashboard/orders">
                   <v-list-item
-                    prepend-icon="mdi-view-dashboard"
+                    prepend-icon="mdi-order-bool-ascending-variant"
                     title="Orders"
                   ></v-list-item>
                 </router-link>
@@ -50,7 +50,8 @@ function logout() {
         <v-main style="height: 400px"></v-main>
       </v-layout>
     </v-card>
-
-    <router-view></router-view>
+    <div class="m-10 w-full">
+      <router-view></router-view>
+    </div>
   </div>
 </template>

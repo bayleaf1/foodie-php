@@ -1,9 +1,9 @@
 <script setup>
-let p = defineProps(['title'])
+let p = defineProps(['title', 'classes'])
 </script>
 
 <template>
-  <v-card class="grow mt-10" color="white" :title="p.title">
+  <v-card :class="`grow ` + p.classes" color="white" :title="p.title">
     <v-card-text>
       <slot />
     </v-card-text>

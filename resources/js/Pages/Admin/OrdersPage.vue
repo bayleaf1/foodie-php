@@ -4,6 +4,7 @@ import AdminLayoutCard from '../../components/AdminLayoutCard.vue'
 import Clock from '../../utils/Clock'
 import endpoints from '../../api/endpoints'
 import OrderStatus from '../../components/OrderStatus.vue'
+import { useRouter } from 'vue-router'
 
 const headerCells = ['ID', 'Status', 'Price', 'Created At']
 
@@ -60,6 +61,11 @@ function setSorting(v) {
   state.value.sorting = v
 }
 
+let r = useRouter()
+function navigateToOrderPage(id) {
+  r.push(`/admin/dashboard/orders/` + id)
+}
+
 watch(state.value, (v) => {
   console.log('updates', endpoints.ordersTable({ ...v }))
 })
@@ -99,7 +105,7 @@ watch(state.value, (v) => {
       ></v-select>
     </div>
 
-    <v-table>
+    <v-table density="compact">
       <thead>
         <tr>
           <th v-for="cell in headerCells" class="text-left">{{ cell }}</th>
@@ -110,6 +116,7 @@ watch(state.value, (v) => {
           v-for="c in table.rows"
           :key="c.id"
           class="hover:bg-slate-100 cursor-pointer"
+          @click="navigateToOrderPage(c.id)"
         >
           <td>{{ c.id }}</td>
           <td>

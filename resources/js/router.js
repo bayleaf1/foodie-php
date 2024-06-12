@@ -7,6 +7,7 @@ import OrdersPage from './pages/admin/OrdersPage.vue'
 import ProductsPage from './pages/admin/ProductsPage.vue'
 import JwtStorage from './auth.js'
 import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
+import OrderPage from './pages/admin/OrderPage.vue'
 
 const routes = [
   {
@@ -24,6 +25,7 @@ const routes = [
     children: [
       { path: '', component: OverviewPage },
       { path: 'orders', component: OrdersPage },
+      { path: 'orders/:id', component: OrderPage },
       { path: 'products', component: ProductsPage },
     ],
   },
