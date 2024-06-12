@@ -1,4 +1,5 @@
 <script setup>
+import { ref, watch } from 'vue'
 import AdminLayoutCard from '../../components/AdminLayoutCard.vue'
 import GoBackButton from '../../components/GoBackButton.vue'
 import OrderStatus from '../../components/OrderStatus.vue'
@@ -20,7 +21,7 @@ let order = {
 <template>
   <go-back-button />
 
-  <admin-layout-card classes="mt-2" :title="`Order #` + $route.params.id">
+  <admin-layout-card classes="mt-2" :title="`Product #` + $route.params.id">
     <div class="border rounded-sm lg:w-1/3">
       <v-table density="compact">
         <tbody>

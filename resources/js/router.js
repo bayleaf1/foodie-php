@@ -8,6 +8,7 @@ import ProductsPage from './pages/admin/ProductsPage.vue'
 import JwtStorage from './auth.js'
 import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
 import OrderPage from './pages/admin/OrderPage.vue'
+import ProductPage from './pages/admin/ProductPage.vue'
 
 const routes = [
   {
@@ -27,6 +28,7 @@ const routes = [
       { path: 'orders', component: OrdersPage },
       { path: 'orders/:id', component: OrderPage },
       { path: 'products', component: ProductsPage },
+      { path: 'products/:id', component: ProductPage },
     ],
   },
   {

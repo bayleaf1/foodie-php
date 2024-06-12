@@ -30,6 +30,12 @@ function logout() {
                     title="Orders"
                   ></v-list-item>
                 </router-link>
+                <router-link to="/admin/dashboard/products">
+                  <v-list-item
+                    prepend-icon="mdi-format-list-text"
+                    title="Products"
+                  ></v-list-item>
+                </router-link>
               </div>
 
               <div class="align-bottom">
