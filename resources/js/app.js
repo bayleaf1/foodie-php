@@ -10,9 +10,10 @@ import App from './App.vue'
 import router from './router'
 import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
 import SystemUserProvider from './providers/SystemUserProvider.vue'
+import { VNumberInput } from 'vuetify/labs/components'
 
 const vuetify = createVuetify({
-  components,
+  components: { ...components, VNumberInput },
   directives,
 })
 createApp(App)

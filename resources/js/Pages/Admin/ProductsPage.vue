@@ -6,22 +6,25 @@ import endpoints from '../../api/endpoints'
 import OrderStatus from '../../components/OrderStatus.vue'
 import { useRouter } from 'vue-router'
 
-const headerCells = ['ID', 'Status', 'Price', 'Created At']
+const headerCells = ['ID', 'Image', 'Name', 'Price', 'Quantity', 'Created At']
 
 let table = {
   totalPages: 20,
   rows: [
     {
       id: 1,
-      status: 'canceled',
+      image:
+        'https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      name: 'Snacks',
+      quantity: 20,
       price: '2$',
-      createdAt: Clock.formatOrderCreation(new Date()),
+      createdAt: Clock.formatProductCreation(new Date()),
     },
     {
       id: 1,
       status: 'created',
       price: '2$',
-      createdAt: Clock.formatOrderCreation(new Date()),
+      createdAt: Clock.formatProductCreation(new Date()),
     },
     {
       id: 1,
@@ -59,11 +62,6 @@ function setSearch(v) {
 
 function setSorting(v) {
   state.value.sorting = v
-}
-
-let r = useRouter()
-function navigateToProductPage(id) {
-  r.push(`/admin/dashboard/products/` + id)
 }
 
 watch(state.value, (v) => {
@@ -120,9 +118,20 @@ watch(state.value, (v) => {
         >
           <td>{{ c.id }}</td>
           <td>
-            <order-status :status="c.status"></order-status>
+            <v-img
+              :src="c.image"
+              class="w-[100px]x h-[30px]x"
+              :width="39"
+              aspect-ratio="16/9"
+            />
+          </td>
+          <td>
+            {{ c.name }}
           </td>
           <td>{{ c.price }}</td>
+          <td>
+            {{ c.quantity }}
+          </td>
           <td>
             {{ c.createdAt }}
           </td>
