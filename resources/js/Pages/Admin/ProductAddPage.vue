@@ -59,7 +59,7 @@ function onSave() {
     },
     onSuccess: ({ data, status }) => {
       console.log('Succcess', status, data, JSON.stringify(data, null, 2))
-      // router.replace('/admin/dashboard/products/' + data.product_id)
+      router.replace('/admin/dashboard/products/' + data.product_id)
     },
   })
 }

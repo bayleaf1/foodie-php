@@ -47,7 +47,6 @@ class ProductController extends Controller
 
         $details = $request->all();
         $p = Product::create([...$details, "images" => json_encode($details['images']),]);
-        // return new ProductResource($p);
         return response()->json(["product_id" => $p->id]);
     }
 
@@ -57,6 +56,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+        return new ProductResource($product);
     }
 
     /**
@@ -72,7 +72,22 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $details = $request->validate([
+            "name" => "required|string|min:2|max:80",
+            "price" => "required|integer|min:0|max:10000",
+            "quantity" => "required|integer|min:0|max:100000",
+            "description" => "required|string|min:1|max:200",
+            "images" => "required|array|between:1,100",
+        ], [
+            'images.required' => 'You have to upload at least one image'
+        ]);
+
+        $product->update([...$details, "images" => json_encode($details['images']),]);
+        $product->save();
+
+        return new ProductResource($product);
+
+        // return response()->json(['data' => "reps"]);
     }
 
     /**

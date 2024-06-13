@@ -9,8 +9,9 @@ const defOpts = {
   onFinally: () => '',
   body: {},
   headers: {},
+  errorModelFor422: { value: {} },
 }
-export default function fetchApp(opts = {}) {
+export default function fetchApp(opts = defOpts) {
   // const {
   //   endpoint = '',
   //   method = 'get',
@@ -37,12 +38,16 @@ export default function fetchApp(opts = {}) {
     headers: o.headers,
   })
     .then((res) => {
-      // console.log('OK', res)
       o.onSuccess({ status: res.status, data: res.data })
     })
     .catch((res) => {
-      o.onError({ status: res.response.status, data: res.response.data })
-      // console.log('Wrong', res)
+      let { status, data } = res.response
+      o.onError({ status, data })
+      if (status === 422) {
+        Object.entries(data.errors).forEach(([key, [msg]]) => {
+          o.errorModelFor422.value[key] = msg
+        })
+      }
     })
     .finally(o.onFinally)
   //   let optionalBody =
