@@ -9,5 +9,5 @@ class Resource extends Model
 {
     use HasFactory;
 
-    private $fillable = ['type', 'url', 'name'];
+    protected $fillable = ['type', 'url', 'name'];
 }

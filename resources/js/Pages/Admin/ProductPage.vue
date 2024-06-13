@@ -18,29 +18,15 @@ let order = {
   price: 10,
   status: 'confirmed',
   images: [
-    {
-      url: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
-    },
-    {
-      // url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_FWF2judaujT30K9sMf-tZFhMWpgP6xCemw&s',
-    },
+    'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
   ],
 }
-let value = ref(0)
-let file = ref(null)
+let imageName0 = ref('')
+let imageName1 = ref('')
 
-const preview = () => {
-  file.value = input0.files[0]
-  img0.src = URL.createObjectURL(input0.files[0])
-}
-const preview2 = () => {
-  img1.src = URL.createObjectURL(input1.files[0])
-}
-
-const submit = () => {
-  console.log('SUBMITT', file.value)
+const uploadImage = (reference, inputId) => () => {
   const formData = new FormData()
-  formData.append('file', file.value)
+  formData.append('image', document.getElementById(inputId).files[0])
   fetchApp({
     endpoint: '/api/resources',
     method: 'post',
@@ -50,10 +36,12 @@ const submit = () => {
     },
     onSuccess: ({ data, status }) => {
       console.log('Succcess', status, data)
+      reference.value = data.name
     },
   })
 }
-// let urls = ref([order.images[0].url, order.images[1].url])
+const uploadFirstImage = uploadImage(imageName0, 'input0')
+const uploadSecondImage = uploadImage(imageName1, 'input1')
 </script>
 
 <template>
@@ -77,21 +65,19 @@ const submit = () => {
           :max="120"
         ></v-textarea>
       </div>
-      <div class="grow basis-[45%] bg-slate-400">
-        <h1>Images</h1>
-        <v-btn @click="submit">submit</v-btn>
-
-        <div class="flex gap-10 mt-5">
+      <div class="grow basis-[45%] bg-slate-400x">
+        <p class="text-xl">Images</p>
+        <div class="flex gap-10 mt-[34px]">
           <input
             id="input0"
             type="file"
-            :onchange="preview"
+            :onchange="uploadFirstImage"
             class="opacity-0 w-0 h-0 absolute"
           />
           <input
             id="input1"
             type="file"
-            :onchange="preview2"
+            :onchange="uploadSecondImage"
             class="opacity-0 w-0 h-0 absolute"
           />
           <label for="input0">
@@ -99,8 +85,8 @@ const submit = () => {
               class="aspect-square border bg-white rounded-md h-[200px] relative"
             >
               <img
-                v-if="order.images[0]?.url"
-                :src="order.images[0]?.url"
+                v-if="imageName0"
+                :src="endpoints.productImage(imageName0)"
                 id="img0"
                 class="w-full h-full object-contain rounded-md"
               />
@@ -117,8 +103,8 @@ const submit = () => {
               class="aspect-square border bg-white rounded-md h-[200px] relative"
             >
               <img
-                v-if="order.images[1]?.url"
-                :src="order.images[1]?.url"
+                v-if="imageName1"
+                :src="endpoints.productImage(imageName1)"
                 id="img1"
                 class="w-full h-full object-contain rounded-md"
               />
