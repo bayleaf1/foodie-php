@@ -17,7 +17,7 @@ let state = ref({ ...initialState })
 let errors = ref({
   ...Object.fromEntries(Object.keys(initialState).map((k) => [k, ''])),
   resetFor(field) {
-    this[field] = '';
+    this[field] = ''
   },
 })
 
@@ -58,8 +58,8 @@ function onSave() {
       }
     },
     onSuccess: ({ data, status }) => {
-      console.log('Succcess', status, JSON.stringify(data, null, 2))
-      router.replace('/admin/dashboard/products/' + data.product.id)
+      console.log('Succcess', status, data, JSON.stringify(data, null, 2))
+      // router.replace('/admin/dashboard/products/' + data.product_id)
     },
   })
 }

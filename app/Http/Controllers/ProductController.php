@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -46,7 +47,8 @@ class ProductController extends Controller
 
         $details = $request->all();
         $p = Product::create([...$details, "images" => json_encode($details['images']),]);
-        return response()->json(["data" => $details, "product" => $p->toJson(),]);
+        // return new ProductResource($p);
+        return response()->json(["product_id" => $p->id]);
     }
 
     /**
