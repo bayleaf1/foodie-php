@@ -2,9 +2,7 @@
 import { ref, watch } from 'vue'
 import AdminLayoutCard from '../../components/AdminLayoutCard.vue'
 import GoBackButton from '../../components/GoBackButton.vue'
-import OrderStatus from '../../components/OrderStatus.vue'
-import getBgColorForOrderStatus from '../../utils/getBgColorForOrderStatus.js'
-import { OrderStatusType } from '../../utils/enums.js'
+
 import fetchApp from '../../api/fetchApp.js'
 import endpoints from '../../api/endpoints.js'
 
@@ -28,7 +26,7 @@ const uploadImage = (reference, inputId) => () => {
   const formData = new FormData()
   formData.append('image', document.getElementById(inputId).files[0])
   fetchApp({
-    endpoint: '/api/resources',
+    endpoint: endpoints.resources,
     method: 'post',
     body: formData,
     onError: ({ data, status }) => {
@@ -40,8 +38,10 @@ const uploadImage = (reference, inputId) => () => {
     },
   })
 }
+
 const uploadFirstImage = uploadImage(imageName0, 'input0')
 const uploadSecondImage = uploadImage(imageName1, 'input1')
+
 </script>
 
 <template>
@@ -120,7 +120,7 @@ const uploadSecondImage = uploadImage(imageName1, 'input1')
       </div>
     </div>
     <div class="flex gap-4 mt-5">
-      <v-btn color="deep-purple">Save</v-btn>
+      <v-btn color="deep-purple" @click="onSave()">Save</v-btn>
     </div>
   </admin-layout-card>
 </template>

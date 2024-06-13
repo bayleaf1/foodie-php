@@ -1,38 +1,3 @@
-<template>
-  <div class="min-h-screen bg-slate-300 box-border pt-[20vh]">
-    <form class="rounded-md p-5 mx-auto box-border bg-white max-w-96">
-      <h1 class="text-center text-3xl mb-3">Login</h1>
-      <form class="flex flex-col gap-5">
-        <v-text-field
-          v-model="state.email"
-          :error-messages="
-            v$.email.$errors.map((e) => e.$message).toString() ||
-            extraErrors.email
-          "
-          label="E-mail"
-          required
-          @blur="v$.email.$touch"
-          @input="onInput('email')"
-        ></v-text-field>
-        <v-text-field
-          v-model="state.password"
-          :error-messages="
-            v$.password.$errors.map((e) => e.$message).toString() ||
-            extraErrors.password
-          "
-          label="Password"
-          required
-          type="password"
-          @blur="v$.password.$touch"
-          @input="onInput('password')"
-        ></v-text-field>
-
-        <v-btn class="w-full" @click="onLogin"> Login </v-btn>
-      </form>
-    </form>
-  </div>
-</template>
-
 <script setup>
 import { reactive, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
@@ -96,3 +61,38 @@ async function onLogin() {
   }
 }
 </script>
+
+<template>
+  <div class="min-h-screen bg-slate-300 box-border pt-[20vh]">
+    <form class="rounded-md p-5 mx-auto box-border bg-white max-w-96">
+      <h1 class="text-center text-3xl mb-3">Login</h1>
+      <form class="flex flex-col gap-5">
+        <v-text-field
+          v-model="state.email"
+          :error-messages="
+            v$.email.$errors.map((e) => e.$message).toString() ||
+            extraErrors.email
+          "
+          label="E-mail"
+          required
+          @blur="v$.email.$touch"
+          @input="onInput('email')"
+        ></v-text-field>
+        <v-text-field
+          v-model="state.password"
+          :error-messages="
+            v$.password.$errors.map((e) => e.$message).toString() ||
+            extraErrors.password
+          "
+          label="Password"
+          required
+          type="password"
+          @blur="v$.password.$touch"
+          @input="onInput('password')"
+        ></v-text-field>
+
+        <v-btn class="w-full" @click="onLogin"> Login </v-btn>
+      </form>
+    </form>
+  </div>
+</template>
