@@ -71,36 +71,44 @@ watch(state.value, (v) => {
 
 <template>
   <admin-layout-card title="Products">
-    <div class="flex">
-      <v-select
-        :value="state.searchableField"
-        @update:modelValue="setSearchableField"
-        variant="underlined"
-        color="deep-blue"
-        :items="searchableFields"
-        density="compact"
-        class="max-w-[80px]"
-      ></v-select>
-      <!--  -->
-      <v-text-field
-        label="filter..."
-        :value="state.search"
-        class="max-w-[200px] mr-2"
-        density="compact"
-        variant="underlined"
-        @update:modelValue="setSearch"
-      ></v-text-field>
-      <!--  -->
-      <!-- v-model="state.sorting" -->
-      <v-select
-        :value="state.sorting"
-        @update:modelValue="setSorting"
-        variant="underlined"
-        color="deep-blue"
-        :items="['asc', 'desc']"
-        density="compact"
-        class="max-w-[70px]"
-      ></v-select>
+    <div class="flex justify-between">
+      <div class="flex w-fit grow">
+        <v-select
+          :value="state.searchableField"
+          @update:modelValue="setSearchableField"
+          variant="underlined"
+          color="deep-blue"
+          :items="searchableFields"
+          density="compact"
+          class="max-w-[80px]"
+        ></v-select>
+        <!--  -->
+        <v-text-field
+          label="filter..."
+          :value="state.search"
+          class="max-w-[200px] mr-2"
+          density="compact"
+          variant="underlined"
+          @update:modelValue="setSearch"
+        ></v-text-field>
+        <!--  -->
+        <!-- v-model="state.sorting" -->
+        <v-select
+          :value="state.sorting"
+          @update:modelValue="setSorting"
+          variant="underlined"
+          color="deep-blue"
+          :items="['asc', 'desc']"
+          density="compact"
+          class="max-w-[70px]"
+        ></v-select>
+      </div>
+
+      <div>
+        <router-link to="/admin/dashboard/products/add">
+          <v-btn color="deep-purple" >Add new</v-btn>
+        </router-link>
+      </div>
     </div>
 
     <v-table density="compact">
