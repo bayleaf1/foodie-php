@@ -43,6 +43,10 @@ export default function fetchApp(opts = defOpts) {
     .catch((res) => {
       let { status, data } = res.response
       o.onError({ status, data })
+      if (status === 401) {
+        JwtStorage.remove()
+        window.location.reload()
+      }
       if (status === 422) {
         Object.entries(data.errors).forEach(([key, [msg]]) => {
           o.errorModelFor422.value[key] = msg
@@ -50,8 +54,4 @@ export default function fetchApp(opts = defOpts) {
       }
     })
     .finally(o.onFinally)
-  //   let optionalBody =
-  //     method.toLowerCase() === 'get' ? {} : { body: JSON.stringify(body) }
-
-  //   fetch(endpoint, { method, ...optionalBody, headers: { ...headers } }).then()
 }

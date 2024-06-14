@@ -5,38 +5,23 @@ import endpoints from '../../api/endpoints.js'
 import fetchApp from '../../api/fetchApp.js'
 import AdminInnerTemplate from './parts/AdminInnerTemplate.vue'
 import ProductPageForm from './parts/ProductPageForm.vue'
+import { ProductPageInitialState } from './parts/ProductPageUtils.js'
+import createErrorsStateForForm from '../../utils/createErrorsStateForForm.js'
 
-let route = useRoute()
-let productId = route.params.id
+let productId = useRoute().params.id
+
+let state = ref({ ...ProductPageInitialState })
+let errors = ref(createErrorsStateForForm(ProductPageInitialState))
 
 let loading = ref(true)
 let updatingLoading = ref(false)
-
-const initialState = {
-  name: '',
-  price: 0,
-  quantity: 0,
-  description: '',
-  images: [],
-}
-let state = ref({ ...initialState })
 
 onMounted(() => {
   fetchApp({
     endpoint: endpoints.product(productId),
     onSuccess: ({ data }) => Object.assign(state.value, data.data),
     onFinally: () => (loading.value = false),
-    // onError: ({ data, status }) => {
-    //   console.log('Error', status, data, JSON.stringify(data, null, 2))
-    // },
   })
-})
-
-let errors = ref({
-  ...Object.fromEntries(Object.keys(initialState).map((k) => [k, ''])),
-  resetFor(field) {
-    this[field] = ''
-  },
 })
 
 function onUpdate() {

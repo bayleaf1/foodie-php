@@ -1,5 +1,6 @@
 <script setup>
 import endpoints from '../../../api/endpoints.js'
+import fetchApp from '../../../api/fetchApp.js'
 let { state, errors, buttonLabel } = defineProps([
   'state',
   'errors',
@@ -10,18 +11,12 @@ let { state, errors, buttonLabel } = defineProps([
 const uploadImage = (inputId, idx) => () => {
   const formData = new FormData()
   formData.append('image', document.getElementById(inputId).files[0])
-  errors.value.resetFor('images')
+  errors.resetFor('images')
   fetchApp({
     endpoint: '/api/resources',
     method: 'post',
     body: formData,
-    onError: ({ data, status }) => {
-      console.log('ERROR', status, data)
-    },
-    onSuccess: ({ data, status }) => {
-      console.log('Succcess', status, data)
-      state.value.images[idx] = data.name
-    },
+    onSuccess: ({ data }) => (state.images[idx] = data.name),
   })
 }
 
