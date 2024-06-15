@@ -6,9 +6,31 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Utils\ProductTableFetcher;
+
+
+
+
 
 class ProductController extends Controller
 {
+    public function table()
+    {
+        $f = new ProductTableFetcher();
+        $table = $f->get(request()->query());
+
+        return response()->json([
+            "table" => [
+                ...$table,
+                "rows" => array_map(function ($i) {
+                    $i->images = json_decode($i->images);
+                    return $i;
+                }, $table["rows"])
+            ],
+        ]);
+
+    }
+
     /**
      * Display a listing of the resource.
      */

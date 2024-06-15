@@ -42,6 +42,7 @@ export default function fetchApp(opts = defOpts) {
     })
     .catch((res) => {
       let { status, data } = res.response
+      console.log('ERROR: ', res)
       o.onError({ status, data })
       if (status === 401) {
         JwtStorage.remove()
@@ -54,4 +55,18 @@ export default function fetchApp(opts = defOpts) {
       }
     })
     .finally(o.onFinally)
+}
+
+export function fetchAppForSwr(url) {
+  return new Promise((res, rej) => {
+    fetchApp({
+      endpoint: url,
+      onSuccess: ({ data }) => {
+        res(data)
+      },
+      onError: ({ data }) => {
+        rej(data)
+      },
+    })
+  })
 }

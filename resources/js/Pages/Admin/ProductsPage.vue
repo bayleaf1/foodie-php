@@ -1,50 +1,22 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { computed, ref } from 'vue'
+import endpoints from '../../api/endpoints'
+import useAppSwr from '../../api/useAppSwr'
 import AdminLayoutCard from '../../components/AdminLayoutCard.vue'
 import Clock from '../../utils/Clock'
-import endpoints from '../../api/endpoints'
-import OrderStatus from '../../components/OrderStatus.vue'
-import { useRouter } from 'vue-router'
 
 const headerCells = ['ID', 'Image', 'Name', 'Price', 'Quantity', 'Created At']
+const searchableFields = ['id', 'name', 'price', 'quantity', 'image']
 
-let table = {
-  totalPages: 20,
-  rows: [
-    {
-      id: 1,
-      image:
-        'https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      name: 'Snacks',
-      quantity: 20,
-      price: '2$',
-      createdAt: Clock.formatProductCreation(new Date()),
-    },
-    {
-      id: 1,
-      status: 'created',
-      price: '2$',
-      createdAt: Clock.formatProductCreation(new Date()),
-    },
-    {
-      id: 1,
-      status: 'confirmed',
-      price: '2$',
-      createdAt: Clock.formatOrderCreation(new Date()),
-    },
-    {
-      id: 1,
-      status: 'finished',
-      price: '2$',
-      createdAt: Clock.formatOrderCreation(new Date()),
-    },
-  ],
-}
-
-const searchableFields = ['Id', 'status', 'price']
+const table = ref({
+  totalRows: 0,
+  rows: [],
+  pagesCount: 0,
+})
 
 let state = ref({
-  page: 2,
+  pageSize: 5,
+  page: 1,
   searchableField: searchableFields[0],
   search: '',
   sorting: 'desc',
@@ -64,14 +36,20 @@ function setSorting(v) {
   state.value.sorting = v
 }
 
-watch(state.value, (v) => {
-  console.log('updates', endpoints.ordersTable({ ...v }))
+let loading = ref(false)
+useAppSwr({
+  reactiveEndpoint: computed(() => endpoints.productsTable({ ...state.value })),
+  onSuccess: ({ data }) => (table.value = { ...table.value, ...data.table }),
+  loadingModel: loading,
 })
 </script>
 
 <template>
-  <admin-layout-card title="Products">
-    <div class="flex justify-between">
+  <admin-layout-card title="Products" :loading="loading">
+    <div>
+      <p class="text-rightx text-2xl">Total: {{ table.totalRows }}</p>
+    </div>
+    <div class="flex justify-between mt-5">
       <div class="flex w-fit grow">
         <v-select
           :value="state.searchableField"
@@ -92,7 +70,6 @@ watch(state.value, (v) => {
           @update:modelValue="setSearch"
         ></v-text-field>
         <!--  -->
-        <!-- v-model="state.sorting" -->
         <v-select
           :value="state.sorting"
           @update:modelValue="setSorting"
@@ -106,7 +83,7 @@ watch(state.value, (v) => {
 
       <div>
         <router-link to="/admin/dashboard/products/add">
-          <v-btn color="deep-purple" >Add new</v-btn>
+          <v-btn color="deep-purple">Add new</v-btn>
         </router-link>
       </div>
     </div>
@@ -127,8 +104,8 @@ watch(state.value, (v) => {
           <td>{{ c.id }}</td>
           <td>
             <v-img
-              :src="c.image"
-              class="w-[100px]x h-[30px]x"
+              :src="endpoints.productImage(c.images[0])"
+              :height="39"
               :width="39"
               aspect-ratio="16/9"
             />
@@ -136,23 +113,33 @@ watch(state.value, (v) => {
           <td>
             {{ c.name }}
           </td>
-          <td>{{ c.price }}</td>
+          <td>{{ c.price }}$</td>
           <td>
             {{ c.quantity }}
           </td>
           <td>
-            {{ c.createdAt }}
+            {{ Clock.formatProductCreation(c.created_at) }}
           </td>
         </tr>
       </tbody>
     </v-table>
-    <div class="w-fit mt-5">
+    <div class="mt-5 flex justify-between">
       <v-pagination
         v-model="state.page"
-        :length="table.totalPages"
-        :total-visible="6"
+        :length="table.pagesCount"
+        :total-visible="8"
         rounded="circle"
+        density="comfortable"
       ></v-pagination>
+      <v-select
+        v-model="state.pageSize"
+        variant="underlined"
+        color="deep-blue"
+        :items="[5, 10, 15]"
+        label="Per page"
+        density="compact"
+        class="max-w-[80px]"
+      ></v-select>
     </div>
   </admin-layout-card>
 </template>
