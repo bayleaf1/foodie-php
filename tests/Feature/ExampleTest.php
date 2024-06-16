@@ -202,7 +202,7 @@ class ExampleTest extends TestCase
         ]);
         $system_user->confirm_order(1);
         $system_user->cancel_order(1);
-        $app->has_orders([["email" => "t1@m.com", "status" => "cancel"]]);
+        $app->has_orders([["email" => "t1@m.com", "status" => "canceled"]]);
 
         $guest->create_order([
             "email" => "t1@m.com",
@@ -306,7 +306,7 @@ class ExampleTest extends TestCase
         ]);
         // $app->respond_with_status($response, 422);
     }
-    public function test_guest_create_order_with_excesive_quantity(): void
+    public function test_guest_try_to_create_order_with_excesive_quantity(): void
     {
         $system_user = new SystemUser($this);
         $guest = new Guest($this);

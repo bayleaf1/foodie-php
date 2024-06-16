@@ -1,26 +1,59 @@
 <script setup>
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import endpoints from '../../api/endpoints.js'
+import fetchApp from '../../api/fetchApp.js'
 import AdminLayoutCard from '../../components/AdminLayoutCard.vue'
 import GoBackButton from '../../components/GoBackButton.vue'
 import OrderStatus from '../../components/OrderStatus.vue'
-import getBgColorForOrderStatus from '../../utils/getBgColorForOrderStatus.js'
 import { OrderStatusType } from '../../utils/enums.js'
+import getBgColorForOrderStatus from '../../utils/getBgColorForOrderStatus.js'
+import OrderDialog from './parts/OrderDialog.vue'
 
-let order = {
+let defOrder = {
   id: 1,
-  email: 'guest@gst.com',
-  products: [
-    { id: 1, quantity: 2, name: 'Letters', price: 3 },
-    { id: 2, quantity: 5, name: 'Snacks', price: 7 },
-  ],
-  price: 10,
-  status: 'confirmed',
+  email: '',
+  products: [],
+  status: 'created',
+  price: 0,
+  can_be_canceled: false,
+  can_be_confirmed: false,
+  can_be_finished: false,
+}
+let orderId = useRoute().params.id
+
+let order = ref({ ...defOrder })
+let loading = ref(true)
+
+function fetchOrder() {
+  fetchApp({
+    endpoint: endpoints.order(orderId),
+    onSuccess: ({ data }) => Object.assign(order.value, data.order),
+    onFinally: () => (loading.value = false),
+  })
+}
+
+onMounted(fetchOrder)
+
+function tryToChangeStatus(status) {
+  loading.value = true
+  fetchApp({
+    endpoint: endpoints.changeOrderStatus(orderId, status),
+    method: 'patch',
+    onSuccess: fetchOrder,
+    onFinally: () => (loading.value = false),
+  })
 }
 </script>
 
 <template>
   <go-back-button />
 
-  <admin-layout-card classes="mt-2" :title="`Order #` + $route.params.id">
+  <admin-layout-card
+    classes="mt-2"
+    :title="`Order #` + orderId"
+    :loading="loading"
+  >
     <div class="border rounded-sm lg:w-1/3">
       <v-table density="compact">
         <tbody>
@@ -44,9 +77,11 @@ let order = {
           <tr v-for="(p, i) in order.products" :key="i">
             <td>Product #{{ i + 1 }}</td>
             <td>
-              <router-link to="/admin/dashboard/orders" class="underline">{{
-                p.name
-              }}</router-link>
+              <router-link
+                :to="'/admin/dashboard/products/' + p.id"
+                class="underline"
+                >{{ p.name }}</router-link
+              >
               x{{ p.quantity }} = {{ p.price }}$
             </td>
           </tr>
@@ -54,15 +89,45 @@ let order = {
       </v-table>
     </div>
     <div class="flex gap-4 mt-5">
-      <v-btn :class="getBgColorForOrderStatus(OrderStatusType.CANCELED)"
-        >Cancel</v-btn
+      <order-dialog
+        title="Do you want to cancel order?"
+        :onOk="() => tryToChangeStatus('cancel')"
       >
-      <v-btn :class="getBgColorForOrderStatus(OrderStatusType.CONFIRMED)"
-        >Confirm</v-btn
+        <template v-slot="{ activatorProps }">
+          <v-btn
+            v-if="order.can_be_canceled"
+            v-bind="activatorProps"
+            :class="getBgColorForOrderStatus(OrderStatusType.CANCELED)"
+            >Cancel</v-btn
+          >
+        </template>
+      </order-dialog>
+      <order-dialog
+        title="Do you want to confirm order?"
+        :onOk="() => tryToChangeStatus('confirm')"
       >
-      <v-btn :class="getBgColorForOrderStatus(OrderStatusType.FINISHED)"
-        >Finish</v-btn
+        <template v-slot="{ activatorProps }">
+          <v-btn
+            v-if="order.can_be_confirmed"
+            v-bind="activatorProps"
+            :class="getBgColorForOrderStatus(OrderStatusType.CONFIRMED)"
+            >Confirm</v-btn
+          >
+        </template>
+      </order-dialog>
+      <order-dialog
+        title="Do you want to finish order?"
+        :onOk="() => tryToChangeStatus('finalize')"
       >
+        <template v-slot="{ activatorProps }">
+          <v-btn
+            v-if="order.can_be_finished"
+            v-bind="activatorProps"
+            :class="getBgColorForOrderStatus(OrderStatusType.FINISHED)"
+            >Finish</v-btn
+          >
+        </template>
+      </order-dialog>
     </div>
   </admin-layout-card>
 </template>

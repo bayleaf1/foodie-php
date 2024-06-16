@@ -31,13 +31,16 @@ class OrderController extends Controller
 
     public function cancel($order_id)
     {
-
         $order = Order::find($order_id);
         if ($order->status == "finished") {
-            return response()->json(["error" => ["message" => "Can finalize only non finished order"]], 409);
+            return response()->json(["error" => ["message" => "Can cancel only non finished order"]], 409);
         }
 
-        if ($order->status != "created") {
+        if ($order->status == "canceled") {
+            return response()->json(["error" => ["message" => "Order is already canceled"]], 409);
+        }
+
+        if ($order->status == "confirmed") {
             $order->items;
             foreach ($order->items as $i) {
                 $p = Product::find($i['product_id']);
@@ -46,7 +49,7 @@ class OrderController extends Controller
             }
         }
 
-        $order->status = 'cancel';
+        $order->status = 'canceled';
         $order->save();
     }
 
@@ -149,7 +152,36 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $order->items;
+        foreach ($order->items as &$item) {
+            $item->product = Product::find($item->product_id);
+        }
+
+        $products = array_reduce([...$order->items], function ($acc, $item) {
+            return [
+                ...$acc,
+                [
+                    "id" => $item->product->id,
+                    "name" => $item->product->name,
+                    "quantity" => $item->quantity,
+                    "price" => $item->product->price * $item->quantity,
+                ]
+            ];
+        }, []);
+
+        $result = [
+            "id" => $order->id,
+            "status" => $order->status,
+            "email" => $order->email,
+            "products" => $products,
+            "price" => array_reduce($products, function ($acc, $p) {
+                return $acc + $p['price'];
+            }, 0),
+            "can_be_canceled" => $order->status != "finished" && $order->status != "canceled",
+            "can_be_confirmed" => $order->status == "created",
+            "can_be_finished" => $order->status == "confirmed",
+        ];
+        return response()->json(["order" => $result]);
     }
 
     /**

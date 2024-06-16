@@ -42,7 +42,7 @@ export default function fetchApp(opts = defOpts) {
     })
     .catch((res) => {
       let { status, data } = res.response
-      console.log('ERROR: ', res)
+      console.log('ERROR: ', data.message, res)
       o.onError({ status, data })
       if (status === 401) {
         JwtStorage.remove()

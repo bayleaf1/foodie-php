@@ -2,24 +2,23 @@
 import { computed, ref } from 'vue'
 import endpoints from '../../api/endpoints'
 import useAppSwr from '../../api/useAppSwr'
-import AdminLayoutCard from '../../components/AdminLayoutCard.vue'
-import Clock from '../../utils/Clock'
 import OrderStatus from '../../components/OrderStatus.vue'
+import Clock from '../../utils/Clock'
 import AdminTable from './parts/AdminTable.vue'
 import { createStateRef, createTableRef } from './parts/AdminTableUtils'
 
-const headerCells = ['ID', 'Status', 'Email', 'Price', 'Created At']
-const searchableFields = ['id', 'status', 'email', 'price']
+const headerCells = ['ID', 'Status', 'Email', 'Created At']
+const searchableFields = ['id', 'status', 'email']
 
 const table = createTableRef({
   rows: [
-    {
-      id: 1,
-      status: 'confirmed',
-      email: 'test@mail.com',
-      price: 10,
-      created_at: Date.now(),
-    },
+    // {
+    //   id: 1,
+    //   status: 'confirmed',
+    //   email: 'test@mail.com',
+    //   price: 10,
+    //   created_at: Date.now(),
+    // },
   ],
 })
 
@@ -47,14 +46,13 @@ useAppSwr({
       v-for="c in table.rows"
       :key="c.id"
       class="hover:bg-slate-100 cursor-pointer"
-      @click="$router.push(`/admin/dashboard/products/` + c.id)"
+      @click="$router.push(`/admin/dashboard/orders/` + c.id)"
     >
       <td>{{ c.id }}</td>
       <td>
         <order-status :status="c.status" />
       </td>
       <td>{{ c.email }}</td>
-      <td>{{ c.price }}$</td>
       <td>{{ Clock.formatOrderCreation(c.created_at) }}</td>
     </tr>
   </admin-table>

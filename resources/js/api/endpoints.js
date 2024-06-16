@@ -13,11 +13,15 @@ function createTableQuery(opts = {}) {
   )
 }
 const endpoints = {
+  orders: '/api/orders',
+  order: (id) => '/api/orders/' + id,
   ordersTable: (opts = {}) => `/api/orders/table?${createTableQuery(opts)}`,
+  changeOrderStatus: (id, action) => `/api/orders/${action}/${id}`,
+
+  products: '/api/products',
+  product: (id) => '/api/products/' + id,
   productsTable: (opts = {}) => `/api/products/table?${createTableQuery(opts)}`,
   productImage: (imageName) => 'http://localhost:8000/resources/' + imageName,
-  product: (id) => '/api/products/' + id,
-  products: '/api/products',
   resources: '/api/resources',
 }
 

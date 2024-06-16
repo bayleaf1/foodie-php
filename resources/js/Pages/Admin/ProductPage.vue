@@ -34,9 +34,27 @@ function onUpdate() {
     onFinally: () => (updatingLoading.value = false),
   })
 }
+
+function createOrder() {
+  fetchApp({
+    endpoint: endpoints.orders,
+    method: 'post',
+    body: {
+      email: 'test@mail.com',
+      items: [{ product_id: productId, quantity: 2 }],
+    },
+    onSuccess: ({ data }) => {
+      console.log('OK', data)
+    },
+    onError: ({ data }) => {
+      console.log('WRONG', data)
+    },
+  })
+}
 </script>
 
 <template>
+  <button @click="createOrder()">create order</button>
   <admin-inner-template
     classes="min-h-[422px]"
     :title="'Product #' + productId"
