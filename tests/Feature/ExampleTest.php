@@ -21,9 +21,6 @@ class Entity
 class SystemUser extends Entity
 {
     public $headers = [];
-
-
-
     public function getProfile()
     {
         $this->ctx->get(
@@ -49,12 +46,14 @@ class SystemUser extends Entity
 
     public function create_products($products)
     {
-        foreach ($products as $product)
+        foreach ($products as $product) {
             $this->ctx->post(
                 '/api/products',
-                $product,
+                ["images" => ["test_mock.jpg"], "description" => "test description", ...$product],
                 $this->headers
-            );
+            )->assertJson([]);
+
+        }
     }
     public function confirm_order($order_id)
     {
@@ -141,7 +140,7 @@ class ExampleTest extends TestCase
     //     $system_user->getProfile();
     // }
 
-
+    //TODO reorganize tests
     public function test_product_quantity_is_restored_when_cancel_a_confirmed_order(): void
     {
         $system_user = new SystemUser($this);
