@@ -27,11 +27,11 @@ let state = createStateRef({ searchableField: searchableFields[0] })
 
 let loading = ref(false)
 
-// useAppSwr({
-//   reactiveEndpoint: computed(() => endpoints.productsTable({ ...state.value })),
-//   onSuccess: ({ data }) => (table.value = { ...table.value, ...data.table }),
-//   loadingModel: loading,
-// })
+useAppSwr({
+  reactiveEndpoint: computed(() => endpoints.ordersTable({ ...state.value })),
+  onSuccess: ({ data }) => (table.value = { ...table.value, ...data.table }),
+  loadingModel: loading,
+})
 </script>
 
 <template>

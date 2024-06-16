@@ -20,6 +20,7 @@ Route::resource('/system-user', SystemUserController::class)->middleware('auth:s
 Route::get('/system-users/profile', [SystemUserController::class, 'getProfile'])->middleware('auth:sanctum');
 Route::get('/products/table', [ProductController::class, 'table'])->middleware('auth:sanctum');
 Route::resource('/products', ProductController::class)->middleware('auth:sanctum');
+Route::get('/orders/table', [OrderController::class, 'table'])->middleware('auth:sanctum');
 Route::resource('/orders', OrderController::class)->middleware('auth:sanctum');
 Route::resource('/resources', ResourceController::class);//->middleware('auth:sanctum');
 Route::patch('/orders/confirm/{id}', [OrderController::class, 'confirm']);

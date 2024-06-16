@@ -7,9 +7,27 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Utils\OrderTableFetcher;
 
 class OrderController extends Controller
 {
+
+    public function table()
+    {
+        $f = new OrderTableFetcher();
+        $table = $f->get(request()->query());
+
+        return response()->json([
+            "table" => [
+                ...$table,
+                // "rows" => array_map(function ($i) {
+                //     $i->images = json_decode($i->images);
+                //     return $i;
+                // }, $table["rows"])
+            ],
+        ]);
+
+    }
 
     public function cancel($order_id)
     {

@@ -70,7 +70,7 @@ function setSorting(v) {
         </tr>
       </thead>
       <tbody>
-        <slot>Please, render rows :)</slot>
+        <slot></slot>
       </tbody>
     </v-table>
     <div class="mt-5 flex justify-between">
