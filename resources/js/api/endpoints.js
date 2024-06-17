@@ -19,6 +19,7 @@ const endpoints = {
   changeOrderStatus: (id, action) => `/api/orders/${action}/${id}`,
 
   products: '/api/products',
+  productsMenu: '/api/products/menu',
   product: (id) => '/api/products/' + id,
   productsTable: (opts = {}) => `/api/products/table?${createTableQuery(opts)}`,
   productImage: (imageName) => 'http://localhost:8000/resources/' + imageName,

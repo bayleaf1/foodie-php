@@ -1,4 +1,5 @@
 <script setup>
+import { onUnmounted } from 'vue'
 import endpoints from '../../../api/endpoints.js'
 import fetchApp from '../../../api/fetchApp.js'
 let { state, errors, buttonLabel } = defineProps([
@@ -22,6 +23,10 @@ const uploadImage = (inputId, idx) => () => {
 
 const uploadFirstImage = uploadImage('input0', 0)
 const uploadSecondImage = uploadImage('input1', 1)
+
+onUnmounted(() => {
+  state.images.length = 0
+})
 </script>
 <template>
   <div class="flex gap-10">
