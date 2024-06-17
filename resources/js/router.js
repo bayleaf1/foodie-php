@@ -1,20 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from './pages/HomePage.vue'
-import NotFoundPage from './pages/NotFoundPage.vue'
+import JwtStorage from './auth.js'
+//
 import LoginPage from './pages/admin/LoginPage.vue'
 import OverviewPage from './pages/admin/OverviewPage.vue'
 import OrdersPage from './pages/admin/OrdersPage.vue'
 import ProductsPage from './pages/admin/ProductsPage.vue'
-import JwtStorage from './auth.js'
 import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
+import GuestLayout from './layouts/GuestLayout/GuestLayout.vue'
 import OrderPage from './pages/admin/OrderPage.vue'
-import ProductPage from './pages/admin/ProductPage.vue'
+import AdminProductPage from './pages/admin/ProductPage.vue'
 import ProductAddPage from './pages/admin/ProductAddPage.vue'
+//
+import HomePage from './pages/HomePage.vue'
+import ProductPage from './pages/ProductPage.vue'
+import NotFoundPage from './pages/NotFoundPage.vue'
 
 const routes = [
   {
     path: '/',
-    component: HomePage,
+    component: GuestLayout,
+    children: [
+      { path: '', component: HomePage },
+      { path: 'product/:id', component: ProductPage },
+    ],
   },
   {
     path: '/admin/login',
@@ -30,7 +38,7 @@ const routes = [
       { path: 'orders/:id', component: OrderPage },
       { path: 'products', component: ProductsPage },
       { path: 'products/add', component: ProductAddPage },
-      { path: 'products/:id', component: ProductPage },
+      { path: 'products/:id', component: AdminProductPage },
     ],
   },
   {

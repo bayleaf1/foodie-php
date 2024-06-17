@@ -14,6 +14,17 @@ use App\Utils\ProductTableFetcher;
 
 class ProductController extends Controller
 {
+
+    public function showcase($id)
+    {
+        $product = Product::find($id);
+        $product->images = json_decode($product->images);
+
+        return response()->json([
+            "product" => $product
+        ]);
+    }
+
     public function menu()
     {
         $products = Product::all();

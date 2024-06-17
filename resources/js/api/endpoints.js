@@ -20,6 +20,7 @@ const endpoints = {
 
   products: '/api/products',
   productsMenu: '/api/products/menu',
+  productShowcase: (id) => '/api/products/showcase/' + id,
   product: (id) => '/api/products/' + id,
   productsTable: (opts = {}) => `/api/products/table?${createTableQuery(opts)}`,
   productImage: (imageName) => 'http://localhost:8000/resources/' + imageName,

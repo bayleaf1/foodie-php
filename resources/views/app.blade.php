@@ -14,7 +14,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-white">
     <div id="app"></div>
     @vite('resources/js/app.js')
 </body>
