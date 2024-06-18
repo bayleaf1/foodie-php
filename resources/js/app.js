@@ -14,6 +14,7 @@ import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
 import GuestLayout from './layouts/GuestLayout/GuestLayout.vue'
 import SystemUserProvider from './providers/SystemUserProvider.vue'
 import PageSection from './layouts/PageSection.vue'
+import CircularLoader from './components/CircularLoader.vue'
 //
 const vuetify = createVuetify({
   components: { ...components, VNumberInput },
@@ -23,6 +24,7 @@ createApp(App)
   .component('AdminLayout', AdminLayout)
   .component('GuestLayout', GuestLayout)
   .component('PageSection', PageSection)
+  .component('CircularLoader', CircularLoader)
   .component('SystemUserProvider', SystemUserProvider)
   .use(router)
   .use(vuetify)

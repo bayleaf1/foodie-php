@@ -18,6 +18,7 @@ Route::post('/auth/register/system-user', [AuthController::class, 'register']);
 Route::resource('/system-user', SystemUserController::class)->middleware('auth:sanctum');
 Route::get('/system-users/profile', [SystemUserController::class, 'getProfile'])->middleware('auth:sanctum');
 
+Route::post('/products/cart', [ProductController::class, 'cart']);
 Route::get('/products/showcase/{id}', [ProductController::class, 'showcase']);
 Route::get('/products/table', [ProductController::class, 'table'])->middleware('auth:sanctum');
 Route::get('/products/menu', [ProductController::class, 'menu']);
@@ -28,5 +29,6 @@ Route::patch('/orders/finalize/{id}', [OrderController::class, 'finalize']);
 Route::patch('/orders/cancel/{id}', [OrderController::class, 'cancel'])->middleware('auth:sanctum');
 Route::get('/orders/table', [OrderController::class, 'table'])->middleware('auth:sanctum');
 Route::resource('/orders', OrderController::class)->middleware('auth:sanctum');
+Route::post('/orders', [OrderController::class, 'store']);
 
 Route::resource('/resources', ResourceController::class);//->middleware('auth:sanctum');

@@ -25,7 +25,18 @@ const Cart = {
     cart.products = cart.products.filter((p) => p.id != id)
     saveCart(cart)
   },
-  clear() {},
+  empty() {
+    let cart = this.retrieve()
+    cart.products = []
+    saveCart(cart)
+  },
+  removeProductsById(idList) {
+    let cart = this.retrieve()
+    idList.forEach((id) => {
+      cart.products = cart.products.filter((p) => p.id !== id)
+    })
+    saveCart(cart)
+  },
 }
 
 export default Cart

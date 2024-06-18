@@ -14,6 +14,7 @@ import ProductAddPage from './pages/admin/ProductAddPage.vue'
 import HomePage from './pages/HomePage.vue'
 import ProductPage from './pages/ProductPage.vue'
 import NotFoundPage from './pages/NotFoundPage.vue'
+import CartPage from './pages/CartPage.vue'
 
 const routes = [
   {
@@ -22,6 +23,7 @@ const routes = [
     children: [
       { path: '', component: HomePage },
       { path: 'product/:id', component: ProductPage },
+      { path: 'cart', component: CartPage },
     ],
   },
   {

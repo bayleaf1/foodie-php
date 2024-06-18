@@ -13,6 +13,7 @@ function createTableQuery(opts = {}) {
   )
 }
 const endpoints = {
+  cart: '/api/products/cart',
   orders: '/api/orders',
   order: (id) => '/api/orders/' + id,
   ordersTable: (opts = {}) => `/api/orders/table?${createTableQuery(opts)}`,

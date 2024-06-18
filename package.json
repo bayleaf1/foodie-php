@@ -21,8 +21,10 @@
         "@vuelidate/core": "^2.0.3",
         "@vuelidate/validators": "^2.0.4",
         "@vueuse/core": "^10.11.0",
+        "clsx": "^2.1.1",
         "dayjs": "^1.11.11",
         "swrv": "^1.0.4",
+        "tailwind-merge": "^2.3.0",
         "vue": "^3.4.27",
         "vue-loader": "^17.4.2",
         "vue-router": "^4.3.2"

@@ -28,18 +28,23 @@ const price = computed(() =>
 
 let isValid = computed(() => !isNaN(state.quantity))
 
-const description = computed(() =>
-  product.value.description.slice(
-    0,
-    state.descriptionIsExpanded ? product.value.description.length : 100
+const description = computed(() => {
+  let previewSize = 100
+  let len = product.value.description.length
+  let suffix = state.descriptionIsExpanded && len > previewSize ? '...' : ''
+  return (
+    product.value.description.slice(
+      0,
+      state.descriptionIsExpanded ? len : previewSize
+    ) + suffix
   )
-)
+})
 
 let { refreshCartSize } = inject('guestProvider')
 
 function addToCart() {
+  Cart.addProduct(productId, state.quantity)
   state.quantity = 1
-  Cart.addProduct(productId, 20)
   refreshCartSize()
 }
 </script>

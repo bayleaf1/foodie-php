@@ -15,6 +15,33 @@ use App\Utils\ProductTableFetcher;
 class ProductController extends Controller
 {
 
+    public function cart()
+    {
+        // $product = Product::find($id);
+        // $product->images = json_decode($product->images);
+
+        $body = request()->all();
+
+        $result = [];
+
+        foreach ($body as $p) {
+            $product = Product::find($p['id']);
+            $product->images = json_decode($product->images);
+            array_push($result, [
+                "id" => $product->id,
+                "name" => $product->name,
+                "image" => array_key_exists(0, $product->images) ? $product->images[0] : '',
+                "price" => $product->price * $p['quantity'],
+                "available" => $p['quantity'] <= $product->quantity,
+                "quantity" => $p['quantity']
+            ]);
+        }
+
+        return response()->json([
+            "products" => $result
+        ]);
+    }
+
     public function showcase($id)
     {
         $product = Product::find($id);
