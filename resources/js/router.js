@@ -3,7 +3,7 @@ import JwtStorage from './auth.js'
 //
 import LoginPage from './pages/admin/LoginPage.vue'
 import OverviewPage from './pages/admin/OverviewPage.vue'
-import OrdersPage from './pages/admin/OrdersPage.vue'
+import AdminOrdersPage from './pages/admin/OrdersPage.vue'
 import ProductsPage from './pages/admin/ProductsPage.vue'
 import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
 import GuestLayout from './layouts/GuestLayout/GuestLayout.vue'
@@ -15,6 +15,7 @@ import HomePage from './pages/HomePage.vue'
 import ProductPage from './pages/ProductPage.vue'
 import NotFoundPage from './pages/NotFoundPage.vue'
 import CartPage from './pages/CartPage.vue'
+import OrdersPage from './pages/OrdersPage.vue'
 
 const routes = [
   {
@@ -24,6 +25,7 @@ const routes = [
       { path: '', component: HomePage },
       { path: 'product/:id', component: ProductPage },
       { path: 'cart', component: CartPage },
+      { path: 'orders', component: OrdersPage },
     ],
   },
   {
@@ -36,7 +38,7 @@ const routes = [
     component: AdminLayout,
     children: [
       { path: '', component: OverviewPage },
-      { path: 'orders', component: OrdersPage },
+      { path: 'orders', component: AdminOrdersPage },
       { path: 'orders/:id', component: OrderPage },
       { path: 'products', component: ProductsPage },
       { path: 'products/add', component: ProductAddPage },

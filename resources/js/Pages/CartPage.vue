@@ -6,6 +6,8 @@ import Cart from '../utils/Cart'
 import cn from '../utils/cn'
 import { email, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
+import OrderList from '../utils/OrderList'
+import { useRoute, useRouter } from 'vue-router'
 
 let products = ref([])
 let selected = ref([])
@@ -64,7 +66,7 @@ const rules = {
   email: { required, email },
 }
 const v$ = useVuelidate(rules, state)
-
+const router = useRouter()
 async function tryToPlaceOrder() {
   let isValid = await v$.value.$validate()
   if (!isValid) return
@@ -78,18 +80,20 @@ async function tryToPlaceOrder() {
         quantity: p.quantity,
       })),
     },
-    onSuccess: () => {
+    onSuccess: ({ data }) => {
       resetCart()
       refreshCartSize()
       resetState()
       products.value = []
       v$.value.$reset()
+      OrderList.addOrderId(data.order_id)
+      router.push('/orders')
     },
   })
 }
 </script>
 <template>
-  <page-section classes="pt-20" wrapperClasses="bg-red-10n0">
+  <page-section classes="pt-20">
     <circular-loader v-if="loading" />
     <div v-else>
       <div v-if="products.length">

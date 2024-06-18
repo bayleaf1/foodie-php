@@ -30,5 +30,6 @@ Route::patch('/orders/cancel/{id}', [OrderController::class, 'cancel'])->middlew
 Route::get('/orders/table', [OrderController::class, 'table'])->middleware('auth:sanctum');
 Route::resource('/orders', OrderController::class)->middleware('auth:sanctum');
 Route::post('/orders', [OrderController::class, 'store']);
+Route::post('/orders/guest', [OrderController::class, 'ordersForGuest']);
 
 Route::resource('/resources', ResourceController::class);//->middleware('auth:sanctum');

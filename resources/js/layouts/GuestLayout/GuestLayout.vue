@@ -14,12 +14,17 @@ provide('guestProvider', {
       <div>
         <router-link to="/"> Foodie </router-link>
       </div>
-      <div>
-        <router-link to="/cart">
+      <div class="flex gap-3">
+        <router-link to="/orders" class="flex items-center flex-col">
+          <v-icon icon="mdi-apps" size="20"></v-icon>
+          <p class="text-[11px]">Orders</p>
+        </router-link>
+        <router-link to="/cart" class="flex items-center flex-col">
           <v-badge v-if="cartSize" :content="cartSize" color="red">
-            <v-icon icon="mdi-cart-outline" size="default"></v-icon>
+            <v-icon icon="mdi-cart-outline" size="20"></v-icon>
           </v-badge>
-          <v-icon v-else icon="mdi-cart-outline" size="default"></v-icon>
+          <v-icon v-else icon="mdi-cart-outline" size="20"></v-icon>
+          <p class="text-[11px]">Cart</p>
         </router-link>
       </div>
     </page-section>

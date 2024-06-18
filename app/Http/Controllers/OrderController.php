@@ -12,19 +12,46 @@ use App\Utils\OrderTableFetcher;
 class OrderController extends Controller
 {
 
+    public function ordersForGuest()
+    {
+        $orders_id = request()->all();
+        $orders = [];
+
+        foreach ($orders_id as $id) {
+            $o = Order::find($id);
+            $o->items();
+
+            $products = [];
+            foreach ($o->items as $i) {
+                $p = Product::find($i->product_id);
+                array_push($products, [
+                    "id" => $p->id,
+                    "name" => $p->name,
+                    "quantity" => $i->quantity
+                ]);
+            }
+
+            array_push($orders, [
+                "id" => $o->id,
+                "status" => $o->status,
+                "updated_at" => $o->updated_at,
+                "products" => $products,
+            ]);
+        }
+
+
+        return response()->json([
+            "orders" => $orders,
+        ]);
+    }
+
     public function table()
     {
         $f = new OrderTableFetcher();
         $table = $f->get(request()->query());
 
         return response()->json([
-            "table" => [
-                ...$table,
-                // "rows" => array_map(function ($i) {
-                //     $i->images = json_decode($i->images);
-                //     return $i;
-                // }, $table["rows"])
-            ],
+            "table" => $table
         ]);
 
     }
@@ -60,7 +87,6 @@ class OrderController extends Controller
         if ($order->status != "created") {
             return response()->json(["error" => ["message" => "Order status must be created"]], 409);
         }
-
 
         $order->items;
         foreach ($order->items as $item) {
@@ -144,6 +170,8 @@ class OrderController extends Controller
         $order = Order::create(["email" => $body['email'], "status" => "created",]);
         $order->items()->saveMany($order_items);
 
+
+        return response()->json(["order_id" => $order->id,]);
 
     }
 
