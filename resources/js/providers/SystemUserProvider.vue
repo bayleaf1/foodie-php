@@ -10,21 +10,8 @@
 <script setup>
 import { onMounted, ref, provide } from 'vue'
 import fetchApp from '../api/fetchApp'
-class SystemUser {
-  constructor(data) {
-    this.d = data
-  }
-  name() {
-    return this.d.name || ''
-  }
-  email() {
-    return this.d.email
-  }
-  toString() {
-    return this.d.toString()
-  }
-}
-let user = ref(new SystemUser({}))
+import { SystemUser, SystemUserNull } from '../utils/SystemUser'
+let user = ref(new SystemUserNull())
 let loading = ref(true)
 
 onMounted(() => {
@@ -32,8 +19,9 @@ onMounted(() => {
     endpoint: '/api/system-users/profile',
     onSuccess: ({ data }) => {
       // console.log('prodile', data)
-
-      user.value = new SystemUser(JSON.parse(data.profile))
+      let sUser = new SystemUser(JSON.parse(data.profile))
+      sUser.saveToLocalStorage()
+      user.value = sUser
     },
     onFinally: () => (loading.value = false),
   })

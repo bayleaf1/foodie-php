@@ -9,6 +9,7 @@ import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
 import GuestLayout from './layouts/GuestLayout/GuestLayout.vue'
 import OrderPage from './pages/admin/OrderPage.vue'
 import AdminProductPage from './pages/admin/ProductPage.vue'
+import SystemUsersPage from './pages/admin/SystemUsersPage.vue'
 import ProductAddPage from './pages/admin/ProductAddPage.vue'
 //
 import HomePage from './pages/HomePage.vue'
@@ -16,6 +17,7 @@ import ProductPage from './pages/ProductPage.vue'
 import NotFoundPage from './pages/NotFoundPage.vue'
 import CartPage from './pages/CartPage.vue'
 import OrdersPage from './pages/OrdersPage.vue'
+import { SystemUser } from './utils/SystemUser.js'
 
 const routes = [
   {
@@ -43,6 +45,11 @@ const routes = [
       { path: 'products', component: ProductsPage },
       { path: 'products/add', component: ProductAddPage },
       { path: 'products/:id', component: AdminProductPage },
+      {
+        path: 'system-users',
+        component: SystemUsersPage,
+        meta: { resource: 'system-users-page' },
+      },
     ],
   },
   {
@@ -55,10 +62,26 @@ const router = createRouter({
   routes,
 })
 router.beforeEach((to, from, next) => {
-  if (to.meta.auth) {
-    let logged = JwtStorage.exists()
-    if (logged) next()
-    else next('/')
-  } else next()
+  if (!to.meta.auth) return next()
+
+  let logged = JwtStorage.exists()
+  if (!logged) return next('/admin/login')
+
+  let user = SystemUser.createFromLocalStorage()
+  if (!to.meta.resource) return next()
+
+  if (user.canAccess(to.meta.resource)) next()
+  else next('/admin/dashboard')
+
+  next()
+  // if (to.meta.auth) {
+  //   let logged = JwtStorage.exists()
+  //   if (logged) {
+  //     if (to.meta.resource) {
+  //       if (user.canAccess('system-users-page')) next()
+  //       else next('/admin/dashboard')
+  //     } else next()
+  //   } else next('/')
+  // } else next()
 })
 export default router

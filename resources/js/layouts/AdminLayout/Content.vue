@@ -36,6 +36,16 @@ function logout() {
                     title="Products"
                   ></v-list-item>
                 </router-link>
+
+                <router-link
+                  v-if="systemUser.canAccess('system-users-page')"
+                  to="/admin/dashboard/system-users"
+                >
+                  <v-list-item
+                    prepend-icon="mdi-account-group"
+                    title="System users"
+                  ></v-list-item>
+                </router-link>
               </div>
 
               <div class="align-bottom">
