@@ -17,6 +17,7 @@ Route::post('/auth/register/system-user', [AuthController::class, 'register']);
 
 Route::resource('/system-user', SystemUserController::class)->middleware('auth:sanctum');
 Route::get('/system-users/profile', [SystemUserController::class, 'getProfile'])->middleware('auth:sanctum');
+Route::get('/system-users/table', [SystemUserController::class, 'table'])->middleware('auth:sanctum');
 
 Route::post('/products/cart', [ProductController::class, 'cart']);
 Route::get('/products/showcase/{id}', [ProductController::class, 'showcase']);

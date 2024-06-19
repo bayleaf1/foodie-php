@@ -15,9 +15,12 @@ class SystemUserSeeder extends Seeder
     public function run(): void
     {
         DB::table('system_users')->insert([
-            'name' => "Dev Admin",
-            'email' => 'admin@admin.com',
+            'name' => "Dev Root Admin",
+            'email' => 'admin@root.com',
             'password' => bcrypt('qwer1234'),
+            'role' => 'root',
+            'created_at' => time(),
+            'updated_at' => time(),
         ]);
     }
 }

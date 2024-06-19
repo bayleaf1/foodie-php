@@ -10,6 +10,9 @@ const Clock = {
   formatOrderUpdate(date) {
     return dayjs(date).format('A hh:mm DD/MM/YYYY')
   },
+  formatSystemUserCreation(date) {
+    return dayjs(date).format('DD/MM/YYYY')
+  },
   isGt(date1, date2) {
     return dayjs(date1).isAfter(date2)
   },

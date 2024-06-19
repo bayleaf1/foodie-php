@@ -6,8 +6,8 @@ import Clock from '../../utils/Clock'
 import AdminTable from './parts/AdminTable.vue'
 import { createStateRef, createTableRef } from './parts/AdminTableUtils'
 
-const headerCells = ['ID', 'Image', 'Name', 'Price', 'Quantity', 'Created At']
-const searchableFields = ['id', 'name', 'price', 'quantity', 'image']
+const headerCells = ['ID', 'email', 'Role', 'Name', 'Created At']
+const searchableFields = ['id', 'email', 'role', 'name']
 
 const table = createTableRef()
 
@@ -15,16 +15,19 @@ let state = createStateRef({ searchableField: searchableFields[0] })
 
 let loading = ref(false)
 
-// useAppSwr({
-//   reactiveEndpoint: computed(() => endpoints.productsTable({ ...state.value })),
-//   onSuccess: ({ data }) => (table.value = { ...table.value, ...data.table }),
-//   loadingModel: loading,
-// })
+useAppSwr({
+  reactiveEndpoint: computed(() =>
+    endpoints.systemUsersTable({ ...state.value })
+  ),
+  onSuccess: ({ data }) => (
+    (table.value = { ...table.value, ...data.table }), console.log('DATA', data)
+  ),
+  loadingModel: loading,
+})
 </script>
 
 <template>
-  S U
-  <!-- <admin-table
+  <admin-table
     title="System users"
     :state="state"
     :table="table"
@@ -42,27 +45,19 @@ let loading = ref(false)
       v-for="c in table.rows"
       :key="c.id"
       class="hover:bg-slate-100 cursor-pointer"
-      @click="$router.push(`/admin/dashboard/products/` + c.id)"
+      @click="$router.push(`/admin/dashboard/system-users/` + c.id)"
     >
       <td>{{ c.id }}</td>
       <td>
-        <v-img
-          :src="endpoints.productImage(c.images[0])"
-          :height="39"
-          :width="39"
-          aspect-ratio="16/9"
-        />
+        {{ c.email }}
       </td>
+      <td>{{ c.role }}</td>
       <td>
         {{ c.name }}
       </td>
-      <td>{{ c.price }}$</td>
       <td>
-        {{ c.quantity }}
-      </td>
-      <td>
-        {{ Clock.formatProductCreation(c.created_at) }}
+        {{ Clock.formatSystemUserCreation(c.created_at) }}
       </td>
     </tr>
-  </admin-table> -->
+  </admin-table>
 </template>

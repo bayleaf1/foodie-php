@@ -26,13 +26,12 @@ export class SystemUserNull {
 
 export class SystemUser extends SystemUserNull {
   postConstructor(data) {
-    console.log('DAADAD', data)
     this.d = data
   }
   canAccess(resourceName) {
     if (resourceName === 'system-users-page') {
       //   console.log('ROLE', this.role())
-      return this.role() === 'manager' //TODO CAHNGE to root
+      return this.role() === 'root' //TODO CAHNGE to root
     }
     return false
   }
@@ -43,7 +42,6 @@ export class SystemUser extends SystemUserNull {
 
   static createFromLocalStorage() {
     let data = localStorage.getItem(STORAGE_LABEL)
-    // console.log("SOME DATA", data);
     if (data) return new SystemUser(JSON.parse(data))
     return new SystemUserNull()
   }

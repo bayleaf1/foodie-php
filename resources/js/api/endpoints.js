@@ -27,6 +27,9 @@ const endpoints = {
   productsTable: (opts = {}) => `/api/products/table?${createTableQuery(opts)}`,
   productImage: (imageName) => 'http://localhost:8000/resources/' + imageName,
   resources: '/api/resources',
+  //
+  systemUsersTable: (opts = {}) =>
+    `/api/system-users/table?${createTableQuery(opts)}`,
 }
 
 export default endpoints

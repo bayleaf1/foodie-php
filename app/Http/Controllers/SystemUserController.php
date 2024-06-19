@@ -5,10 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSystemUserRequest;
 use App\Http\Requests\UpdateSystemUserRequest;
 use App\Models\SystemUser;
+use App\Utils\SystemUserTableFetcher;
 use Illuminate\Http\Request;
 
 class SystemUserController extends Controller
 {
+
+
+    public function table()
+    {
+
+        // $v = SystemUser::find(1);
+        // $v->delete();
+        $f = new SystemUserTableFetcher();
+        $table = $f->get(request()->query());
+
+        return response()->json([
+            "table" => $table,
+        ]);
+
+    }
 
     public function getProfile(Request $request)
     {

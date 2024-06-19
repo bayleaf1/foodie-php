@@ -2,7 +2,7 @@ import { ref } from 'vue'
 
 export const createStateRef = (partials = {}) =>
   ref({
-    pageSize: 5,
+    pageSize: 10,
     page: 1,
     searchableField: 'id',
     search: '',

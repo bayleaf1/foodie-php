@@ -74,14 +74,5 @@ router.beforeEach((to, from, next) => {
   else next('/admin/dashboard')
 
   next()
-  // if (to.meta.auth) {
-  //   let logged = JwtStorage.exists()
-  //   if (logged) {
-  //     if (to.meta.resource) {
-  //       if (user.canAccess('system-users-page')) next()
-  //       else next('/admin/dashboard')
-  //     } else next()
-  //   } else next('/')
-  // } else next()
 })
 export default router
