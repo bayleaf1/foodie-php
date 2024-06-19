@@ -9,7 +9,9 @@ import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
 import GuestLayout from './layouts/GuestLayout/GuestLayout.vue'
 import OrderPage from './pages/admin/OrderPage.vue'
 import AdminProductPage from './pages/admin/ProductPage.vue'
-import SystemUsersPage from './pages/admin/SystemUsersPage.vue'
+import SystemUsersPage from './pages/admin/systemUsers/SystemUsersPage.vue'
+import SystemUserPage from './pages/admin/systemUsers/SystemUserPage.vue'
+import SystemUsersAddPage from './pages/admin/systemUsers/SystemUsersAddPage.vue'
 import ProductAddPage from './pages/admin/ProductAddPage.vue'
 //
 import HomePage from './pages/HomePage.vue'
@@ -48,6 +50,16 @@ const routes = [
       {
         path: 'system-users',
         component: SystemUsersPage,
+        meta: { resource: 'system-users-page' },
+      },
+      {
+        path: 'system-users/add',
+        component: SystemUsersAddPage,
+        meta: { resource: 'system-users-page' },
+      },
+      {
+        path: 'system-users/:id',
+        component: SystemUserPage,
         meta: { resource: 'system-users-page' },
       },
     ],

@@ -28,8 +28,11 @@ const endpoints = {
   productImage: (imageName) => 'http://localhost:8000/resources/' + imageName,
   resources: '/api/resources',
   //
+  systemUserMe: '/api/system-users/me',
+  systemUserProfile: (id) => '/api/system-users/profile/' + id,
   systemUsersTable: (opts = {}) =>
     `/api/system-users/table?${createTableQuery(opts)}`,
+  systemUserRegistration: `/api/auth/register/system-user`,
 }
 
 export default endpoints

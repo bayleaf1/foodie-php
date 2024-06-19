@@ -7,10 +7,18 @@ use App\Http\Requests\UpdateSystemUserRequest;
 use App\Models\SystemUser;
 use App\Utils\SystemUserTableFetcher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SystemUserController extends Controller
 {
 
+
+    public function profile($id)
+    {
+        $user = SystemUser::find($id);
+        return response()->json(["profile" => $user->toArray()]);
+
+    }
 
     public function table()
     {
@@ -23,9 +31,9 @@ class SystemUserController extends Controller
 
     }
 
-    public function getProfile(Request $request)
+    public function me(Request $request)
     {
-        return response()->json(["profile" => $request->user()->toJson()]);
+        return response()->json(["profile" => $request->user()->toArray()]);
     }
     /**
      * Display a listing of the resource.
@@ -56,7 +64,7 @@ class SystemUserController extends Controller
      */
     public function show(SystemUser $systemUser)
     {
-        // return response()->json(["profile" => $systemUser->toJson(),]);
+        return response()->json(["profile" => $systemUser->toJson(),]);
 
     }
 
@@ -73,6 +81,28 @@ class SystemUserController extends Controller
      */
     public function update(UpdateSystemUserRequest $request, SystemUser $systemUser)
     {
+        $body = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|string',
+            'role' => 'required|in:root,manager',
+            'password' => 'nullable|string|min:0',
+        ]);
+
+        $result = [
+            "name" => $body["name"],
+            "role" => $body["role"],
+        ];
+        $system_user = SystemUser::find($request->route('id'));
+
+        if ($body['email'] != $system_user->email)
+            $result['email'] = $body['email'];
+
+        if (!is_null($body['password']))
+            $result['password'] = Hash::make($body['password']);
+
+        $system_user->update($result);
+
+        return response()->json(["profile" => $system_user->toArray()]);
         //
     }
 

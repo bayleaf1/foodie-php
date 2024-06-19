@@ -11,7 +11,7 @@ class UpdateSystemUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**

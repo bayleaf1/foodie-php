@@ -12,15 +12,17 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|unique:system_users',
-            'password' => 'required|string',
-            'c_password' => 'required|same:password'
+            'email' => 'required|email|string|unique:system_users',
+            'password' => 'required|string|min:8',
+            'c_password' => 'required|same:password',
+            'role' => 'required|in:root,manager'
         ]);
 
         $user = new SystemUser([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role
         ]);
 
         if ($user->save()) {
@@ -30,6 +32,7 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Successfully created user!',
                 'accessToken' => $token,
+                "system_user_id" => $user->id,
             ], 201);
         } else {
             return response()->json(['error' => 'Provide proper details']);

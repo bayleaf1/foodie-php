@@ -11,15 +11,15 @@
 import { onMounted, ref, provide } from 'vue'
 import fetchApp from '../api/fetchApp'
 import { SystemUser, SystemUserNull } from '../utils/SystemUser'
+import endpoints from '../api/endpoints'
 let user = ref(new SystemUserNull())
 let loading = ref(true)
 
 onMounted(() => {
   fetchApp({
-    endpoint: '/api/system-users/profile',
+    endpoint: endpoints.systemUserMe,
     onSuccess: ({ data }) => {
-      // console.log('prodile', data)
-      let sUser = new SystemUser(JSON.parse(data.profile))
+      let sUser = new SystemUser(data.profile)
       sUser.saveToLocalStorage()
       user.value = sUser
     },

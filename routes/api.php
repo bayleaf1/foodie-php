@@ -15,8 +15,10 @@ Route::get('/user', function (Request $request) {
 Route::post('/auth/login/system-user', [AuthController::class, 'login']);
 Route::post('/auth/register/system-user', [AuthController::class, 'register']);
 
-Route::resource('/system-user', SystemUserController::class)->middleware('auth:sanctum');
-Route::get('/system-users/profile', [SystemUserController::class, 'getProfile'])->middleware('auth:sanctum');
+// Route::resource('/system-user', SystemUserController::class)->middleware('auth:sanctum');
+Route::get('/system-users/me', [SystemUserController::class, 'me'])->middleware('auth:sanctum');
+Route::get('/system-users/profile/{id}', [SystemUserController::class, 'profile'])->middleware('auth:sanctum');
+Route::patch('/system-users/profile/{id}', [SystemUserController::class, 'update'])->middleware('auth:sanctum');
 Route::get('/system-users/table', [SystemUserController::class, 'table'])->middleware('auth:sanctum');
 
 Route::post('/products/cart', [ProductController::class, 'cart']);

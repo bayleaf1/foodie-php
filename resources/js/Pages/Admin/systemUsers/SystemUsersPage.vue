@@ -1,12 +1,12 @@
 <script setup>
 import { computed, ref } from 'vue'
-import endpoints from '../../api/endpoints'
-import useAppSwr from '../../api/useAppSwr'
-import Clock from '../../utils/Clock'
-import AdminTable from './parts/AdminTable.vue'
-import { createStateRef, createTableRef } from './parts/AdminTableUtils'
+import endpoints from '../../../api/endpoints'
+import useAppSwr from '../../../api/useAppSwr'
+import Clock from '../../../utils/Clock'
+import AdminTable from '../parts/AdminTable.vue'
+import { createStateRef, createTableRef } from '../parts/AdminTableUtils'
 
-const headerCells = ['ID', 'email', 'Role', 'Name', 'Created At']
+const headerCells = ['ID', 'Email', 'Role', 'Name', 'Created At']
 const searchableFields = ['id', 'email', 'role', 'name']
 
 const table = createTableRef()
@@ -36,7 +36,7 @@ useAppSwr({
     :searchableFields="searchableFields"
   >
     <template v-slot:rightSideOfHeader>
-      <router-link to="/admin/dashboard/products/add">
+      <router-link to="/admin/dashboard/system-users/add">
         <v-btn color="deep-purple">Add new</v-btn>
       </router-link>
     </template>
