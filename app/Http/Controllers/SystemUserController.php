@@ -14,9 +14,6 @@ class SystemUserController extends Controller
 
     public function table()
     {
-
-        // $v = SystemUser::find(1);
-        // $v->delete();
         $f = new SystemUserTableFetcher();
         $table = $f->get(request()->query());
 
