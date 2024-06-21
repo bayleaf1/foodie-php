@@ -14,7 +14,7 @@ import SystemUserPage from './pages/admin/systemUsers/SystemUserPage.vue'
 import SystemUsersAddPage from './pages/admin/systemUsers/SystemUsersAddPage.vue'
 import ProductAddPage from './pages/admin/ProductAddPage.vue'
 //
-import HomePage from './pages/HomePage.vue'
+import HomePage from './pages/HomePage/HomePage.vue'
 import ProductPage from './pages/ProductPage.vue'
 import NotFoundPage from './pages/NotFoundPage.vue'
 import CartPage from './pages/CartPage.vue'

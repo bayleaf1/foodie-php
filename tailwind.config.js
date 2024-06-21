@@ -6,7 +6,18 @@ export default {
     './resources/**/*.vue',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'deep-purple': 'rgb(103,58,183)',
+      },
+      fontFamily: {
+        sans: ['Poppins', 'Poppins'],
+        serif: ['Poppins', 'Poppins'],
+        mono: ['Poppins', 'Poppins'],
+        display: ['Poppins'],
+        body: ['Poppins'],
+      },
+    },
   },
   plugins: [],
 }
