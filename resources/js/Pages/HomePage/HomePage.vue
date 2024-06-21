@@ -23,7 +23,7 @@ onMounted(() => {
 <template>
   <div class="bg-image">
     <page-section id="supe" classes="flex flex-col gap-10 pt-10 pb-[80px]">
-      <home-page-section title="Superbus">
+      <home-page-section id="supe" title="Superbus">
         <div class="grow basis-[45%]" v-for="(p, idx) of products" :key="idx">
           <compact-product
             :product="p"

@@ -6,5 +6,7 @@ let { classes, wrapperClasses, id } = defineProps([
 ])
 </script>
 <template>
-  <div :class="'max-w-[1280px] mx-auto ' + classes" :id="id"><slot /></div>
+  <div :class="'max-w-[1280px] mx-auto ' + classes">
+    <slot />
+  </div>
 </template>
