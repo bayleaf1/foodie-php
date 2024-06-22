@@ -36,16 +36,16 @@ const classes = direction === 'right' ? right : left
 </script>
 
 <template>
-  <div :class="cn('relative grow flex ', classes.image)">
+  <div :class="cn('relative grow md:flex', classes.image)">
     <div
-      class="border grow rounded-md shadow-md shrink-0 h-[350px] max-w-[90%] bg-white self-start relative overflow-hidden"
+      class="border grow rounded-md shadow-md shrink-0 h-[350px] md:max-w-[70%] lg:max-w-[90%]  bg-white self-start relative overflow-hidden"
     >
       <v-img aspect-ratio="16/9" :src="endpoints.productImage(p.images[0])" />
     </div>
     <div
       :class="
         cn(
-          'h-[300px] bg-slate-50 flex flex-col items-center transition-all  hover:shadow-lg rounded-sm max-w-[40%] w-[100%] absolute  top-[50%] -translate-y-[50%] p-5',
+          'h-[300px] bg-slate-50 flex flex-col items-center transition-all  hover:shadow-lg rounded-sm md:max-w-[40%] w-[100%] md:absolute  md:top-[50%] md:-translate-y-[50%] p-5',
           classes.banner
         )
       "
