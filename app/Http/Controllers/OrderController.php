@@ -19,6 +19,7 @@ class OrderController extends Controller
 
         foreach ($orders_id as $id) {
             $o = Order::find($id);
+            if(is_null($o)) continue;
             $o->items();
 
             $products = [];

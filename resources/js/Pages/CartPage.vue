@@ -93,10 +93,10 @@ async function tryToPlaceOrder() {
 }
 </script>
 <template>
-  <page-section classes="pt-20">
+  <page-section classes="pb-20">
     <circular-loader v-if="loading" />
     <div v-else>
-      <div v-if="products.length">
+      <div v-if="products.length" >
         <div class="flex gap-5">
           <v-btn @click="clearCart()">Empty cart</v-btn>
           <v-btn
@@ -106,7 +106,7 @@ async function tryToPlaceOrder() {
             >Clear selected
           </v-btn>
         </div>
-        <div class="flex gap-10">
+        <div class="flex gap-10 flex-col md:flex-row">
           <div class="grow">
             <div>
               <div
