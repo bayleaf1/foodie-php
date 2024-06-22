@@ -39,6 +39,20 @@ onUnmounted(() => {
         @input="errors.resetFor('name')"
       >
       </v-text-field>
+      <v-select
+        label="Category"
+        v-model="state.category"
+        @update:modelValue="errors.resetFor('category')"
+        :error-messages="errors.category"
+        :items="[
+          {
+            title: 'snack',
+          },
+          {
+            title: 'salad',
+          },
+        ]"
+      ></v-select>
       <div class="flex gap-10">
         <v-number-input
           variant="outlined"
@@ -72,6 +86,16 @@ onUnmounted(() => {
         :error-messages="errors.description"
         @input="errors.resetFor('description')"
       ></v-textarea>
+
+      <v-switch
+        v-model="state.state"
+        density="compact"
+        :label="`${state.state}`"
+        false-value="inactive"
+        true-value="active"
+        hide-details
+        inset
+      ></v-switch>
     </div>
     <div class="grow basis-[45%] bg-slate-400x">
       <p class="text-xl mt-4">Images</p>
@@ -106,7 +130,7 @@ onUnmounted(() => {
             </div>
           </div>
         </label>
-        <label for="input1">
+        <!-- <label for="input1">
           <div
             class="aspect-square border bg-white rounded-md h-[200px] relative"
           >
@@ -123,7 +147,7 @@ onUnmounted(() => {
               <v-icon icon="mdi-plus" size="x-large" />
             </div>
           </div>
-        </label>
+        </label> -->
       </div>
       <p v-if="errors.images" class="text-[rgb(176,0,32)] text-[12px] pt-1">
         {{ errors.images }}

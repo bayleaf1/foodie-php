@@ -39,7 +39,7 @@ function setSorting(v) {
           color="deep-blue"
           :items="searchableFields"
           density="compact"
-          class="max-w-[80px]"
+          class="max-w-[120px]"
         ></v-select>
         <v-text-field
           label="filter..."

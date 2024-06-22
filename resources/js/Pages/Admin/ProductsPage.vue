@@ -6,8 +6,25 @@ import Clock from '../../utils/Clock'
 import AdminTable from './parts/AdminTable.vue'
 import { createStateRef, createTableRef } from './parts/AdminTableUtils'
 
-const headerCells = ['ID', 'Image', 'Name', 'Price', 'Quantity', 'Created At']
-const searchableFields = ['id', 'name', 'price', 'quantity', 'image']
+const headerCells = [
+  'ID',
+  'Image',
+  'Name',
+  'Price',
+  'Quantity',
+  'Category',
+  'State',
+  'Created At',
+]
+const searchableFields = [
+  'id',
+  'name',
+  'price',
+  'quantity',
+  'category',
+  'state',
+  'image',
+]
 
 const table = createTableRef()
 
@@ -58,6 +75,12 @@ useAppSwr({
       <td>{{ c.price }}$</td>
       <td>
         {{ c.quantity }}
+      </td>
+      <td>
+        {{ c.category }}
+      </td>
+      <td>
+        {{ c.state }}
       </td>
       <td>
         {{ Clock.formatProductCreation(c.created_at) }}

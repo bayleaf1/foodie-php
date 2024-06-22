@@ -28,6 +28,12 @@ class ProductTableFetcher extends TableFetcher
             "image" => function ($v) {
                 return ['images', 'LIKE', '%' . $v . '%'];
             },
+            "category" => function ($v) {
+                return ['category', 'LIKE', '%' . $v . '%'];
+            },
+            "state" => function ($v) {
+                return ['state', 'LIKE', '%' . $v . '%'];
+            },
         ];
         $this->SORTING = [
             "id" => function ($v) {
@@ -44,6 +50,12 @@ class ProductTableFetcher extends TableFetcher
             },
             "image" => function ($v) {
                 return ['images', $v];
+            },
+            "category" => function ($v) {
+                return ['category', $v];
+            },
+            "state" => function ($v) {
+                return ['state', $v];
             },
         ];
     }

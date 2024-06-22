@@ -54,9 +54,21 @@ class ProductController extends Controller
 
     public function menu()
     {
-        $products = Product::all();
+        $products = Product::where('state', '=', 'active')->get();
+
+        $menu = [];
+
+        foreach ($products as $p) {
+            if (!array_key_exists($p->category, $menu, ))
+                $menu[$p->category] = [];
+
+            array_push($menu[$p->category], $p);
+
+        }
+
 
         return response()->json([
+            "menu" => $menu,
             "products" => array_map(function ($i) {
                 $i->images = json_decode($i->images);
                 return $i;
@@ -112,8 +124,10 @@ class ProductController extends Controller
             "quantity" => "required|integer|min:0|max:100000",
             "description" => "required|string|min:1|max:200",
             "images" => "required|array|between:1,100",
+            "category" => "required|in:snack,salad",
+            "state" => "required|in:active,inactive"
         ], [
-            'images.required' => 'You have to upload at least one image'
+            'images.required' => 'You have to upload one image'
         ]);
 
         $details = $request->all();
@@ -149,8 +163,10 @@ class ProductController extends Controller
             "quantity" => "required|integer|min:0|max:100000",
             "description" => "required|string|min:1|max:200",
             "images" => "required|array|between:1,100",
+            "category" => "required|in:snack,salad",
+            "state" => "required|in:active,inactive"
         ], [
-            'images.required' => 'You have to upload at least one image'
+            'images.required' => 'You have to upload one image'
         ]);
 
         $product->update([...$details, "images" => json_encode($details['images']),]);
