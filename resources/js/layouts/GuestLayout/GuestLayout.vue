@@ -47,7 +47,7 @@ const menuItems = [
             </v-menu>
           </div>
         </div>
-        <div class="flex gap-8">
+        <div class="flex gap-2 md:gap-8">
           <div class="flex items-center flex-col">
             <v-icon icon="mdi-truck-delivery-outline" size="20"></v-icon>
             <p class="text-[11px]">Delivery</p>

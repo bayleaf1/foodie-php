@@ -24,14 +24,14 @@ onMounted(() => {
 <template>
   <div class="bg-image">
     <page-section id="supe" classes="flex flex-col gap-10 pt-10 pb-[80px]">
-      <home-page-section id="supe" title="Superbus">
+      <!-- <home-page-section id="supe" title="Superbus">
         <div class="grow basis-[45%]" v-for="(p, idx) of menu.salad" :key="idx">
           <compact-product
             :product="p"
             :direction="idx % 2 ? 'left' : 'right'"
           />
         </div>
-      </home-page-section>
+      </home-page-section> -->
       <home-page-section id="snacks" title="Snacks">
         <div class="grow basis-[60%]" v-for="(p, idx) of menu.snack" :key="idx">
           <product :product="p" :direction="idx % 2 ? 'left' : 'right'" />
