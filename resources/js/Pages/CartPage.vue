@@ -58,7 +58,7 @@ function clearSelectedProducts() {
 }
 
 const state = reactive({
-  email: '',
+  email: 'guest@mail.com',
 })
 const resetState = () => (state.email = '')
 
@@ -96,7 +96,7 @@ async function tryToPlaceOrder() {
   <page-section classes="pb-20">
     <circular-loader v-if="loading" />
     <div v-else>
-      <div v-if="products.length" >
+      <div v-if="products.length">
         <div class="flex gap-5">
           <v-btn @click="clearCart()">Empty cart</v-btn>
           <v-btn

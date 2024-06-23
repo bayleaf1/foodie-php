@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import endpoints from '../../api/endpoints'
 import useAppSwr from '../../api/useAppSwr'
 import OrderStatus from '../../components/OrderStatus.vue'
@@ -26,10 +26,21 @@ let state = createStateRef({ searchableField: searchableFields[0] })
 
 let loading = ref(false)
 
-useAppSwr({
+const { refresh } = useAppSwr({
   reactiveEndpoint: computed(() => endpoints.ordersTable({ ...state.value })),
   onSuccess: ({ data }) => (table.value = { ...table.value, ...data.table }),
   loadingModel: loading,
+})
+
+onMounted(() => {
+  Echo.channel('orders')
+    .subscribed(function () {
+      console.log('subscribed To Channel')
+    })
+    .listen('.order.created', (e) => {
+      console.log('CREATEDDD', e)
+      refresh()
+    })
 })
 </script>
 

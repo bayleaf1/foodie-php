@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderUpdated;
+use App\Events\OrderCreated;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
@@ -19,7 +21,8 @@ class OrderController extends Controller
 
         foreach ($orders_id as $id) {
             $o = Order::find($id);
-            if(is_null($o)) continue;
+            if (is_null($o))
+                continue;
             $o->items();
 
             $products = [];
@@ -79,6 +82,7 @@ class OrderController extends Controller
 
         $order->status = 'canceled';
         $order->save();
+        event(new OrderUpdated($order));
     }
 
     public function confirm($order_id)
@@ -100,6 +104,8 @@ class OrderController extends Controller
         }
         $order->status = 'confirmed';
         $order->save();
+        event(new OrderUpdated($order));
+
     }
 
     public function finalize($order_id)
@@ -111,6 +117,8 @@ class OrderController extends Controller
         }
         $order->status = 'finished';
         $order->save();
+        event(new OrderUpdated($order));
+
     }
     /**
      * Display a listing of the resource.
@@ -171,7 +179,7 @@ class OrderController extends Controller
         $order = Order::create(["email" => $body['email'], "status" => "created",]);
         $order->items()->saveMany($order_items);
 
-
+        event(new OrderCreated($order));
         return response()->json(["order_id" => $order->id,]);
 
     }

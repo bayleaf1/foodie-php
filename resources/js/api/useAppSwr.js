@@ -21,9 +21,13 @@ export default function useAppSwr(options = defOpts) {
     },
     { immediate: true }
   )
-  const { data, error } = useSWRV(opts.reactiveEndpoint, fetchAppForSwr, {
-    revalidateOnFocus: true,
-  })
+  const { data, error, mutate } = useSWRV(
+    opts.reactiveEndpoint,
+    fetchAppForSwr,
+    {
+      revalidateOnFocus: true,
+    }
+  )
 
   watch(data, (d) => {
     if (d) {
@@ -37,4 +41,6 @@ export default function useAppSwr(options = defOpts) {
     opts.loadingModel.value = false
     if (e) opts.onError({ data: e })
   })
+
+  return { refresh: () => mutate() }
 }

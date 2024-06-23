@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderUpdated;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
@@ -14,6 +15,12 @@ use App\Utils\ProductTableFetcher;
 
 class ProductController extends Controller
 {
+
+    public function sendMessage()
+    {
+        event(new OrderUpdated("updated"));
+        return response()->json(['status' => 'Message sent!']);
+    }
 
     public function cart()
     {
