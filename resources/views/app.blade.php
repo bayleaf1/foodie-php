@@ -19,7 +19,9 @@
 </head>
 
 <body class="font-sans antialiased bg-white">
+    <p id="x">LALALAL</p>
     <div id="app"></div>
+    <p id="x">LALALAL</p>
     @vite('resources/js/app.js')
 </body>
 
