@@ -36,7 +36,7 @@ return [
             'url' => env('DB_URL'),
             // 'database' => env('DB_DATABASE'),
             // 'database' => __FILE__ . "_/database.sqlite",
-            'database' => "/app/database/database.sql",
+            'database' => "/app/database.sqlite",
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
