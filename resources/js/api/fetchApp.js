@@ -33,7 +33,7 @@ export default function fetchApp(opts = defOpts) {
 
   axios({
     method: o.method,
-    url: 'http://localhost:8000' + o.endpoint,
+    url: 'http://localhost:80' + o.endpoint,
     data: o.body,
     headers: o.headers,
   })
