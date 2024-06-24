@@ -11,7 +11,7 @@ let menu = reactive({
   salad: [],
   snack: [],
 })
-let msg = ref('asd')
+let msg = ref({})
 
 onMounted(() => {
   // Echo.channel('orders.' + '9')
@@ -40,6 +40,7 @@ const sendMsg = () => {
   fetchApp({
     endpoint: '/api/products/message',
     onSuccess: ({ data }) => {
+      msg.value = data
       // console.log('DATA', data, Object.assign(menu, data.menu))
       // Object.assign(menu, data.menu)
     },
@@ -49,10 +50,10 @@ const sendMsg = () => {
 <template>
   <div>
     <page-section id="supe" classes="flex flex-col gap-10 pt-10 pb-[80px]">
-      <v-btn @click="sendMsg()">MSG</v-btn>
-      <p>{{ msg }}</p>
+      <v-btn @click="sendMsg()">xMSG</v-btn>
+      <p>{{ JSON.stringify(msg, null, 2) }}</p>
 
-      <home-page-section id="supe" title="Superbus">
+      <home-page-section id="supe" title="Superbusx">
         <div
           class="grow md:basis-[60%] lg:basis-[45%]"
           v-for="(p, idx) of menu.salad"

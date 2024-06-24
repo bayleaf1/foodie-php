@@ -19,7 +19,12 @@ class ProductController extends Controller
     public function sendMessage()
     {
         // event(new OrderUpdated("updated"));
-        return response()->json(['status' => 'Message sent!']);
+        return response()->json([
+            'status' => 'Message sent!',
+            "db" => env('DB_DATABASE'),
+            "dt_path" => database_path('database.sqlite'),
+
+        ]);
     }
 
     public function cart()
