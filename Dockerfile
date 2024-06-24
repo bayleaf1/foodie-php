@@ -1,4 +1,4 @@
-FROM php:8.2-cli
+FROM php:8.2-fpm-alpine3.17
 
 RUN apk add --no-cache nginx wget
 
