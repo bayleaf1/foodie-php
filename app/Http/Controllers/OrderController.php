@@ -82,7 +82,7 @@ class OrderController extends Controller
 
         $order->status = 'canceled';
         $order->save();
-        event(new OrderUpdated($order));
+        // event(new OrderUpdated($order));
     }
 
     public function confirm($order_id)
@@ -104,7 +104,7 @@ class OrderController extends Controller
         }
         $order->status = 'confirmed';
         $order->save();
-        event(new OrderUpdated($order));
+        // event(new OrderUpdated($order));
 
     }
 
@@ -117,7 +117,7 @@ class OrderController extends Controller
         }
         $order->status = 'finished';
         $order->save();
-        event(new OrderUpdated($order));
+        // event(new OrderUpdated($order));
 
     }
     /**
@@ -179,7 +179,7 @@ class OrderController extends Controller
         $order = Order::create(["email" => $body['email'], "status" => "created",]);
         $order->items()->saveMany($order_items);
 
-        event(new OrderCreated($order));
+        // event(new OrderCreated($order));
         return response()->json(["order_id" => $order->id,]);
 
     }
