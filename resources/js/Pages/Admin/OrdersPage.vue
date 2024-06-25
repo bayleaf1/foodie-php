@@ -32,16 +32,16 @@ const { refresh } = useAppSwr({
   loadingModel: loading,
 })
 
-onMounted(() => {
-  Echo.channel('orders')
-    .subscribed(function () {
-      console.log('subscribed To Channel')
-    })
-    .listen('.order.created', (e) => {
-      console.log('CREATEDDD', e)
-      refresh()
-    })
-})
+// onMounted(() => {
+//   Echo.channel('orders')
+//     .subscribed(function () {
+//       console.log('subscribed To Channel')
+//     })
+//     .listen('.order.created', (e) => {
+//       console.log('CREATEDDD', e)
+//       refresh()
+//     })
+// })
 </script>
 
 <template>

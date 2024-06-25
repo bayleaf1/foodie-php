@@ -14,24 +14,24 @@ let sortedOrders = computed(() =>
   orders.value.sort((a, b) => Clock.isGt(b.updated_at, a.updated_at))
 )
 onMounted(() => {
-  idList.forEach((id) => {
-    Echo.channel('orders.' + id)
-      .subscribed(function () {
-        console.log('subscribed To Channel')
-      })
-      .listen('.order.updated', (e) => {
-        orders.value.forEach((o) => {
-          if (o.id === e.order.id) {
-            o.status = e.order.status
-            o.updated_at = e.order.updated_at
-          }
-        })
-        orders.value = [...orders.value]
-      })
-      .listenToAll((e) => {
-        console.log('EEEE', e)
-      })
-  })
+  // idList.forEach((id) => {
+  //   Echo.channel('orders.' + id)
+  //     .subscribed(function () {
+  //       console.log('subscribed To Channel')
+  //     })
+  //     .listen('.order.updated', (e) => {
+  //       orders.value.forEach((o) => {
+  //         if (o.id === e.order.id) {
+  //           o.status = e.order.status
+  //           o.updated_at = e.order.updated_at
+  //         }
+  //       })
+  //       orders.value = [...orders.value]
+  //     })
+  //     .listenToAll((e) => {
+  //       console.log('EEEE', e)
+  //     })
+  // })
 
   fetchApp({
     endpoint: endpoints.ordersOfGuest,
