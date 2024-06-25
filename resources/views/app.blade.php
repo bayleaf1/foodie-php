@@ -16,17 +16,23 @@
         href="https://fonts.googleapis.com/css2?family=Playwrite+NG+Modern:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     @vite('resources/css/app.css')
-    <link rel="preload" as="style" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-RqhUOUA-.css" />
-    <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-RqhUOUA-.css" />
+    <!-- <link rel="preload" as="style" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-RqhUOUA-.css" /> -->
+    <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app.css" />
+    <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app2.css" />
+    <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app3.css" />
+    <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app4.css" />
+    <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app5.css" />
+    <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app6.css" />
 </head>
 
 <body class="font-sans antialiased bg-white">
     <div id="app"></div>
-    @vite('resources/js/app.js')
-    <link rel="preload" as="style" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-DuhB03Sn.css" />
-    <link rel="modulepreload" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-C_AfHoHQ.js" />
-    <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-DuhB03Sn.css" />
-    <script type="module" src="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-C_AfHoHQ.js"></script>
+    <!-- @vite('resources/js/app2.js') -->
+    <!-- <link rel="preload" as="style" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-DuhB03Sn.css" /> -->
+    <!-- <link rel="modulepreload" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-C_AfHoHQ.js" /> -->
+    <!-- <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-DuhB03Sn.css" /> -->
+    <!-- <script type="module" src="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-C_AfHoHQ.js"></script> -->
+    <script type="module" src="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app2.js"></script>
 </body>
 
 </html>
