@@ -28,6 +28,9 @@ onMounted(() => {
         })
         orders.value = [...orders.value]
       })
+      .listenToAll((e) => {
+        console.log('EEEE', e)
+      })
   })
 
   fetchApp({

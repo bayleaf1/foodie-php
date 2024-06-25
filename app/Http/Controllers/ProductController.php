@@ -18,7 +18,7 @@ class ProductController extends Controller
 
     public function sendMessage()
     {
-        // event(new OrderUpdated("updated"));
+        event(new OrderUpdated("updated"));
         return response()->json([
             'status' => 'Message sent!',
             "db" => env('DB_DATABASE'),

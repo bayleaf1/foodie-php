@@ -10,6 +10,9 @@ RUN mkdir -p /app
 
 COPY . /app
 
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-configure pcntl --enable-pcntl
+
 RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar && mv composer.phar /usr/local/bin/composer"
 RUN cd /app && \
     /usr/local/bin/composer install --no-dev
@@ -17,3 +20,5 @@ RUN cd /app && \
 RUN chown -R www-data: /app
 
 CMD sh /app/docker/startup.sh
+
+# CMD [ "php", "artisan", "reverb:start", "--host=0.0.0.0" ]
