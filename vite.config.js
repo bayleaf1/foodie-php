@@ -10,8 +10,9 @@ export default defineConfig({
       input: ['resources/css/app.css', 'resources/js/app.js'],
       refresh: true,
     }),
-    mkcert(),
+    // mkcert(),
   ],
+  server: { https: true },
   // build: {
   //   rollupOptions: {
   //     output: {
