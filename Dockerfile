@@ -10,8 +10,8 @@ RUN mkdir -p /app
 
 COPY . /app
 
-RUN docker-php-ext-install pcntl
-RUN docker-php-ext-configure pcntl --enable-pcntl
+# RUN docker-php-ext-install pcntl
+# RUN docker-php-ext-configure pcntl --enable-pcntl
 
 RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar && mv composer.phar /usr/local/bin/composer"
 RUN cd /app && \
