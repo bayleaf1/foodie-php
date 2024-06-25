@@ -24,15 +24,21 @@
     <script type="text/javascript">
 
         ;[...document.querySelectorAll('link')].forEach((e) => {
-            let href = e.getAttribute('href')
+            let href = e.getAttribute('href') || ''
             console.log(href)
             e.setAttribute('href', href.replace('http://foodie', 'https://foodie'))
         })
 
             ;[...document.querySelectorAll('script')].forEach((e) => {
-                let href = e.getAttribute('src')
+                let href = e.getAttribute('src') || ''
                 console.log(href)
-                e.setAttribute('src', href.replace('http://foodie', 'https://foodie'))
+                let upd = href.replace('http://foodie', 'https://foodie');
+
+                let s = document.createElement('script')
+                s.setAttribute('src', upd)
+                s.setAttribute('type', "module")
+                document.body.appendChild(s);
+
             })
 
 
