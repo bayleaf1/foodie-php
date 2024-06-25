@@ -26,10 +26,6 @@
 
 <body class="font-sans antialiased bg-white">
     <div id="app"></div>
-    <!-- <link rel="preload" as="style" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-DuhB03Sn.css" /> -->
-    <!-- <link rel="modulepreload" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-C_AfHoHQ.js" /> -->
-    <!-- <link rel="stylesheet" href="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-DuhB03Sn.css" /> -->
-    <!-- <script type="module" src="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app-C_AfHoHQ.js"></script> -->
     <script type="module" src="https://foodie-php-dathlyo6wq-uc.a.run.app/build/assets/app2.js"></script>
 </body>
 

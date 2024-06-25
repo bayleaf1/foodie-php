@@ -35,7 +35,8 @@ export default function fetchApp(opts = defOpts) {
     method: o.method,
     // url: 'https://foodie-php-dathlyo6wq-uc.a.run.app' + o.endpoint,
     // url: 'http://localhost:80' + o.endpoint,
-    url: 'http://localhost:8000' + o.endpoint,
+    // url: 'http://localhost:8000' + o.endpoint,
+    url: import.meta.env.VITE_APP_URL + o.endpoint,
     data: o.body,
     headers: o.headers,
   })
