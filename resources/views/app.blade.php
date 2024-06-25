@@ -21,7 +21,15 @@
 <body class="font-sans antialiased bg-white">
     <div id="app"></div>
     @vite('resources/js/app.js')
-    <script src="https://foodie-php-dathlyo6wq-uc.a.run.app/public/rename.js"></script>
+    <script type="text/javascript">
+
+        ;[...document.querySelectorAll('link')].forEach((e) => {
+            let href = e.getAttribute('href')
+            console.log(href)
+            e.setAttribute(href.replace('http://', 'https://'))
+        })
+
+    </script>
 </body>
 
 </html>
