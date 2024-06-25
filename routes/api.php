@@ -28,8 +28,9 @@ Route::get('/products/menu', [ProductController::class, 'menu']);
 Route::get('/products/message', [ProductController::class, 'sendMessage']);
 Route::resource('/products', ProductController::class)->middleware('auth:sanctum');
 
-Route::patch('/orders/confirm/{id}', [OrderController::class, 'confirm']);
-Route::patch('/orders/finalize/{id}', [OrderController::class, 'finalize']);
+Route::patch('/orders/confirm/{id}', [OrderController::class, 'confirm'])->middleware('auth:sanctum');
+Route::patch('/orders/finalize/{id}', [OrderController::class, 'finalize'])->middleware('auth:sanctum');
+;
 Route::patch('/orders/cancel/{id}', [OrderController::class, 'cancel'])->middleware('auth:sanctum');
 Route::get('/orders/table', [OrderController::class, 'table'])->middleware('auth:sanctum');
 Route::resource('/orders', OrderController::class)->middleware('auth:sanctum');

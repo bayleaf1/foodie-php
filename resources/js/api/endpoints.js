@@ -17,6 +17,7 @@ const endpoints = {
   orders: '/api/orders',
   order: (id) => '/api/orders/' + id,
   ordersOfGuest: '/api/orders/guest',
+  checkOrdersOfGuest: '/api/orders/check-guest',
   ordersTable: (opts = {}) => `/api/orders/table?${createTableQuery(opts)}`,
   changeOrderStatus: (id, action) => `/api/orders/${action}/${id}`,
 

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import endpoints from '../api/endpoints'
 import fetchApp from '../api/fetchApp'
 import OrderStatus from '../components/OrderStatus.vue'
@@ -13,6 +13,17 @@ const idList = OrderList.getIdList()
 let sortedOrders = computed(() =>
   orders.value.sort((a, b) => Clock.isGt(b.updated_at, a.updated_at))
 )
+
+function fetchOrders() {
+  fetchApp({
+    endpoint: endpoints.ordersOfGuest,
+    method: 'post',
+    body: idList,
+    onSuccess: ({ data }) => (orders.value = data.orders),
+    onFinally: () => (loading.value = false),
+  })
+}
+let interval = null
 onMounted(() => {
   // idList.forEach((id) => {
   //   Echo.channel('orders.' + id)
@@ -32,14 +43,11 @@ onMounted(() => {
   //       console.log('EEEE', e)
   //     })
   // })
-
-  fetchApp({
-    endpoint: endpoints.ordersOfGuest,
-    method: 'post',
-    body: idList,
-    onSuccess: ({ data }) => (orders.value = data.orders),
-    onFinally: () => (loading.value = false),
-  })
+  fetchOrders()
+  interval = setInterval(fetchOrders, 1000)
+})
+onUnmounted(() => {
+  clearInterval(interval)
 })
 </script>
 <template>
