@@ -6,7 +6,7 @@ const JwtStorage = {
   save(token) {
     localStorage.setItem(label, token)
   },
-  remove() {
+  remove(){
     localStorage.removeItem(label)
   },
   retrieve(){
