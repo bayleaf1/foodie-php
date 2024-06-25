@@ -9,7 +9,7 @@ const JwtStorage = {
   remove() {
     localStorage.removeItem(label)
   },
-  retrieve() {
+  retrieve(){
     return localStorage.getItem(label) || ''
   },
 }
