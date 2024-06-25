@@ -23,11 +23,18 @@
     @vite('resources/js/app.js')
     <script type="text/javascript">
 
-        ;[...document.querySelectorAll('link, script')].forEach((e) => {
+        ;[...document.querySelectorAll('link')].forEach((e) => {
             let href = e.getAttribute('href')
             console.log(href)
             e.setAttribute('href', href.replace('http://foodie', 'https://foodie'))
         })
+
+            ;[...document.querySelectorAll('script')].forEach((e) => {
+                let href = e.getAttribute('src')
+                console.log(href)
+                e.setAttribute('src', href.replace('http://foodie', 'https://foodie'))
+            })
+
 
     </script>
 </body>
