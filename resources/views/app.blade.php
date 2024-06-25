@@ -30,10 +30,9 @@
         })
 
             ;[...document.querySelectorAll('script')].forEach((e) => {
-                let href = e.getAttribute('src') || ''
-                console.log(href)
+                // let href = e.getAttribute('src') || ''
+                // console.log(href)
                 let upd = href.replace('http://foodie', 'https://foodie');
-
                 let s = document.createElement('script')
                 s.setAttribute('src', upd)
                 s.setAttribute('type', "module")
