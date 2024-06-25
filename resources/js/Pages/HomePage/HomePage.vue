@@ -70,6 +70,42 @@ const sendMsg = () => {
           <product :product="p" :direction="idx % 2 ? 'left' : 'right'" />
         </div>
       </home-page-section>
+
+      <home-page-section id="aboutUs" title="About us">
+        <div class="flex gap-10">
+          <div class="grow basis-[60%] rounded-lg">
+            <v-img
+              class="rounded-lg"
+              :height="400"
+              src="/static-images/foods.jpg"
+              cover
+            />
+          </div>
+          <div class="grow w-full basis-[40%]">
+            <p class="grow">
+              Welcome to
+              <a href="/" class="text-deep-purple text-xl">Foodie</a>
+              , where passion for food meets convenience at your doorstep.
+              Founded with a mission to redefine how you experience dining, we
+              are dedicated to delivering exceptional meals from your favorite
+              local restaurants directly to you. At
+              <a href="/" class="text-deep-purple text-xl">Foodie</a>
+              , we believe that good food should be accessible to everyone, no
+              matter where you are. Whether you're craving comfort food,
+              exploring new flavors, or simply seeking a convenient meal
+              solution, we've got you covered. Backed by a team of food
+              enthusiasts and logistics experts, we ensure that your order is
+              delivered promptly and with the utmost care. We prioritize
+              quality, reliability, and customer satisfaction in every aspect of
+              our service. Join us in celebrating the joy of great food,
+              hassle-free ordering, and the delight of discovering new culinary
+              delights. Experience the convenience and flavors that
+              <a href="/" class="text-deep-purple text-xl">Foodie</a>
+              brings to your table today.
+            </p>
+          </div>
+        </div>
+      </home-page-section>
     </page-section>
   </div>
 </template>

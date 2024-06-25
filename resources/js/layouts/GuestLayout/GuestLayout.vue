@@ -10,6 +10,7 @@ provide('guestProvider', {
 const menuItems = [
   { title: 'Supe', hash: 'supe' },
   { title: 'Snacks', hash: 'snacks' },
+  { title: 'About us', hash: 'aboutUs' },
 ]
 </script>
 

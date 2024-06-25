@@ -24,12 +24,16 @@
     <script type="text/javascript">
 
         ;[...document.querySelectorAll('link')].forEach((e) => {
+            // return;
+
             let href = e.getAttribute('href') || ''
             console.log(href)
             e.setAttribute('href', href.replace('http://foodie', 'https://foodie'))
         })
 
             ;[...document.querySelectorAll('script')].forEach((e) => {
+                // return;
+
                 let upd = (e.getAttribute('src') || '').replace('http://foodie', 'https://foodie');
                 let s = document.createElement('script')
                 s.setAttribute('src', upd)
