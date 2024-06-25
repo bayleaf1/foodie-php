@@ -21,7 +21,7 @@
 <body class="font-sans antialiased bg-white">
     <div id="app"></div>
     @vite('resources/js/app.js')
-    <script src="https://foodie-php-dathlyo6wq-uc.a.run.app/resources/js/rename.js"></script>
+    <script src="https://foodie-php-dathlyo6wq-uc.a.run.app/public/rename.js"></script>
 </body>
 
 </html>
