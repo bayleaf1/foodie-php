@@ -20,6 +20,28 @@ import CircularLoader from './components/CircularLoader.vue'
 const vuetify = createVuetify({
   components: { ...components, VNumberInput },
   directives,
+  theme: {
+    defaultTheme: 'customTheme',
+    themes: {
+      customTheme: {
+        dark: false,
+        colors: {
+          primary: '#E08D79',
+          surface: '#E08D79',
+          background: '#FFFFFF',
+          surface: '#FFFFFF',
+          // // primary: '#6200EE',
+          'primary-darken-1': 'red', //icons
+          secondary: '#03DAC6',
+          'secondary-darken-1': '#018786',
+          error: '#B00020',
+          info: '#000',
+          success: '#4CAF50',
+          warning: '#FB8C00',
+        },
+      },
+    },
+  },
 })
 createApp(App)
   .component('AdminLayout', AdminLayout)

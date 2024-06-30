@@ -47,11 +47,8 @@ let { state, errors, buttonLabel } = defineProps([
     />
   </div>
   <div class="flex gap-4 mt-5">
-    <v-btn
-      color="deep-purple"
-      :disabled="!buttonEnabled"
-      @click="$emit('btnClick')"
-      >{{ buttonLabel }}</v-btn
-    >
+    <v-btn :disabled="!buttonEnabled" @click="$emit('btnClick')">{{
+      buttonLabel
+    }}</v-btn>
   </div>
 </template>

@@ -8,15 +8,18 @@ provide('guestProvider', {
   refreshCartSize: () => (cartSize.value = Cart.size()),
 })
 const menuItems = [
-  { title: 'Supe', hash: 'supe' },
+  { title: 'Pizza', hash: 'pizza' },
+  { title: 'Burgers', hash: 'burgers' },
+  { title: 'Salads', hash: 'salads' },
   { title: 'Snacks', hash: 'snacks' },
+  { title: 'Drinks', hash: 'drinks' },
   { title: 'About us', hash: 'aboutUs' },
 ]
 </script>
 
 <template>
   <div class="fixed top-0 left-0 right-0 z-20">
-    <div class="bg-deep-purple h-[30px]">
+    <div class="bg-brand h-[30px]">
       <page-section classes="h-full flex items-center justify-center">
         <router-link to="/admin/login">
           <p class="text-center text-white">Admin panel --></p>
@@ -31,7 +34,7 @@ const menuItems = [
           <router-link to="/">
             <app-logo />
           </router-link>
-          <div class="text-deep-purple font-medium cursor-pointer">
+          <div class="text-brand font-medium cursor-pointer">
             Menu
             <v-menu activator="parent">
               <v-list>
@@ -82,12 +85,12 @@ const menuItems = [
         <app-logo />
         <div class="flex gap-10 mt-2">
           <div class="flex gap-2 items-center">
-            <v-icon icon="mdi-phone" size="20" color="deep-purple"></v-icon>
-            <p class="text-deep-purple font-semibold">+79 000 000</p>
+            <v-icon icon="mdi-phone" size="20" class="text-icon"></v-icon>
+            <p class="text-brand font-semibold">+79 000 000</p>
           </div>
           <div class="flex gap-2 items-center">
-            <v-icon icon="mdi-email" size="20" color="deep-purple"></v-icon>
-            <p class="text-deep-purple font-semibold">info@foodie.com</p>
+            <v-icon icon="mdi-email" class="text-icon" size="20"></v-icon>
+            <p class="text-brand font-semibold">info@foodie.com</p>
           </div>
         </div>
       </div>

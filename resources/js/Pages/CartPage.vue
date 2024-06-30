@@ -93,16 +93,13 @@ async function tryToPlaceOrder() {
 }
 </script>
 <template>
-  <page-section classes="pb-20">
+  <page-section classes="py-15">
     <circular-loader v-if="loading" />
     <div v-else>
       <div v-if="products.length">
         <div class="flex gap-5">
           <v-btn @click="clearCart()">Empty cart</v-btn>
-          <v-btn
-            color="deep-purple"
-            v-if="selected.length"
-            @click="clearSelectedProducts()"
+          <v-btn v-if="selected.length" @click="clearSelectedProducts()"
             >Clear selected
           </v-btn>
         </div>
@@ -169,7 +166,7 @@ async function tryToPlaceOrder() {
                 <p class="text-2xl">Total:</p>
                 <p class="text-2xl">$ {{ orderPrice }}</p>
               </div>
-              <v-btn @click="tryToPlaceOrder()" color="deep-purple w-full"
+              <v-btn @click="tryToPlaceOrder()" color="primary"
                 >Place order</v-btn
               >
             </div>

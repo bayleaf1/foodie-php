@@ -13,7 +13,7 @@ function logout() {
   <div class="flex gap-12">
     <v-card>
       <v-layout>
-        <v-navigation-drawer class="bg-deep-purple" theme="dark" permanent>
+        <v-navigation-drawer color="primary" permanent>
           <v-list color="transparent" class="h-full">
             <div class="flex flex-col h-full justify-between">
               <div class="">
@@ -59,7 +59,7 @@ function logout() {
 
           <template v-slot:append>
             <div class="pa-2">
-              <v-btn block @click="logout"> Logout </v-btn>
+              <v-btn block @click="logout" color="primary"> Logout </v-btn>
             </div>
           </template>
         </v-navigation-drawer>

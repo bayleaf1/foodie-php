@@ -9,7 +9,6 @@ let p = { ...product }
 
 const state = reactive({
   quantity: 1,
-  descriptionIsExpanded: true,
 })
 
 const price = computed(() => (product ? p.price * state.quantity : 0))
@@ -29,7 +28,7 @@ let right = {
   image: 'justify-start',
 }
 let left = {
-  banner: 'left-[0%] border-l border-deep-purple',
+  banner: 'left-[0%] border-l border-brand',
   image: 'justify-end',
 }
 const classes = direction === 'right' ? right : left
@@ -38,9 +37,14 @@ const classes = direction === 'right' ? right : left
 <template>
   <div :class="cn('relative grow md:flex', classes.image)">
     <div
-      class="border grow rounded-md shadow-md shrink-0 h-[350px] md:max-w-[70%] lg:max-w-[90%]  bg-white self-start relative overflow-hidden"
+      class="border grow rounded-md shadow-md shrink-0 h-[350px] md:max-w-[70%] lg:max-w-[80%] bg-white self-start relative overflow-hidden"
     >
-      <v-img aspect-ratio="16/9" :src="endpoints.productImage(p.images[0])" />
+      <v-img
+        aspect-ratio="16/9"
+        class="w-full h-full"
+        cover
+        :src="endpoints.productImage(p.images[0])"
+      />
     </div>
     <div
       :class="
@@ -50,35 +54,39 @@ const classes = direction === 'right' ? right : left
         )
       "
     >
-      <p class="text-3xl text-center text-deep-purple font-semibold">
+      <p class="text-2xl text-center text-brand font-semibold">
         {{ p.name }}
       </p>
       <p class="text-sm text-center mt-4 h-[80px] overflow-auto">
         {{ p.description }}
       </p>
-      <div class="mt-6 flex gap-3">
-        <v-number-input
-          variant="outlined"
-          label="Quantity"
-          density="compact"
-          :min="1"
-          :max="p.quantity"
-          v-model="state.quantity"
-          class="max-w-[400px] shrink-0 min-w-[130px] grow"
-          :rules="[(v) => (isNaN(Number(v)) ? 'Must be number' : true)]"
-        ></v-number-input>
-        <p class="text-3xl min-w-[65px] font-semibold text-deep-purple">
-          ${{ isNaN(price) ? 0 : price }}
-        </p>
-      </div>
+      <div v-if="p.quantity">
+        <div class="mt-6 flex gap-3">
+          <v-number-input
+            variant="outlined"
+            label="Quantity"
+            density="compact"
+            :min="1"
+            :max="p.quantity"
+            v-model="state.quantity"
+            class="max-w-[400px] shrink-0 min-w-[130px] grow"
+            :rules="[(v) => (isNaN(Number(v)) ? 'Must be number' : true)]"
+          ></v-number-input>
+          <p class="text-3xl min-w-[65px] font-semibold text-brand">
+            ${{ isNaN(price) ? 0 : price }}
+          </p>
+        </div>
 
-      <v-btn
-        density="default"
-        color="deep-purple"
-        :disabled="!isValid"
-        @click="addToCart()"
-        >Add to cart</v-btn
-      >
+        <!--  -->
+        <v-btn
+          density="default"
+          :disabled="!isValid"
+          @click="addToCart()"
+          color="primary"
+          >Add to cart</v-btn
+        >
+      </div>
+      <p v-else class="mt-5 text-lg">out of stock</p>
     </div>
   </div>
 </template>

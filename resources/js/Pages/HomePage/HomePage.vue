@@ -36,24 +36,40 @@ onMounted(() => {
   })
 })
 
-const sendMsg = () => {
-  fetchApp({
-    endpoint: '/api/products/message',
-    onSuccess: ({ data }) => {
-      msg.value = data
-      // console.log('DATA', data, Object.assign(menu, data.menu))
-      // Object.assign(menu, data.menu)
-    },
-  })
-}
+// const sendMsg = () => {
+//   fetchApp({
+//     endpoint: '/api/products/message',
+//     onSuccess: ({ data }) => {
+//       msg.value = data
+//       // console.log('DATA', data, Object.assign(menu, data.menu))
+//       // Object.assign(menu, data.menu)
+//     },
+//   })
+// }
 </script>
 <template>
   <div>
     <page-section id="supe" classes="flex flex-col gap-10 pt-10 pb-[80px]">
-      <v-btn @click="sendMsg()">xMSG</v-btn>
-      <p>{{ JSON.stringify(msg, null, 2) }}</p>
+      <!-- <v-btn @click="sendMsg()">xMSG</v-btn>
+      <p>{{ JSON.stringify(msg, null, 2) }}</p> -->
 
-      <home-page-section id="supe" title="Superbusx">
+      <home-page-section id="pizza" title="Pizza">
+        <div class="grow basis-[60%]" v-for="(p, idx) of menu.pizza" :key="idx">
+          <product :product="p" :direction="idx % 2 ? 'left' : 'right'" />
+        </div>
+      </home-page-section>
+
+      <home-page-section id="burgers" title="Burgers">
+        <div
+          class="grow basis-[60%]"
+          v-for="(p, idx) of menu.burger"
+          :key="idx"
+        >
+          <product :product="p" :direction="idx % 2 ? 'left' : 'right'" />
+        </div>
+      </home-page-section>
+
+      <home-page-section id="salads" title="Salads">
         <div
           class="grow md:basis-[60%] lg:basis-[45%]"
           v-for="(p, idx) of menu.salad"
@@ -65,13 +81,27 @@ const sendMsg = () => {
           />
         </div>
       </home-page-section>
+
       <home-page-section id="snacks" title="Snacks">
         <div class="grow basis-[60%]" v-for="(p, idx) of menu.snack" :key="idx">
           <product :product="p" :direction="idx % 2 ? 'left' : 'right'" />
         </div>
       </home-page-section>
 
-      <home-page-section id="aboutUs" title="About us">
+      <home-page-section id="drinks" title="Drinks">
+        <div
+          class="grow md:basis-[60%] lg:basis-[45%]"
+          v-for="(p, idx) of menu.drink"
+          :key="idx"
+        >
+          <compact-product
+            :product="p"
+            :direction="idx % 2 ? 'left' : 'right'"
+          />
+        </div>
+      </home-page-section>
+
+      <home-page-section id="aboutUs" title="About us" classes="mt-10">
         <div class="flex gap-10">
           <div class="grow basis-[60%] rounded-lg">
             <v-img
@@ -84,12 +114,12 @@ const sendMsg = () => {
           <div class="grow w-full basis-[40%]">
             <p class="grow">
               Welcome to
-              <a href="/" class="text-deep-purple text-xl">Foodie</a>
+              <a href="/" class="text-brand text-xl">Foodie</a>
               , where passion for food meets convenience at your doorstep.
               Founded with a mission to redefine how you experience dining, we
               are dedicated to delivering exceptional meals from your favorite
               local restaurants directly to you. At
-              <a href="/" class="text-deep-purple text-xl">Foodie</a>
+              <a href="/" class="text-brand text-xl">Foodie</a>
               , we believe that good food should be accessible to everyone, no
               matter where you are. Whether you're craving comfort food,
               exploring new flavors, or simply seeking a convenient meal
@@ -100,7 +130,7 @@ const sendMsg = () => {
               our service. Join us in celebrating the joy of great food,
               hassle-free ordering, and the delight of discovering new culinary
               delights. Experience the convenience and flavors that
-              <a href="/" class="text-deep-purple text-xl">Foodie</a>
+              <a href="/" class="text-brand text-xl">Foodie</a>
               brings to your table today.
             </p>
           </div>

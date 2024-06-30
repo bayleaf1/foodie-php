@@ -8,14 +8,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        'deep-purple': 'rgb(103,58,183)',
+        brand: '#E08D79',
+        icon: '#fc9630',
       },
       fontFamily: {
-        sans: ['Poppins', 'Poppins'],
-        serif: ['Poppins', 'Poppins'],
-        mono: ['Poppins', 'Poppins'],
-        display: ['Poppins'],
-        body: ['Poppins'],
+        sans: ['Merriweather', 'Merriweather'],
+        serif: ['Merriweather', 'Merriweather'],
+        mono: ['Merriweather', 'Merriweather'],
+        display: ['Merriweather'],
+        body: ['Merriweather'],
       },
     },
   },

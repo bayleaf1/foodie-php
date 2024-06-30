@@ -134,9 +134,9 @@ class ProductController extends Controller
             "name" => "required|string|min:2|max:80",
             "price" => "required|integer|min:0|max:10000",
             "quantity" => "required|integer|min:0|max:100000",
-            "description" => "required|string|min:1|max:200",
+            "description" => "required|string|min:1|max:500",
             "images" => "required|array|between:1,100",
-            "category" => "required|in:snack,salad",
+            "category" => "required|in:snack,salad,burger,drink,pizza",
             "state" => "required|in:active,inactive"
         ], [
             'images.required' => 'You have to upload one image'
@@ -173,9 +173,9 @@ class ProductController extends Controller
             "name" => "required|string|min:2|max:80",
             "price" => "required|integer|min:0|max:10000",
             "quantity" => "required|integer|min:0|max:100000",
-            "description" => "required|string|min:1|max:200",
+            "description" => "required|string|min:1|max:500",
             "images" => "required|array|between:1,100",
-            "category" => "required|in:snack,salad",
+            "category" => "required|in:snack,salad,burger,drink,pizza",
             "state" => "required|in:active,inactive"
         ], [
             'images.required' => 'You have to upload one image'

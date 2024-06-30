@@ -46,10 +46,19 @@ onUnmounted(() => {
         :error-messages="errors.category"
         :items="[
           {
+            title: 'burger',
+          },
+          {
             title: 'snack',
           },
           {
             title: 'salad',
+          },
+          {
+            title: 'drink',
+          },
+          {
+            title: 'pizza',
           },
         ]"
       ></v-select>
@@ -93,12 +102,13 @@ onUnmounted(() => {
         :label="`${state.state}`"
         false-value="inactive"
         true-value="active"
+        color="primary"
         hide-details
         inset
       ></v-switch>
     </div>
     <div class="grow basis-[45%] bg-slate-400x">
-      <p class="text-xl mt-4">Images</p>
+      <p class="text-xl mt-4">Image</p>
       <div class="flex gap-10 mt-[26px]">
         <input
           id="input0"
@@ -156,8 +166,8 @@ onUnmounted(() => {
   </div>
   <div class="flex gap-4 mt-5">
     <v-btn
-      color="deep-purple"
       :disabled="!buttonEnabled"
+      color="primary"
       @click="$emit('btnClick')"
       >{{ buttonLabel }}</v-btn
     >

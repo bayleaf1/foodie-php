@@ -63,7 +63,7 @@ async function onLogin() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-300 box-border pt-[20vh]">
+  <div class="min-h-screen bg-brand box-border pt-[20vh]">
     <form class="rounded-md p-5 mx-auto box-border bg-white max-w-96">
       <h1 class="text-center text-3xl mb-3">Login</h1>
       <form class="flex flex-col gap-5">
@@ -91,7 +91,7 @@ async function onLogin() {
           @input="onInput('password')"
         ></v-text-field>
 
-        <v-btn class="w-full" @click="onLogin"> Login </v-btn>
+        <v-btn class="w-full" color="primary" @click="onLogin"> Login </v-btn>
       </form>
     </form>
   </div>

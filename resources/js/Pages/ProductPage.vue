@@ -29,6 +29,7 @@ const price = computed(() =>
 let isValid = computed(() => !isNaN(state.quantity))
 
 const description = computed(() => {
+  return product.value.description
   let previewSize = 100
   let len = product.value.description.length
   let suffix = state.descriptionIsExpanded && len > previewSize ? '...' : ''
@@ -49,20 +50,16 @@ function addToCart() {
 }
 </script>
 <template>
-  <h1 class="text-red">Home</h1>
-  <page-section :classes="'flex gap-20 flex-row'">
+  <page-section :classes="'flex gap-20 flex-row py-15'">
     <div
       v-if="product"
-      class="border rounded-md shadow-md shrink-0 basis-[50%] self-start"
+      class="border rounded-md shadow-md shrink-0 basis-[50%] self-start aspect-video"
     >
-      <v-carousel hide-delimiters class="h-fit">
-        <v-carousel-item
-          v-for="src in product.images"
-          :key="src"
-          :src="endpoints.productImage(src)"
-          contain
-        ></v-carousel-item>
-      </v-carousel>
+      <v-img
+        :src="endpoints.productImage(product.images[0])"
+        cover
+        class="w-full h-full"
+      />
     </div>
 
     <div v-if="product" class="grow">
@@ -88,7 +85,7 @@ function addToCart() {
           <p class="text-3xl min-w-[80px]">$ {{ isNaN(price) ? 0 : price }}</p>
           <v-btn
             density="default"
-            color="deep-purple"
+            color="primary"
             :disabled="!isValid"
             @click="addToCart()"
             >Add to cart</v-btn

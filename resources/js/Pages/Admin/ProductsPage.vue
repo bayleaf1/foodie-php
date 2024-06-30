@@ -50,7 +50,7 @@ useAppSwr({
   >
     <template v-slot:rightSideOfHeader>
       <router-link to="/admin/dashboard/products/add">
-        <v-btn color="deep-purple">Add new</v-btn>
+        <v-btn color="primary">Add new</v-btn>
       </router-link>
     </template>
 
