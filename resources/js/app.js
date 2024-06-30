@@ -16,6 +16,8 @@ import GuestLayout from './layouts/GuestLayout/GuestLayout.vue'
 import SystemUserProvider from './providers/SystemUserProvider.vue'
 import PageSection from './layouts/PageSection.vue'
 import CircularLoader from './components/CircularLoader.vue'
+import ToastPlugin from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-bootstrap.css'
 //
 const vuetify = createVuetify({
   components: { ...components, VNumberInput },
@@ -49,6 +51,7 @@ createApp(App)
   .component('PageSection', PageSection)
   .component('CircularLoader', CircularLoader)
   .component('SystemUserProvider', SystemUserProvider)
+  .use(ToastPlugin)
   .use(router)
   .use(vuetify)
   .mount('#app')

@@ -7,6 +7,7 @@ import { SystemUserPageInitialState } from './parts/SystemUserPageUtils.js'
 import createErrorsStateForForm from '../../../utils/createErrorsStateForForm.js'
 import endpoints from '../../../api/endpoints.js'
 import SystemUserPageForm from './parts/SystemUserPageForm.vue'
+import Notificator from '../../../utils/Notificator.js'
 
 let systemUserId = useRoute().params.id
 
@@ -36,6 +37,7 @@ function onUpdate() {
     onSuccess: ({ data }) => {
       Object.assign(state.value, data.profile)
       state.value.password = ''
+      Notificator.pushSuccess('Updated!')
     },
     onFinally: () => (updatingLoading.value = false),
   })

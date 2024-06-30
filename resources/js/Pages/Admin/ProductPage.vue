@@ -7,6 +7,7 @@ import AdminInnerTemplate from './parts/AdminInnerTemplate.vue'
 import ProductPageForm from './parts/ProductPageForm.vue'
 import { ProductPageInitialState } from './parts/ProductPageUtils.js'
 import createErrorsStateForForm from '../../utils/createErrorsStateForForm.js'
+import Notificator from '../../utils/Notificator.js'
 
 let productId = useRoute().params.id
 
@@ -31,6 +32,7 @@ function onUpdate() {
     method: 'patch',
     body: { ...state.value },
     errorModelFor422: errors,
+    onSuccess: () => Notificator.pushSuccess('Updated!'),
     onFinally: () => (updatingLoading.value = false),
   })
 }

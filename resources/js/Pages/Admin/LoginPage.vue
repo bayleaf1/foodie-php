@@ -49,14 +49,9 @@ async function onLogin() {
       },
       onSuccess: ({ data }) => {
         JwtStorage.save(data.accessToken)
-        router.push('/admin/dashboard')
+        router.push('/admin/dashboard/orders')
       },
-      onError: ({ status, data }) => {
-        if (status === 422)
-          Object.entries(data.errors).forEach(([key, [msg]]) => {
-            extraErrors.value[key] = msg
-          })
-      },
+      errorModelFor422: extraErrors,
     })
   }
 }

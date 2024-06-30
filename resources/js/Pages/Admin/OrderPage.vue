@@ -9,6 +9,7 @@ import OrderStatus from '../../components/OrderStatus.vue'
 import { OrderStatusType } from '../../utils/enums.js'
 import getBgColorForOrderStatus from '../../utils/getBgColorForOrderStatus.js'
 import OrderDialog from './parts/OrderDialog.vue'
+import Notificator from '../../utils/Notificator.js'
 
 let defOrder = {
   id: 1,
@@ -29,7 +30,9 @@ function fetchOrder() {
   fetchApp({
     endpoint: endpoints.order(orderId),
     onSuccess: ({ data }) => Object.assign(order.value, data.order),
-    onFinally: () => (loading.value = false),
+    onFinally: () => {
+      loading.value = false
+    },
   })
 }
 
@@ -40,7 +43,7 @@ function tryToChangeStatus(status) {
   fetchApp({
     endpoint: endpoints.changeOrderStatus(orderId, status),
     method: 'patch',
-    onSuccess: fetchOrder,
+    onSuccess: () => (fetchOrder(), Notificator.pushSuccess('Updated!')),
     onFinally: () => (loading.value = false),
   })
 }

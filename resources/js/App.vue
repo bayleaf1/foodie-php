@@ -1,5 +1,6 @@
 <template>
   <router-view></router-view>
+  <notifications />
 </template>
 <script>
 export default {

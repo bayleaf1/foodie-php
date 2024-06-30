@@ -3,6 +3,7 @@ import { computed, inject, reactive } from 'vue'
 import endpoints from '../api/endpoints'
 import Cart from '../utils/Cart'
 import cn from '../utils/cn'
+import Notificator from '../utils/Notificator'
 
 let { product, direction } = defineProps(['product', 'direction'])
 let p = { ...product }
@@ -19,6 +20,7 @@ let { refreshCartSize } = inject('guestProvider')
 
 function addToCart() {
   Cart.addProduct(p.id, state.quantity)
+  Notificator.pushSuccess('Added to cart')
   state.quantity = 1
   refreshCartSize()
 }

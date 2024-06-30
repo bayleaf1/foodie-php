@@ -37,7 +37,7 @@ useAppSwr({
   >
     <template v-slot:rightSideOfHeader>
       <router-link to="/admin/dashboard/system-users/add">
-        <v-btn>Add new</v-btn>
+        <v-btn color="primary">Add new</v-btn>
       </router-link>
     </template>
 

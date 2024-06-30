@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import endpoints from '../api/endpoints'
 import fetchApp from '../api/fetchApp'
 import Cart from '../utils/Cart'
+import Notificator from '../utils/Notificator'
 
 let router = useRoute()
 let productId = Number(router.params.id)
@@ -45,6 +46,7 @@ let { refreshCartSize } = inject('guestProvider')
 
 function addToCart() {
   Cart.addProduct(productId, state.quantity)
+  Notificator.pushSuccess('Added to cart')
   state.quantity = 1
   refreshCartSize()
 }

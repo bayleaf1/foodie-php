@@ -5,7 +5,6 @@ import endpoints from '../../api/endpoints'
 import Product from '../../components/Product.vue'
 import CompactProduct from '../../components/CompactProduct.vue'
 import HomePageSection from './HomePageSection.vue'
-// import Echo from 'laravel-echo'
 
 let menu = reactive({
   salad: [],

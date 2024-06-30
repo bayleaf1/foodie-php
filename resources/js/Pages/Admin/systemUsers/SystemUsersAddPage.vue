@@ -7,6 +7,7 @@ import AdminInnerTemplate from '../parts/AdminInnerTemplate.vue'
 import { SystemUserPageInitialState } from './parts/SystemUserPageUtils.js'
 import createErrorsStateForForm from '../../../utils/createErrorsStateForForm.js'
 import SystemUserPageForm from './parts/SystemUserPageForm.vue'
+import Notificator from '../../../utils/Notificator.js'
 
 let state = ref({ ...SystemUserPageInitialState })
 let errors = ref(createErrorsStateForForm(SystemUserPageInitialState))
@@ -22,6 +23,7 @@ function onCreate() {
     errorModelFor422: errors,
     onSuccess: ({ data }) => {
       router.replace('/admin/dashboard/system-users/' + data.system_user_id)
+      Notificator.pushSuccess('New system user was created')
     },
     onFinally: () => (loading.value = false),
   })

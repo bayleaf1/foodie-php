@@ -1,5 +1,6 @@
 import axios from 'axios'
 import JwtStorage from '../auth'
+import Notificator from '../utils/Notificator'
 
 const defOpts = {
   endpoint: '',
@@ -33,9 +34,6 @@ export default function fetchApp(opts = defOpts) {
 
   axios({
     method: o.method,
-    // url: 'https://foodie-php-dathlyo6wq-uc.a.run.app' + o.endpoint,
-    // url: 'http://localhost:80' + o.endpoint,
-    // url: 'http://localhost:8000' + o.endpoint,
     url: import.meta.env.VITE_APP_URL + o.endpoint,
     data: o.body,
     headers: o.headers,
@@ -44,17 +42,21 @@ export default function fetchApp(opts = defOpts) {
       o.onSuccess({ status: res.status, data: res.data })
     })
     .catch((res) => {
-      let { status, data } = res.response
-      console.log('ERROR: ', data.message, res)
+      // console.log('HERE', res)
+      let data = res?.response?.data || {}
+      let status = res?.response?.status || 500
+      // console.log('ERROR: ', data.message, res)
       o.onError({ status, data })
       if (status === 401) {
         JwtStorage.remove()
         window.location.reload()
-      }
-      if (status === 422) {
+        Notificator.pushError('Authorization token is missing or invalid')
+      } else if (status === 422) {
         Object.entries(data.errors).forEach(([key, [msg]]) => {
           o.errorModelFor422.value[key] = msg
         })
+      } else {
+        Notificator.pushError(data.message || res.message)
       }
     })
     .finally(o.onFinally)

@@ -18,12 +18,12 @@ function logout() {
             <div class="flex flex-col h-full justify-between">
               <div class="">
                 <h1 class="text-3xl mt-2 ml-4 mb-2">Foodie</h1>
-                <router-link to="/admin/dashboard">
+                <!-- <router-link to="/admin/dashboard">
                   <v-list-item
                     prepend-icon="mdi-view-dashboard"
                     title="Overview"
                   ></v-list-item>
-                </router-link>
+                </router-link> -->
                 <router-link to="/admin/dashboard/orders">
                   <v-list-item
                     prepend-icon="mdi-order-bool-ascending-variant"

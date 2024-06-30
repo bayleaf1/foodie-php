@@ -7,6 +7,7 @@ import AdminInnerTemplate from './parts/AdminInnerTemplate.vue'
 import ProductPageForm from './parts/ProductPageForm.vue'
 import { ProductPageInitialState } from './parts/ProductPageUtils.js'
 import createErrorsStateForForm from '../../utils/createErrorsStateForForm.js'
+import Notificator from '../../utils/Notificator.js'
 
 let state = ref({ ...ProductPageInitialState })
 let errors = ref(createErrorsStateForForm(ProductPageInitialState))
@@ -22,6 +23,7 @@ function onCreate() {
     errorModelFor422: errors,
     onSuccess: ({ data }) => {
       router.replace('/admin/dashboard/products/' + data.product_id)
+      Notificator.pushSuccess('New product was created')
     },
     onFinally: () => (loading.value = false),
   })

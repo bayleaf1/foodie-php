@@ -41,7 +41,7 @@ const routes = [
     meta: { auth: true },
     component: AdminLayout,
     children: [
-      { path: '', component: OverviewPage },
+      // { path: '', component: OverviewPage },
       { path: 'orders', component: AdminOrdersPage },
       { path: 'orders/:id', component: OrderPage },
       { path: 'products', component: ProductsPage },
