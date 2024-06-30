@@ -8,6 +8,7 @@ import { email, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import OrderList from '../utils/OrderList'
 import { useRoute, useRouter } from 'vue-router'
+import Notificator from '../utils/Notificator'
 
 let products = ref([])
 let selected = ref([])
@@ -88,6 +89,7 @@ async function tryToPlaceOrder() {
       v$.value.$reset()
       OrderList.addOrderId(data.order_id)
       router.push('/orders')
+      Notificator.pushSuccess('Order was created!')
     },
   })
 }
