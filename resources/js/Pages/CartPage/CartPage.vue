@@ -1,14 +1,22 @@
 <script setup>
-import { computed, inject, onMounted, reactive, ref } from 'vue'
-import endpoints from '../api/endpoints'
-import fetchApp from '../api/fetchApp'
-import Cart from '../utils/Cart'
-import cn from '../utils/cn'
-import { email, required } from '@vuelidate/validators'
+import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
+import endpoints from '../../api/endpoints'
+import fetchApp from '../../api/fetchApp'
+import Cart from '../../utils/Cart'
+import cn from '../../utils/cn'
+import {
+  email,
+  required,
+  minLength,
+  numeric,
+  alpha,
+  maxLength,
+} from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
-import OrderList from '../utils/OrderList'
+import OrderList from '../../utils/OrderList'
 import { useRoute, useRouter } from 'vue-router'
-import Notificator from '../utils/Notificator'
+import Notificator from '../../utils/Notificator'
+import OrderForm from './OrderForm.vue'
 
 let products = ref([])
 let selected = ref([])
@@ -59,15 +67,33 @@ function clearSelectedProducts() {
 }
 
 const state = reactive({
+  name: '',
   email: 'guest@mail.com',
+  phone: '1234567890',
+  city: '',
+  street: '',
+})
+
+watch(state, (v) => {
+  console.log('state', v)
 })
 const resetState = () => (state.email = '')
 
 const rules = {
-  email: { required, email },
+  name: { required, minLength: minLength(4), maxLength: maxLength(30) },
+  email: { required, email, maxLength: maxLength(40) },
+  phone: {
+    required,
+    numeric,
+    minLength: minLength(10),
+  },
+  city: { required, alpha, minLength: minLength(4), maxLength: maxLength(30) },
+  street: { required, minLength: minLength(4), maxLength: maxLength(100) },
 }
+
 const v$ = useVuelidate(rules, state)
 const router = useRouter()
+
 async function tryToPlaceOrder() {
   let isValid = await v$.value.$validate()
   if (!isValid) return
@@ -145,34 +171,12 @@ async function tryToPlaceOrder() {
               </div>
             </div>
           </div>
-          <div class="min-w-[350px] mt-0.5">
-            <p class="text-xl">Order details</p>
-            <div class="flex flex-col gap-1 mt-2">
-              <v-text-field
-                v-model="state.email"
-                :error-messages="v$.email.$errors.map((e) => e.$message)"
-                label="E-mail"
-                required
-                @blur="v$.email.$touch"
-                @input="v$.email.$touch()"
-              ></v-text-field>
-            </div>
-
-            <div class="flex flex-col gap-1">
-              <div class="flex justify-between">
-                <p class="text-sm">Delivery:</p>
-                <p class="text-sm">free</p>
-              </div>
-
-              <div class="flex justify-between">
-                <p class="text-2xl">Total:</p>
-                <p class="text-2xl">$ {{ orderPrice }}</p>
-              </div>
-              <v-btn @click="tryToPlaceOrder()" color="primary"
-                >Place order</v-btn
-              >
-            </div>
-          </div>
+          <order-form
+            :v$="v$"
+            :state="state"
+            :tryToPlaceOrder="tryToPlaceOrder"
+            :orderPrice="orderPrice"
+          />
         </div>
       </div>
       <p v-else class="text-center">No products was added</p>

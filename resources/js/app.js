@@ -46,6 +46,7 @@ const vuetify = createVuetify({
   },
 })
 createApp(App)
+  // .directive('mask', VueMaskDirective)
   .component('AdminLayout', AdminLayout)
   .component('GuestLayout', GuestLayout)
   .component('PageSection', PageSection)

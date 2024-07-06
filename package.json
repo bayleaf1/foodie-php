@@ -27,6 +27,7 @@
     "dayjs": "^1.11.11",
     "swrv": "^1.0.4",
     "tailwind-merge": "^2.3.0",
+    "v-mask": "^2.3.0",
     "vite-plugin-mkcert": "^1.17.5",
     "vue": "^3.4.27",
     "vue-loader": "^17.4.2",

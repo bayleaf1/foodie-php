@@ -17,7 +17,7 @@ import ProductAddPage from './pages/admin/ProductAddPage.vue'
 import HomePage from './pages/HomePage/HomePage.vue'
 import ProductPage from './pages/ProductPage.vue'
 import NotFoundPage from './pages/NotFoundPage.vue'
-import CartPage from './pages/CartPage.vue'
+import CartPage from './pages/CartPage/CartPage.vue'
 import OrdersPage from './pages/OrdersPage.vue'
 import { SystemUser } from './utils/SystemUser.js'
 
