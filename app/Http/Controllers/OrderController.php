@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\OrderUpdated;
-use App\Events\OrderCreated;
+// use App\Events\OrderUpdated;
+// use App\Events\OrderCreated;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Mail\OrderCreatedMail;
+use App\Models\Invoice;
+use App\Models\InvoiceProduct;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -93,6 +95,10 @@ class OrderController extends Controller
 
         $order->status = 'canceled';
         $order->save();
+
+        $order->invoice;
+        $order->invoice->status = "canceled";
+        $order->invoice->save();
         // event(new OrderUpdated($order));
     }
 
@@ -115,6 +121,42 @@ class OrderController extends Controller
         }
         $order->status = 'confirmed';
         $order->save();
+
+        $invoice = Invoice::create([
+            "status" => "created",
+            "customer_email" => $order->email,
+            "customer_phone" => $order->customer_phone,
+            "customer_city" => $order->customer_city,
+            "customer_address" => $order->customer_address,
+            "customer_name" => $order->customer_name,
+            "order_id" => $order->id,
+        ]);
+
+
+        $invoice_products = [];
+        $invoice_price = 0;
+        foreach ($order->items as $item) {
+            $p = Product::find($item->product_id);
+            $total_price = $item->quantity * $p->price;
+            $invoice_price += $total_price;
+
+            $invoice_products[] = new InvoiceProduct([
+                "name" => $p->name,
+                "quantity" => $item->quantity,
+                "total_price" => $total_price,
+                "price" => $p->price,
+
+                "product_id" => $p->id,
+                "order_id" => $order->id,
+                "invoice_id" => $invoice->id,
+            ]);
+        }
+
+
+        $invoice->price = $invoice_price;
+        $invoice->products()->saveMany($invoice_products);
+        $invoice->save();
+
         // event(new OrderUpdated($order));
 
     }
@@ -128,6 +170,11 @@ class OrderController extends Controller
         }
         $order->status = 'finished';
         $order->save();
+
+        $order->invoice;
+        $order->invoice->status = "finished";
+        $order->invoice->save();
+
         // event(new OrderUpdated($order));
 
     }
@@ -193,6 +240,34 @@ class OrderController extends Controller
             "customer_name" => $body['customer_name'],
         ]);
         $order->items()->saveMany($order_items);
+
+        // $invoice = Invoice::create([
+        //     "customer_email" => $body['email'],
+        //     ...$customer
+        // ]);
+        // $invoice_products = [];
+        // $invoice_price = 0;
+        // foreach ($body['items'] as $item) {
+        //     $p = Product::find($item['product_id']);
+        //     $total_price = $item['quantity'] * $p->price;
+        //     $invoice_price += $total_price;
+        //     $invoice_products[] = new InvoiceProduct([
+        //         "name" => $p->name,
+        //         "quantity" => $item['quantity'],
+        //         "total_price" => $total_price,
+        //         "price" => $p->price,
+
+        //         "product_id" => $p->id,
+        //         "order_id" => $order->id,
+        //         "invoice_id" => $invoice->id,
+        //     ]);
+        // }
+
+
+
+        // $invoice->price = $invoice_price;
+        // $invoice->save();
+        // $invoice->products()->saveMany($invoice_products);
 
         // event(new OrderCreated($order));
         return response()->json(["order_id" => $order->id,]);

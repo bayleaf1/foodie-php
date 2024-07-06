@@ -124,6 +124,10 @@ class App extends Entity
     {
         $this->ctx->get('/api/orders', $this->headers)->assertJson([$order]);
     }
+    public function has_invoice($invoice)
+    {
+        $this->ctx->get('/api/invoices', $this->headers)->assertJson([$invoice]);
+    }
     public function has_orders($orders)
     {
         $this->ctx->get('/api/orders', $this->headers)->assertJson($orders);

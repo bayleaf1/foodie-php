@@ -78,6 +78,10 @@ class AcceptanceTests extends TestCase
         $system_user->confirm_order(1);
         $system_user->cancel_order(1);
         $app->has_orders([["email" => "t1@m.com", "status" => "canceled"]]);
+        $app->has_invoice([
+            "customer_email" => "t1@m.com",
+            "status" => "canceled"
+        ]);
 
         $guest->create_order([
             "email" => "t1@m.com",
@@ -246,19 +250,38 @@ class AcceptanceTests extends TestCase
             ]
         ]);
 
-        $system_user->confirm_order(1);
+        $res = $system_user->confirm_order(1);
+        $app->respond_with_status($res, 200);
+        $app->has_products([
+            ["name" => "Coffe", "price" => 2, "quantity" => 8],
+            ["name" => "Snack", "price" => 3, "quantity" => 5]
+        ]);
         $app->has_order([
             "email" => "t@m.com",
             "status" => "confirmed",
         ]);
-        $app->has_products([
-            ["name" => "Coffe", "price" => 2, "quantity" => 8],
-            ["name" => "Snack", "price" => 3, "quantity" => 5]
+        $app->has_invoice([
+            "status" => "created",
+            "customer_email" => "t@m.com",
+            "customer_name" => "Ion Ion",
+            "customer_city" => "Chisinau",
+            "customer_phone" => "1234567890",
+            "customer_address" => "Ion Creanga",
+            "products" => [
+                ["name" => "Coffe", "price" => 2, "quantity" => 2, "total_price" => 4],
+                ["name" => "Snack", "price" => 3, "quantity" => 3, "total_price" => 9]
+            ],
+            "price" => 13,
+
         ]);
 
         $system_user->finalize_order(1);
         $app->has_order([
             "email" => "t@m.com",
+            "status" => "finished",
+        ]);
+        $app->has_invoice([
+            "customer_email" => "t@m.com",
             "status" => "finished",
         ]);
     }
