@@ -10,10 +10,15 @@ import { OrderStatusType } from '../../utils/enums.js'
 import getBgColorForOrderStatus from '../../utils/getBgColorForOrderStatus.js'
 import OrderDialog from './parts/OrderDialog.vue'
 import Notificator from '../../utils/Notificator.js'
+import StringMask from 'string-mask'
 
 let defOrder = {
   id: 1,
-  email: '',
+  customer_email: '',
+  customer_name: '',
+  customer_phone: '',
+  customer_city: '',
+  customer_address: '',
   products: [],
   status: 'created',
   price: 0,
@@ -47,6 +52,7 @@ function tryToChangeStatus(status) {
     onFinally: () => (loading.value = false),
   })
 }
+const phoneFormatter = new StringMask('(###) ###-####')
 </script>
 
 <template>
@@ -69,8 +75,24 @@ function tryToChangeStatus(status) {
             <td><order-status :status="order.status" /></td>
           </tr>
           <tr>
+            <td>Name:</td>
+            <td>{{ order.customer_name }}</td>
+          </tr>
+          <tr>
+            <td>Phone:</td>
+            <td>{{ phoneFormatter.apply(order.customer_phone) }}</td>
+          </tr>
+          <tr>
             <td>Email:</td>
-            <td>{{ order.email }}</td>
+            <td>{{ order.customer_email }}</td>
+          </tr>
+          <tr>
+            <td>City:</td>
+            <td>{{ order.customer_city }}</td>
+          </tr>
+          <tr>
+            <td>Address:</td>
+            <td>{{ order.customer_address }}</td>
           </tr>
           <tr>
             <td>Price:</td>

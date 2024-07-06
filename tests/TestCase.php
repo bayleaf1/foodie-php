@@ -96,7 +96,15 @@ class Guest extends Entity
 {
     public function create_order($order)
     {
-        $res = $this->ctx->post('/api/orders', $order);
+        $res = $this->ctx->post('/api/orders', [
+            "email" => "default@default.com",
+            "customer_name" => "Default Default",
+            "customer_city" => "Default",
+            "customer_address" => "Default",
+            "customer_phone" => "1111111111",
+            "items" => [],
+            ...$order
+        ]);
         return $res;
     }
 }

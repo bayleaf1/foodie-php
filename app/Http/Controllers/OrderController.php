@@ -184,10 +184,14 @@ class OrderController extends Controller
             $order_items[] = new OrderItem($item);
         }
 
-
-
-
-        $order = Order::create(["email" => $body['email'], "status" => "created",]);
+        $order = Order::create([
+            "status" => "created",
+            "email" => $body['email'],
+            "customer_phone" => $body['customer_phone'],
+            "customer_city" => $body['customer_city'],
+            "customer_address" => $body['customer_address'],
+            "customer_name" => $body['customer_name'],
+        ]);
         $order->items()->saveMany($order_items);
 
         // event(new OrderCreated($order));
@@ -220,7 +224,11 @@ class OrderController extends Controller
         $result = [
             "id" => $order->id,
             "status" => $order->status,
-            "email" => $order->email,
+            "customer_email" => $order->email,
+            "customer_name" => $order->customer_name,
+            "customer_phone" => $order->customer_phone,
+            "customer_address" => $order->customer_address,
+            "customer_city" => $order->customer_city,
             "products" => $products,
             "price" => array_reduce($products, function ($acc, $p) {
                 return $acc + $p['price'];

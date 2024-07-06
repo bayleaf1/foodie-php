@@ -223,6 +223,10 @@ class AcceptanceTests extends TestCase
 
         $guest->create_order([
             "email" => "t@m.com",
+            "customer_name" => "Ion Ion",
+            "customer_city" => "Chisinau",
+            "customer_address" => "Ion Creanga",
+            "customer_phone" => "1234567890",
             "items" => [
                 ["product_id" => 1, "quantity" => 2],
                 ["product_id" => 2, "quantity" => 3],
@@ -232,6 +236,10 @@ class AcceptanceTests extends TestCase
             "email" => "t@m.com",
             "price" => 13,
             "status" => "created",
+            "customer_name" => "Ion Ion",
+            "customer_city" => "Chisinau",
+            "customer_phone" => "1234567890",
+            "customer_address" => "Ion Creanga",
             "items" => [
                 ["product_id" => 1, "quantity" => 2],
                 ["product_id" => 2, "quantity" => 3],

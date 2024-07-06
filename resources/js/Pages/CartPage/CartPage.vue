@@ -88,7 +88,7 @@ const rules = {
     minLength: minLength(10),
   },
   city: { required, alpha, minLength: minLength(4), maxLength: maxLength(30) },
-  street: { required, minLength: minLength(4), maxLength: maxLength(100) },
+  address: { required, minLength: minLength(4), maxLength: maxLength(100) },
 }
 
 const v$ = useVuelidate(rules, state)
@@ -102,6 +102,10 @@ async function tryToPlaceOrder() {
     method: 'post',
     body: {
       email: state.email,
+      customer_address: state.address,
+      customer_name: state.name,
+      customer_phone: state.phone,
+      customer_city: state.city,
       items: products.value.map((p) => ({
         product_id: p.id,
         quantity: p.quantity,

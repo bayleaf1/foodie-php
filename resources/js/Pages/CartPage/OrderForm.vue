@@ -42,12 +42,12 @@ const { v$, state, orderPrice, tryToPlaceOrder } = defineProps([
       ></v-text-field>
 
       <v-text-field
-        v-model="state.street"
-        :error-messages="v$.street.$errors.map((e) => e.$message)"
-        label="Street"
+        v-model="state.address"
+        :error-messages="v$.address.$errors.map((e) => e.$message)"
+        label="Address"
         required
-        @blur="v$.street.$touch"
-        @input="v$.street.$touch()"
+        @blur="v$.address.$touch"
+        @input="v$.address.$touch()"
       ></v-text-field>
     </div>
 
