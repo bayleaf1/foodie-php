@@ -6,13 +6,24 @@ use App\Events\OrderUpdated;
 use App\Events\OrderCreated;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Mail\OrderCreatedMail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Utils\OrderTableFetcher;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
+
+    public function test()
+    {
+        Mail::to('dinucontpersonal@gmail.com')->send(new OrderCreatedMail());
+
+        return response()->json([
+            "orders" => "LALALALLALA",
+        ]);
+    }
 
     public function ordersForGuest()
     {

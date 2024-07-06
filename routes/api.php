@@ -36,5 +36,6 @@ Route::get('/orders/table', [OrderController::class, 'table'])->middleware('auth
 Route::resource('/orders', OrderController::class)->middleware('auth:sanctum');
 Route::post('/orders', [OrderController::class, 'store']);
 Route::post('/orders/guest', [OrderController::class, 'ordersForGuest']);
+Route::post('/orders/test', [OrderController::class, 'test']);
 
 Route::resource('/resources', ResourceController::class);//->middleware('auth:sanctum');

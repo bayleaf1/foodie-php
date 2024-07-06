@@ -35,22 +35,33 @@ onMounted(() => {
   })
 })
 
-// const sendMsg = () => {
-//   fetchApp({
-//     endpoint: '/api/products/message',
-//     onSuccess: ({ data }) => {
-//       msg.value = data
-//       // console.log('DATA', data, Object.assign(menu, data.menu))
-//       // Object.assign(menu, data.menu)
-//     },
-//   })
-// }
+const sendMsg = () => {
+  fetchApp({
+    endpoint: '/api/orders/test',
+    method: 'post',
+    onSuccess: ({ data }) => {
+      console.log(`data:`, data)
+
+      // msg.value = data
+      // console.log('DATA', data, Object.assign(menu, data.menu))
+      // Object.assign(menu, data.menu)
+    },
+  })
+  // fetchApp({
+  //   endpoint: '/api/products/message',
+  //   onSuccess: ({ data }) => {
+  //     msg.value = data
+  //     // console.log('DATA', data, Object.assign(menu, data.menu))
+  //     // Object.assign(menu, data.menu)
+  //   },
+  // })
+}
 </script>
 <template>
   <div>
     <page-section id="supe" classes="flex flex-col gap-10 pt-10 pb-[80px]">
-      <!-- <v-btn @click="sendMsg()">xMSG</v-btn>
-      <p>{{ JSON.stringify(msg, null, 2) }}</p> -->
+      <v-btn @click="sendMsg()">xMSG</v-btn>
+      <!-- <p>{{ JSON.stringify(msg, null, 2) }}</p> -->
 
       <home-page-section id="pizza" title="Pizza">
         <div class="grow basis-[60%]" v-for="(p, idx) of menu.pizza" :key="idx">
