@@ -29,6 +29,7 @@ Route::get('/products/menu', [ProductController::class, 'menu']);
 Route::get('/products/message', [ProductController::class, 'sendMessage']);
 Route::resource('/products', ProductController::class)->middleware('auth:sanctum');
 Route::get('/invoices/table', [InvoiceController::class, 'table'])->middleware('auth:sanctum');
+Route::get('/invoices/show-for-guest/{public_id}', [InvoiceController::class, 'showForGuest']);
 Route::resource('/invoices', InvoiceController::class)->middleware('auth:sanctum');
 
 Route::patch('/orders/confirm/{id}', [OrderController::class, 'confirm'])->middleware('auth:sanctum');

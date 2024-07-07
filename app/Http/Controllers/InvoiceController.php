@@ -60,6 +60,16 @@ class InvoiceController extends Controller
         return response()->json(["invoice" => $invoice]);
     }
 
+    public function showForGuest($public_id)
+    {
+        $invoice = Invoice::where('public_id', "=", $public_id)->first();
+
+        if (!is_null($invoice))
+            $invoice->products;
+
+        return response()->json(["invoice" => $invoice]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

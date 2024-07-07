@@ -77,11 +77,11 @@ function tryToChangeStatus(status) {
           <tr>
             <td>Invoice Id:</td>
             <td class="underline">
-              <a
+              <router-link
                 v-if="order.invoice !== ''"
                 class="cursor-pointer w-full block"
-                :href="'/admin/dashboard/invoices/' + order.invoice_id"
-                >{{ order.invoice_id }}</a
+                :to="'/admin/dashboard/invoices/' + order.invoice_id"
+                >{{ order.invoice_id }}</router-link
               >
             </td>
           </tr>

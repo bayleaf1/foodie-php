@@ -40,7 +40,7 @@ onMounted(() => {
   //       orders.value = [...orders.value]
   //     })
   //     .listenToAll((e) => {
-  //       console.log('EEEE', e)
+  //       console.log('error', e)
   //     })
   // })
   fetchOrders()
@@ -63,17 +63,30 @@ onUnmounted(() => {
       >
         <div class="flex justify-between">
           <p class="text-lg font-medium">Order #{{ o.id }}</p>
-          <order-status :status="o.status" />
+          <span class="flex gap-2 items-center">
+            <router-link
+              v-if="o.invoice_public_id !== null"
+              :to="'/invoices/' + o.invoice_public_id"
+              class="text-brand underline text-xs cursor-pointer"
+            >
+              View invoice
+            </router-link>
+            <order-status :status="o.status" />
+          </span>
         </div>
         <div class="ml-5">
-          <div v-for="(p, key) in o.products" :key="key" class="flex gap-2">
+          <div
+            v-for="(p, key) in o.products"
+            :key="key"
+            class="flex gap-2 text-sm"
+          >
             <router-link :to="'/product/' + p.id" class="underline">
               {{ p.name }}
             </router-link>
             <p>x{{ p.quantity }}</p>
           </div>
         </div>
-        <p class="text-end text-xs">
+        <p class="text-endx text-xs mt-2">
           Last update: {{ Clock.formatOrderUpdate(o.updated_at) }}
         </p>
       </div>

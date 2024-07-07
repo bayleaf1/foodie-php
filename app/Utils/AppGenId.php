@@ -6,10 +6,10 @@ use Hidehalo\Nanoid\Client;
 class AppGenId
 {
 
-    static function alphaNumeric($size = 15)
+    static function numeric($size = 10)
     {
         $client = new Client();
-        return $client->formattedId($alphabet = '0123456789abcdefg', $size);
+        return $client->formattedId($alphabet = '0123456789', $size);
 
     }
 }

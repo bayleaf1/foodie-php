@@ -37,8 +37,8 @@ onMounted(() => {
 
 const sendMsg = () => {
   fetchApp({
-    endpoint: '/api/orders/test',
-    method: 'post',
+    endpoint: '/api/invoices/show-for-guest/e01ed363a14g5c3',
+    method: 'get',
     onSuccess: ({ data }) => {
       console.log(`data:`, data)
 
@@ -58,11 +58,11 @@ const sendMsg = () => {
 }
 </script>
 <template>
+  <div id="top" />
   <div>
     <page-section id="supe" classes="flex flex-col gap-10 pt-10 pb-[80px]">
       <v-btn @click="sendMsg()">xMSG</v-btn>
       <!-- <p>{{ JSON.stringify(msg, null, 2) }}</p> -->
-
       <home-page-section id="pizza" title="Pizza">
         <div class="grow basis-[60%]" v-for="(p, idx) of menu.pizza" :key="idx">
           <product :product="p" :direction="idx % 2 ? 'left' : 'right'" />
@@ -124,12 +124,12 @@ const sendMsg = () => {
           <div class="grow w-full basis-[40%]">
             <p class="grow">
               Welcome to
-              <a href="/" class="text-brand text-xl">Foodie</a>
+              <a href="/#top" class="text-brand text-xl">Foodie</a>
               , where passion for food meets convenience at your doorstep.
               Founded with a mission to redefine how you experience dining, we
               are dedicated to delivering exceptional meals from your favorite
               local restaurants directly to you. At
-              <a href="/" class="text-brand text-xl">Foodie</a>
+              <a href="/#top" class="text-brand text-xl">Foodie</a>
               , we believe that good food should be accessible to everyone, no
               matter where you are. Whether you're craving comfort food,
               exploring new flavors, or simply seeking a convenient meal
@@ -140,7 +140,7 @@ const sendMsg = () => {
               our service. Join us in celebrating the joy of great food,
               hassle-free ordering, and the delight of discovering new culinary
               delights. Experience the convenience and flavors that
-              <a href="/" class="text-brand text-xl">Foodie</a>
+              <a href="/#top" class="text-brand text-xl">Foodie</a>
               brings to your table today.
             </p>
           </div>

@@ -38,6 +38,7 @@ class OrderController extends Controller
             if (is_null($o))
                 continue;
             $o->items();
+            $o->invoice;
 
             $products = [];
             foreach ($o->items as $i) {
@@ -54,6 +55,7 @@ class OrderController extends Controller
                 "status" => $o->status,
                 "updated_at" => $o->updated_at,
                 "products" => $products,
+                "invoice_public_id" => is_null($o->invoice) ? null : $o->invoice->public_id,
             ]);
         }
 
@@ -131,7 +133,7 @@ class OrderController extends Controller
             "customer_address" => $order->customer_address,
             "customer_name" => $order->customer_name,
             "order_id" => $order->id,
-            "public_id" => AppGenId::alphaNumeric(),
+            "public_id" => AppGenId::numeric(),
         ]);
 
 

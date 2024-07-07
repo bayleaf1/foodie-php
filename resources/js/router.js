@@ -22,6 +22,7 @@ import NotFoundPage from './pages/NotFoundPage.vue'
 import CartPage from './pages/CartPage/CartPage.vue'
 import OrdersPage from './pages/OrdersPage.vue'
 import { SystemUser } from './utils/SystemUser.js'
+import GuestInvoicePage from './pages/InvoicePage.vue'
 
 const routes = [
   {
@@ -32,6 +33,7 @@ const routes = [
       { path: 'product/:id', component: ProductPage },
       { path: 'cart', component: CartPage },
       { path: 'orders', component: OrdersPage },
+      { path: 'invoices/:publicId', component: GuestInvoicePage },
     ],
   },
   {
