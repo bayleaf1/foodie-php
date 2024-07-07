@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
+use App\Utils\InvoiceTableFetcher;
 
 class InvoiceController extends Controller
 {
+
+    public function table()
+    {
+        $f = new InvoiceTableFetcher();
+
+        return response()->json([
+            "table" => $f->get(request()->query())
+        ]);
+
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -43,7 +55,9 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        //
+        $invoice->products;
+
+        return response()->json(["invoice" => $invoice]);
     }
 
     /**

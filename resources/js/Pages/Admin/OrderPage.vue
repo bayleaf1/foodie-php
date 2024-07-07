@@ -10,10 +10,11 @@ import { OrderStatusType } from '../../utils/enums.js'
 import getBgColorForOrderStatus from '../../utils/getBgColorForOrderStatus.js'
 import OrderDialog from './parts/OrderDialog.vue'
 import Notificator from '../../utils/Notificator.js'
-import StringMask from 'string-mask'
+import { renderPhoneNumber } from '../../utils/phoneNumber.js'
 
 let defOrder = {
   id: 1,
+  invoice: null,
   customer_email: '',
   customer_name: '',
   customer_phone: '',
@@ -52,7 +53,6 @@ function tryToChangeStatus(status) {
     onFinally: () => (loading.value = false),
   })
 }
-const phoneFormatter = new StringMask('(###) ###-####')
 </script>
 
 <template>
@@ -63,7 +63,7 @@ const phoneFormatter = new StringMask('(###) ###-####')
     :title="`Order #` + orderId"
     :loading="loading"
   >
-    <div class="border rounded-sm lg:w-1/3">
+    <div class="border rounded-sm lg:w-1/3 min-w-[400px]">
       <v-table density="compact">
         <tbody>
           <tr>
@@ -75,12 +75,23 @@ const phoneFormatter = new StringMask('(###) ###-####')
             <td><order-status :status="order.status" /></td>
           </tr>
           <tr>
+            <td>Invoice Id:</td>
+            <td class="underline">
+              <a
+                v-if="order.invoice !== ''"
+                class="cursor-pointer w-full block"
+                :href="'/admin/dashboard/invoices/' + order.invoice_id"
+                >{{ order.invoice_id }}</a
+              >
+            </td>
+          </tr>
+          <tr>
             <td>Name:</td>
             <td>{{ order.customer_name }}</td>
           </tr>
           <tr>
             <td>Phone:</td>
-            <td>{{ phoneFormatter.apply(order.customer_phone) }}</td>
+            <td>{{ renderPhoneNumber(order.customer_phone) }}</td>
           </tr>
           <tr>
             <td>Email:</td>
@@ -100,14 +111,16 @@ const phoneFormatter = new StringMask('(###) ###-####')
           </tr>
 
           <tr v-for="(p, i) in order.products" :key="i">
-            <td>Product #{{ i + 1 }}</td>
+            <td class="whitespace-nowrap">Product #{{ i + 1 }}:</td>
             <td>
               <router-link
                 :to="'/admin/dashboard/products/' + p.id"
                 class="underline"
                 >{{ p.name }}</router-link
               >
-              x{{ p.quantity }} = {{ p.price }}$
+              <span class="whitespace-nowrap">
+                x{{ p.quantity }} = {{ p.price }}$
+              </span>
             </td>
           </tr>
         </tbody>

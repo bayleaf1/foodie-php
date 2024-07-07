@@ -21,6 +21,9 @@ const endpoints = {
   ordersTable: (opts = {}) => `/api/orders/table?${createTableQuery(opts)}`,
   changeOrderStatus: (id, action) => `/api/orders/${action}/${id}`,
 
+  invoice: (id) => '/api/invoices/' + id,
+  invoicesTable: (opts = {}) => `/api/invoices/table?${createTableQuery(opts)}`,
+
   products: '/api/products',
   productsMenu: '/api/products/menu',
   productShowcase: (id) => '/api/products/showcase/' + id,

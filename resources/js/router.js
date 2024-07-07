@@ -2,17 +2,19 @@ import { createRouter, createWebHistory } from 'vue-router'
 import JwtStorage from './auth.js'
 //
 import LoginPage from './pages/admin/LoginPage.vue'
-import OverviewPage from './pages/admin/OverviewPage.vue'
+// import OverviewPage from './pages/admin/OverviewPage.vue'
 import AdminOrdersPage from './pages/admin/OrdersPage.vue'
 import ProductsPage from './pages/admin/ProductsPage.vue'
 import AdminLayout from './layouts/AdminLayout/AdminLayout.vue'
 import GuestLayout from './layouts/GuestLayout/GuestLayout.vue'
 import OrderPage from './pages/admin/OrderPage.vue'
 import AdminProductPage from './pages/admin/ProductPage.vue'
-import SystemUsersPage from './pages/admin/systemUsers/SystemUsersPage.vue'
-import SystemUserPage from './pages/admin/systemUsers/SystemUserPage.vue'
-import SystemUsersAddPage from './pages/admin/systemUsers/SystemUsersAddPage.vue'
+import SystemUsersPage from './pages/admin/SystemUsers/SystemUsersPage.vue'
+import SystemUserPage from './pages/admin/SystemUsers/SystemUserPage.vue'
+import SystemUsersAddPage from './pages/admin/SystemUsers/SystemUsersAddPage.vue'
 import ProductAddPage from './pages/admin/ProductAddPage.vue'
+import InvoicesPage from './pages/admin/Invoices/InvoicesPage.vue'
+import InvoicePage from './pages/admin/Invoices/InvoicePage.vue'
 //
 import HomePage from './pages/HomePage/HomePage.vue'
 import ProductPage from './pages/ProductPage.vue'
@@ -44,6 +46,8 @@ const routes = [
       // { path: '', component: OverviewPage },
       { path: 'orders', component: AdminOrdersPage },
       { path: 'orders/:id', component: OrderPage },
+      { path: 'invoices', component: InvoicesPage },
+      { path: 'invoices/:id', component: InvoicePage },
       { path: 'products', component: ProductsPage },
       { path: 'products/add', component: ProductAddPage },
       { path: 'products/:id', component: AdminProductPage },

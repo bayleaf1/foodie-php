@@ -272,7 +272,6 @@ class AcceptanceTests extends TestCase
                 ["name" => "Snack", "price" => 3, "quantity" => 3, "total_price" => 9]
             ],
             "price" => 13,
-
         ]);
 
         $system_user->finalize_order(1);

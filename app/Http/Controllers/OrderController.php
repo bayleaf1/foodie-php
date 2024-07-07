@@ -12,6 +12,7 @@ use App\Models\InvoiceProduct;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Utils\AppGenId;
 use App\Utils\OrderTableFetcher;
 use Illuminate\Support\Facades\Mail;
 
@@ -130,6 +131,7 @@ class OrderController extends Controller
             "customer_address" => $order->customer_address,
             "customer_name" => $order->customer_name,
             "order_id" => $order->id,
+            "public_id" => AppGenId::alphaNumeric(),
         ]);
 
 
@@ -241,34 +243,6 @@ class OrderController extends Controller
         ]);
         $order->items()->saveMany($order_items);
 
-        // $invoice = Invoice::create([
-        //     "customer_email" => $body['email'],
-        //     ...$customer
-        // ]);
-        // $invoice_products = [];
-        // $invoice_price = 0;
-        // foreach ($body['items'] as $item) {
-        //     $p = Product::find($item['product_id']);
-        //     $total_price = $item['quantity'] * $p->price;
-        //     $invoice_price += $total_price;
-        //     $invoice_products[] = new InvoiceProduct([
-        //         "name" => $p->name,
-        //         "quantity" => $item['quantity'],
-        //         "total_price" => $total_price,
-        //         "price" => $p->price,
-
-        //         "product_id" => $p->id,
-        //         "order_id" => $order->id,
-        //         "invoice_id" => $invoice->id,
-        //     ]);
-        // }
-
-
-
-        // $invoice->price = $invoice_price;
-        // $invoice->save();
-        // $invoice->products()->saveMany($invoice_products);
-
         // event(new OrderCreated($order));
         return response()->json(["order_id" => $order->id,]);
 
@@ -280,6 +254,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $order->items;
+        $order->invoice;
         foreach ($order->items as &$item) {
             $item->product = Product::find($item->product_id);
         }
@@ -298,6 +273,7 @@ class OrderController extends Controller
 
         $result = [
             "id" => $order->id,
+            "invoice_id" => is_null($order->invoice) ? "" : $order->invoice->id,
             "status" => $order->status,
             "customer_email" => $order->email,
             "customer_name" => $order->customer_name,

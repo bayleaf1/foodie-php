@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('public_id')->default("")->unique();
             $table->string('status')->default("created");
             $table->string('customer_email')->default('');
             $table->string('customer_phone')->default('');
