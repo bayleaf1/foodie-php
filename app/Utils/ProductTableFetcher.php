@@ -20,9 +20,15 @@ class ProductTableFetcher extends TableFetcher
                 return ['name', 'LIKE', '%' . $v . '%'];
             },
             "price" => function ($v) {
+                $inexistent = -123;
+                if ($v == "")
+                    return ['price', '!=', $inexistent];
                 return ['price', '=', $v];
             },
             "quantity" => function ($v) {
+                $inexistent = -123;
+                if ($v == "")
+                    return ['quantity', '!=', $inexistent];
                 return ['quantity', '=', $v];
             },
             "image" => function ($v) {

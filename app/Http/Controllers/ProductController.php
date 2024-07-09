@@ -10,6 +10,7 @@ use App\Mail\OrderCancelledMail;
 use App\Mail\OrderConfirmedMail;
 use App\Mail\OrderCreatedMail;
 use App\Mail\OrderFinishedMail;
+use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Product;
 use App\Utils\ProductTableFetcher;
@@ -25,15 +26,18 @@ class ProductController extends Controller
     public function sendMessage()
     {
 
-        $order = Order::latest()->first();
 
-        $order->invoice;
-        // $order->products;
-        // $order->
-        Mail::to('dinucontpersonal@gmail.com')->send(new OrderCancelledMail($order));
+        // Invoice::truncate();
+        // Order::truncate();
+        // $order = Order::latest()->first();
+
+        // $order->invoice;
+        // // $order->products;
+        // // $order->
+        // Mail::to('dinucontpersonal@gmail.com')->send(new OrderCancelledMail($order));
 
         return response()->json([
-            "order" => $order,
+            "order" => "order",
         ]);
 
         // // event(new OrderUpdated("updated"));

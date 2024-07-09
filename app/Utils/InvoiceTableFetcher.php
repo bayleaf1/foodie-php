@@ -21,19 +21,22 @@ class InvoiceTableFetcher extends TableFetcher
                 return ['status', 'LIKE', '%' . $v . '%'];
             },
             "price" => function ($v) {
+                $inexistent = -123;
+                if ($v == "")
+                    return ['price', '!=', $inexistent];
                 return ['price', '=', $v];
             },
-            "customer_email" => function ($v) {
+            "email" => function ($v) {
                 return ['customer_email', 'LIKE', '%' . $v . '%'];
             },
-            "customer_name" => function ($v) {
+            "name" => function ($v) {
                 return ['customer_name', 'LIKE', '%' . $v . '%'];
             },
-            "customer_city" => function ($v) {
+            "city" => function ($v) {
                 return ['customer_city', 'LIKE', '%' . $v . '%'];
             },
-            "customer_phone" => function ($v) {
-                return ['customer_city', 'LIKE', '%' . $v . '%'];
+            "phone" => function ($v) {
+                return ['customer_phone', 'LIKE', '%' . $v . '%'];
             },
         ];
         $this->SORTING = [
@@ -46,16 +49,16 @@ class InvoiceTableFetcher extends TableFetcher
             "price" => function ($v) {
                 return ['price', $v];
             },
-            "customer_email" => function ($v) {
+            "email" => function ($v) {
                 return ['customer_email', $v];
             },
-            "customer_name" => function ($v) {
+            "name" => function ($v) {
                 return ['customer_name', $v];
             },
-            "customer_city" => function ($v) {
+            "city" => function ($v) {
                 return ['customer_city', $v];
             },
-            "customer_phone" => function ($v) {
+            "phone" => function ($v) {
                 return ['customer_phone', $v];
             },
         ];

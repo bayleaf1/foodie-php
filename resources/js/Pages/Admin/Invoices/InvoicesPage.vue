@@ -21,10 +21,10 @@ const headerCells = [
 const searchableFields = [
   'id',
   'status',
-  'customer_phone',
-  'customer_email',
-  'customer_name',
-  'customer_city',
+  'phone',
+  'email',
+  'name',
+  'city',
   'price',
 ]
 
