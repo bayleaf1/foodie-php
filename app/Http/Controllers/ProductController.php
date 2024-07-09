@@ -27,8 +27,7 @@ class ProductController extends Controller
     {
 
 
-        // Invoice::truncate();
-        // Order::truncate();
+
         // $order = Order::latest()->first();
 
         // $order->invoice;
@@ -51,8 +50,6 @@ class ProductController extends Controller
 
     public function cart()
     {
-        // $product = Product::find($id);
-        // $product->images = json_decode($product->images);
 
         $body = request()->all();
 
