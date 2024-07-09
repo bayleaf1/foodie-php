@@ -6,7 +6,10 @@ namespace App\Http\Controllers;
 // use App\Events\OrderCreated;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Mail\OrderCancelledMail;
+use App\Mail\OrderConfirmedMail;
 use App\Mail\OrderCreatedMail;
+use App\Mail\OrderFinishedMail;
 use App\Models\Invoice;
 use App\Models\InvoiceProduct;
 use App\Models\Order;
@@ -21,7 +24,11 @@ class OrderController extends Controller
 
     public function test()
     {
-        Mail::to('dinucontpersonal@gmail.com')->send(new OrderCreatedMail());
+        $order = Order::latest();
+
+        $order->invoice;
+        // $order->
+        Mail::to('dinucontpersonal@gmail.com')->send(new OrderFinishedMail($order));
 
         return response()->json([
             "orders" => "LALALALLALA",
@@ -100,8 +107,13 @@ class OrderController extends Controller
         $order->save();
 
         $order->invoice;
-        $order->invoice->status = "canceled";
-        $order->invoice->save();
+        if (!is_null($order->invoice)) {
+            $order->invoice->status = "canceled";
+            $order->invoice->save();
+        }
+
+        Mail::to($order->email)->send(new OrderCancelledMail($order));
+
         // event(new OrderUpdated($order));
     }
 
@@ -161,6 +173,10 @@ class OrderController extends Controller
         $invoice->products()->saveMany($invoice_products);
         $invoice->save();
 
+        $order->invoice;
+        Mail::to($order->email)->send(new OrderConfirmedMail($order));
+
+
         // event(new OrderUpdated($order));
 
     }
@@ -178,6 +194,8 @@ class OrderController extends Controller
         $order->invoice;
         $order->invoice->status = "finished";
         $order->invoice->save();
+
+        Mail::to($order->email)->send(new OrderFinishedMail($order));
 
         // event(new OrderUpdated($order));
 
@@ -244,6 +262,9 @@ class OrderController extends Controller
             "customer_name" => $body['customer_name'],
         ]);
         $order->items()->saveMany($order_items);
+
+        Mail::to($order->email)->send(new OrderCreatedMail($order));
+
 
         // event(new OrderCreated($order));
         return response()->json(["order_id" => $order->id,]);

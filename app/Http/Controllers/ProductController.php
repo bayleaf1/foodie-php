@@ -6,8 +6,14 @@ use App\Events\OrderUpdated;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Mail\OrderCancelledMail;
+use App\Mail\OrderConfirmedMail;
+use App\Mail\OrderCreatedMail;
+use App\Mail\OrderFinishedMail;
+use App\Models\Order;
 use App\Models\Product;
 use App\Utils\ProductTableFetcher;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -18,13 +24,25 @@ class ProductController extends Controller
 
     public function sendMessage()
     {
-        // event(new OrderUpdated("updated"));
-        return response()->json([
-            'status' => 'Message sent!',
-            "db" => env('DB_DATABASE'),
-            "dt_path" => database_path('database.sqlite'),
 
+        $order = Order::latest()->first();
+
+        $order->invoice;
+        // $order->products;
+        // $order->
+        Mail::to('dinucontpersonal@gmail.com')->send(new OrderCancelledMail($order));
+
+        return response()->json([
+            "order" => $order,
         ]);
+
+        // // event(new OrderUpdated("updated"));
+        // return response()->json([
+        //     'status' => 'Message sent!',
+        //     "db" => env('DB_DATABASE'),
+        //     "dt_path" => database_path('database.sqlite'),
+
+        // ]);
     }
 
     public function cart()

@@ -1,21 +1,21 @@
 <script setup>
-import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
+import useVuelidate from '@vuelidate/core'
+import {
+  alpha,
+  email,
+  maxLength,
+  minLength,
+  numeric,
+  required,
+} from '@vuelidate/validators'
+import { computed, inject, onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import endpoints from '../../api/endpoints'
 import fetchApp from '../../api/fetchApp'
 import Cart from '../../utils/Cart'
-import cn from '../../utils/cn'
-import {
-  email,
-  required,
-  minLength,
-  numeric,
-  alpha,
-  maxLength,
-} from '@vuelidate/validators'
-import useVuelidate from '@vuelidate/core'
-import OrderList from '../../utils/OrderList'
-import { useRoute, useRouter } from 'vue-router'
 import Notificator from '../../utils/Notificator'
+import OrderList from '../../utils/OrderList'
+import cn from '../../utils/cn'
 import OrderForm from './OrderForm.vue'
 
 let products = ref([])
@@ -68,15 +68,17 @@ function clearSelectedProducts() {
 
 const state = reactive({
   name: '',
-  email: 'guest@mail.com',
-  phone: '1234567890',
+  email: '',
+  phone: '',
   city: '',
   street: '',
+  // name: 'Ion',
+  // email: 'guest@mail.com',
+  // phone: '1234567890',
+  // city: 'Chisinau',
+  // street: 'Ion Creanga 2/1',
 })
 
-watch(state, (v) => {
-  console.log('state', v)
-})
 const resetState = () => (state.email = '')
 
 const rules = {
@@ -119,7 +121,10 @@ async function tryToPlaceOrder() {
       v$.value.$reset()
       OrderList.addOrderId(data.order_id)
       router.push('/orders')
-      Notificator.pushSuccess('Order was created!')
+      Notificator.pushSuccess(
+        'Order was created! - We sent an email with order details',
+        { duration: 5000 }
+      )
     },
   })
 }

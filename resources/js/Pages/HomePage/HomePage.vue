@@ -10,7 +10,6 @@ let menu = reactive({
   salad: [],
   snack: [],
 })
-let msg = ref({})
 
 onMounted(() => {
   // Echo.channel('orders.' + '9')
@@ -36,32 +35,33 @@ onMounted(() => {
 })
 
 const sendMsg = () => {
+  // fetchApp({
+  //   endpoint: '/api/invoices/show-for-guest/e01ed363a14g5c3',
+  //   method: 'get',
+  //   onSuccess: ({ data }) => {
+  //     console.log(`data:`, data)
+
+  //     // msg.value = data
+  //     // console.log('DATA', data, Object.assign(menu, data.menu))
+  //     // Object.assign(menu, data.menu)
+  //   },
+  // })
   fetchApp({
-    endpoint: '/api/invoices/show-for-guest/e01ed363a14g5c3',
-    method: 'get',
+    endpoint: '/api/products/message',
     onSuccess: ({ data }) => {
       console.log(`data:`, data)
-
       // msg.value = data
       // console.log('DATA', data, Object.assign(menu, data.menu))
       // Object.assign(menu, data.menu)
     },
   })
-  // fetchApp({
-  //   endpoint: '/api/products/message',
-  //   onSuccess: ({ data }) => {
-  //     msg.value = data
-  //     // console.log('DATA', data, Object.assign(menu, data.menu))
-  //     // Object.assign(menu, data.menu)
-  //   },
-  // })
 }
 </script>
 <template>
   <div id="top" />
   <div>
     <page-section id="supe" classes="flex flex-col gap-10 pt-10 pb-[80px]">
-      <v-btn @click="sendMsg()">xMSG</v-btn>
+      <!-- <v-btn @click="sendMsg()">xMSG</v-btn> -->
       <!-- <p>{{ JSON.stringify(msg, null, 2) }}</p> -->
       <home-page-section id="pizza" title="Pizza">
         <div class="grow basis-[60%]" v-for="(p, idx) of menu.pizza" :key="idx">

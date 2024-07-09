@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderCreatedMail extends Mailable
+class OrderCancelledMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class OrderCreatedMail extends Mailable
     {
         // from: new Address('example@example.com', 'Test Sender'),
         return new Envelope(
-            subject: 'Order Created',
+            subject: 'Order Canceled',
         );
     }
 
@@ -39,9 +39,8 @@ class OrderCreatedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.orderCreated',
+            view: 'mails.orderCancelled',
             with: [
-                "orderDate" => $this->order->created_at,
                 "orderNumber" => $this->order->id,
                 "customerName" => $this->order->customer_name,
             ],

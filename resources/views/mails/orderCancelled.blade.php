@@ -58,14 +58,13 @@
 <body>
     <div class="email-wrapper">
         <div class="header">
-            <h2>Order Created</h2>
+            <h2>Order Cancelled</h2>
         </div>
         <div class="content">
             <p>Hello {{ $customerName }},</p>
-            <p>We are pleased to inform you that your order has been successfully created.</p>
+            <p>We inform you that your order has been cancelled.</p>
             <ul>
                 <li><strong>Order Number:</strong> {{ $orderNumber }}</li>
-                <li><strong>Order Date:</strong> {{ $orderDate }}</li>
             </ul>
             <p>Thank you for choosing our service.</p>
             <a href="{{ config('app.url') . "/orders" }}" class="button">View Order Details</a>
