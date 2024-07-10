@@ -38,6 +38,8 @@ let loading = ref(false)
 
 useAppSwr({
   reactiveEndpoint: computed(() => endpoints.invoicesTable({ ...state.value })),
+  method: 'post',
+  body: state.value,
   onSuccess: ({ data }) => (
     (table.value = { ...table.value, ...data.table }), console.log('DATA', data)
   ),

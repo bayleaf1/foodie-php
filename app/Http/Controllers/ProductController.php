@@ -119,8 +119,6 @@ class ProductController extends Controller
                     return $i;
                 }, $table["rows"])
             ],
-            // "request()->query()" => request()->query(),
-            "request()->all()" => request()->all(),
         ]);
 
     }

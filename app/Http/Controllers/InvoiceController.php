@@ -15,7 +15,7 @@ class InvoiceController extends Controller
         $f = new InvoiceTableFetcher();
 
         return response()->json([
-            "table" => $f->get(request()->query())
+            "table" => $f->get(request()->all())
         ]);
 
     }

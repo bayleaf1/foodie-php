@@ -75,7 +75,7 @@ class OrderController extends Controller
     public function table()
     {
         $f = new OrderTableFetcher();
-        $table = $f->get(request()->query());
+        $table = $f->get(request()->all());
 
         return response()->json([
             "table" => $table

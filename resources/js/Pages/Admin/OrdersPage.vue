@@ -30,6 +30,8 @@ const { refresh } = useAppSwr({
   reactiveEndpoint: computed(() => endpoints.ordersTable({ ...state.value })),
   onSuccess: ({ data }) => (table.value = { ...table.value, ...data.table }),
   loadingModel: loading,
+  method: 'post',
+  body: state.value,
 })
 
 // onMounted(() => {

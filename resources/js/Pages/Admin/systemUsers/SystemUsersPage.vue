@@ -19,6 +19,8 @@ useAppSwr({
   reactiveEndpoint: computed(() =>
     endpoints.systemUsersTable({ ...state.value })
   ),
+  method: 'post',
+  body: state.value,
   onSuccess: ({ data }) => (
     (table.value = { ...table.value, ...data.table }), console.log('DATA', data)
   ),

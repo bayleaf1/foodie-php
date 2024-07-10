@@ -23,7 +23,7 @@ class SystemUserController extends Controller
     public function table()
     {
         $f = new SystemUserTableFetcher();
-        $table = $f->get(request()->query());
+        $table = $f->get(request()->all());
 
         return response()->json([
             "table" => $table,
