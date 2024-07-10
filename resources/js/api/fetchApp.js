@@ -1,6 +1,7 @@
 import axios from 'axios'
 import JwtStorage from '../auth'
 import Notificator from '../utils/Notificator'
+import config from '../constants/config'
 
 const defOpts = {
   endpoint: '',
@@ -34,7 +35,7 @@ export default function fetchApp(opts = defOpts) {
 
   axios({
     method: o.method,
-    url: import.meta.env.VITE_APP_URL + o.endpoint,
+    url: config.APP_URL + o.endpoint,
     data: o.body,
     headers: o.headers,
   })

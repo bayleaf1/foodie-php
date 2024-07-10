@@ -1,3 +1,5 @@
+import config from '../constants/config'
+
 function createTableQuery(opts = {}) {
   let params = {
     page: 1,
@@ -29,7 +31,7 @@ const endpoints = {
   productShowcase: (id) => '/api/products/showcase/' + id,
   product: (id) => '/api/products/' + id,
   productsTable: (opts = {}) => `/api/products/table?${createTableQuery(opts)}`,
-  productImage: (imageName) => 'http://localhost:8000/resources/' + imageName,
+  productImage: (imageName) => config.APP_URL + '/resources/' + imageName,
   resources: '/api/resources',
   //
   systemUserMe: '/api/system-users/me',
