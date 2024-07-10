@@ -63,7 +63,7 @@ const sendMsg = () => {
   <div id="top" />
   <div>
     <page-section id="supe" classes="flex flex-col gap-10 pt-10 pb-[80px]">
-      <v-btn @click="sendMsg()">xMSG</v-btn>
+      <!-- <v-btn @click="sendMsg()">xMSG</v-btn> -->
       <!-- <p>{{ JSON.stringify(msg, null, 2) }}</p> -->
       <div
         v-if="loading"
