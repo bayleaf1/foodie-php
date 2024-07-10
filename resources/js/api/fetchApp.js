@@ -9,7 +9,7 @@ const defOpts = {
   onError: () => '',
   onFinally: () => '',
   body: {},
-  headers: {},
+  headers: { Accept: 'application/json' },
   errorModelFor422: { value: {} },
 }
 export default function fetchApp(opts = defOpts) {
