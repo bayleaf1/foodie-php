@@ -41,8 +41,12 @@ export class SystemUser extends SystemUserNull {
   }
 
   static createFromLocalStorage() {
-    let data = localStorage.getItem(STORAGE_LABEL)
-    if (data) return new SystemUser(JSON.parse(data))
-    return new SystemUserNull()
+    try {
+      let data = localStorage.getItem(STORAGE_LABEL)
+      if (data) return new SystemUser(JSON.parse(data))
+    } catch (e) {
+      localStorage.removeItem(STORAGE_LABEL)
+      return new SystemUserNull()
+    }
   }
 }
