@@ -109,7 +109,7 @@ class ProductController extends Controller
     public function table()
     {
         $f = new ProductTableFetcher();
-        $table = $f->get(request()->query());
+        $table = $f->get(request()->all());
 
         return response()->json([
             "table" => [
@@ -119,7 +119,8 @@ class ProductController extends Controller
                     return $i;
                 }, $table["rows"])
             ],
-            "request()->query()" => request()->query()
+            // "request()->query()" => request()->query(),
+            "request()->all()" => request()->all(),
         ]);
 
     }

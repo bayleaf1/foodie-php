@@ -25,7 +25,7 @@ Route::get('/system-users/table', [SystemUserController::class, 'table'])->middl
 
 Route::post('/products/cart', [ProductController::class, 'cart']);
 Route::get('/products/showcase/{id}', [ProductController::class, 'showcase']);
-Route::get('/products/table', [ProductController::class, 'table'])->middleware('auth:sanctum');
+Route::post('/products/table', [ProductController::class, 'table'])->middleware('auth:sanctum');
 Route::get('/products/menu', [ProductController::class, 'menu']);
 Route::get('/products/message', [ProductController::class, 'sendMessage']);
 Route::resource('/products', ProductController::class)->middleware('auth:sanctum');

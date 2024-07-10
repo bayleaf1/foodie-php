@@ -3,6 +3,8 @@ import { fetchAppForSwr } from './fetchApp'
 import useSWRV from 'swrv'
 
 const defOpts = {
+  body: {},
+  method: 'get',
   reactiveEndpoint: '',
   onSuccess: ({ data }) => '',
   onError: ({ data }) => '',
@@ -23,7 +25,7 @@ export default function useAppSwr(options = defOpts) {
   )
   const { data, error, mutate } = useSWRV(
     opts.reactiveEndpoint,
-    fetchAppForSwr,
+    fetchAppForSwr(opts.method, opts.body),
     {
       revalidateOnFocus: true,
     }

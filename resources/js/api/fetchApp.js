@@ -62,16 +62,19 @@ export default function fetchApp(opts = defOpts) {
     .finally(o.onFinally)
 }
 
-export function fetchAppForSwr(url) {
-  return new Promise((res, rej) => {
-    fetchApp({
-      endpoint: url,
-      onSuccess: ({ data }) => {
-        res(data)
-      },
-      onError: ({ data }) => {
-        rej(data)
-      },
+export function fetchAppForSwr(method = 'get', body = {}) {
+  return (url) =>
+    new Promise((res, rej) => {
+      fetchApp({
+        endpoint: url,
+        method,
+        body,
+        onSuccess: ({ data }) => {
+          res(data)
+        },
+        onError: ({ data }) => {
+          rej(data)
+        },
+      })
     })
-  })
 }

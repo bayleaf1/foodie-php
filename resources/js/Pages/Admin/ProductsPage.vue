@@ -34,6 +34,8 @@ let loading = ref(false)
 
 useAppSwr({
   reactiveEndpoint: computed(() => endpoints.productsTable({ ...state.value })),
+  method: 'post',
+  body: state.value,
   onSuccess: ({ data }) => (table.value = { ...table.value, ...data.table }),
   loadingModel: loading,
 })
