@@ -57,7 +57,7 @@ export default function fetchApp(opts = defOpts) {
           o.errorModelFor422.value[key] = msg
         })
       } else {
-        Notificator.pushError(data.message || res.message)
+        Notificator.pushError(data?.error?.message || res.message)
       }
     })
     .finally(o.onFinally)

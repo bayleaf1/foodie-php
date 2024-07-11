@@ -129,9 +129,9 @@ class OrderController extends Controller
         foreach ($order->items as $item) {
             $p = Product::find($item['product_id']);
             if ($p->quantity < $item['quantity'])
-                return response()->json(["error" => ["message" => "Unavailable quantity"]], 422);
+                return response()->json(["error" => ["message" => "Unavailable quantity for product " . $p->name]], 409);
 
-            $p->quantity = $p->quantity - $item['quantity'];
+            $p->quantity -= $item['quantity'];
             $p->save();
         }
         $order->status = 'confirmed';
