@@ -28,7 +28,7 @@
             // return;
 
             let href = e.getAttribute('href') || ''
-            console.log(href)
+            // console.log(href)
             e.setAttribute('href', href.replace('http://foodie', 'https://foodie'))
         })
 
